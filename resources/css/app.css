@@ -12,3 +12,10 @@
 #default-search {
     border: 1px solid #00000061 !important;
 }
+.sm\:text-sm {
+    line-height: 3.3em !important;
+    /*box-shadow: 3px 2px 6px #0000002b !important;*/
+}
+hr {
+    color: #0000001c !important;
+}
