@@ -7,8 +7,6 @@
     <meta name="referrer" content="always">
     <link rel="canonical" href="">
     <title> Admin Dashboard | {{ config('app.name') }}</title>
-
-{{--    <script src="{{ mix('js/app.js') }}" defer></script>--}}
     <meta name="description" content="">
     <!-- NO INDEX -->
     <meta name="robots" content="noindex, nofollow">
@@ -75,11 +73,5 @@
 @livewireStyles
 @livewireChartsScripts
 <script src="{{ asset('assets/js/loader.js') }}" defer></script>
-
-{{--<script>
-    window.livewire_app_url = '{{route('products.index')}}';
-</script>--}}
-{{--<script src="/assets/js/switchCategory.js"></script>--}}
-{{--<script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js"></script>--}}
 </body>
 </html>
