@@ -17,7 +17,7 @@
                             <form action="{{ route('adminLoginPost') }}" method="post"
                                   enctype="multipart/form-data">
                                 @csrf
-                                <p class="mb-4">Enter your credentials to access the restricted area</p>
+                                <p class="mb-4">Inserisci le tue credenziali per accedere all'area riservata</p>
                                 <div class="mb-4">
                                     <input
                                             class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
@@ -45,24 +45,30 @@
                                                                         </span>
                                 </div>
                                 @enderror
-                                <div class="text-center pt-1 mb-6 pb-1">
+                                <div class="text-center pt-1 mb-12 pb-1">
                                     <button
                                             class="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
                                             type="submit"
                                             data-mdb-ripple="true"
                                             data-mdb-ripple-color="light"
                                             style=" background: linear-gradient( to right,#ee7724, #d8363a,  #dd3675,#b44593);">
-                                        LOGIN
+                                        Accedi
                                     </button>
                                 </div>
-                                <div class="d-flex text-center pb-1">
-                                    <a href="{{route('registerAdmin')}}"
-                                       class="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
-                                       type="submit"
-                                       data-mdb-ripple="true"
-                                       data-mdb-ripple-color="light"
-                                       style="color:#d8363a;border: 1px solid #d8363a">
-                                        Register
+                                <div class="d-flex text-left pb-1">
+{{--                                    <a href="{{route('registerAdmin')}}"--}}
+{{--                                       class="d-inline-block  px-6 py-2 border-2 border-red-600 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-white hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"--}}
+{{--                                       data-mdb-ripple="true"--}}
+{{--                                       data-mdb-ripple-color="light"--}}
+{{--                                       style=" background: linear-gradient( to right,#ee7724, #d8363a,  #dd3675,#b44593);">--}}
+{{--                                        Registrati--}}
+{{--                                    </a>--}}
+
+                                    <a href="{{route('index')}}"
+                                            class="d-block ml-10 text-center px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                                            data-mdb-ripple="true"
+                                            data-mdb-ripple-color="light" style="width:200px; margin:auto;display: block">
+                                        Torna in Home Page
                                     </a>
                                 </div>
                             </form>

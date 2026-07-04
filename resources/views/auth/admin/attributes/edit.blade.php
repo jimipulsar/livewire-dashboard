@@ -2,9 +2,9 @@
 
 @section('body')
     <h3 class="text-gray-700 text-3xl font-medium">Modifica Attributo</h3>
-    <div class="md:grid md:grid-cols-5 md:gap-6 mt-10 mb-10">
-        <div class="mt-5 md:mt-0 md:col-span-2">
-            <form action="{{ route('attributes.update', $attribute->id) }}"
+    <div class="md:grid md:grid-cols-1 md:gap-3 mt-10 mb-10">
+        <div class="mt-5 md:mt-0 md:col-span-4">
+            <form action="{{ route('attributes.update',[ $attribute->id]) }}"
                   method="POST"
                   enctype="multipart/form-data">
                 @csrf
@@ -22,8 +22,10 @@
                                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     name="parent_id" id="parent_id">
                                     @foreach ($productAttribute as $attributeP)
-                                        <option value="{{$attributeP->id }}"
-                                                @if($attributes->contains($attributeP->id)) selected @endif>  {{ $attributeP->name }}</option>
+                                        @if($attributeP->parent_id == null)
+                                            <option value="{{$attributeP->id }}"
+                                                    @if($productAttribute->contains($attributeP->id)) selected @endif>  {{ $attributeP->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                                 @if($errors->has('attributes'))
@@ -40,17 +42,64 @@
                                        value="{{$attribute->name}}">
                             </div>
                         </div>
+                        {{--                        <div class="grid grid-cols-6 gap-6 py-3">--}}
+                        {{--                            <div class="col-span-4 sm:col-span-2">--}}
+                        {{--                                <label for="products[]"--}}
+                        {{--                                       class="block my-2 text-sm font-medium text-gray-700">Prodotti</label>--}}
+
+                        {{--                                <select--}}
+                        {{--                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"--}}
+                        {{--                                    name="products[]" id="products" autocomplete="products">--}}
+                        {{--                                    @foreach ($productAttribute as $attributeP)--}}
+                        {{--                                        <option value="{{$attributeP->id }}"--}}
+                        {{--                                                @if($products->contains($attributeP->id)) selected @endif>  {{ $attributeP->name }}</option>--}}
+                        {{--                                    @endforeach--}}
+                        {{--                                </select>--}}
+                        {{--                                @if($errors->has('products'))--}}
+                        {{--                                    <div class="invalid-feedback">--}}
+                        {{--                                        {{ $errors->first('products') }}--}}
+                        {{--                                    </div>--}}
+                        {{--                                @endif--}}
+
+                        {{--                            </div>--}}
+
+                        {{--                        </div>--}}
+                        {{--                        <div class="grid grid-cols-1 gap-1 pt-3">--}}
+                        {{--                            <div class="col-span-1 sm:col-span-1 lg:col-span-2 pt-3">--}}
+                        {{--                                <label class="block my-2 text-md py-2 font-medium text-gray-700">--}}
+                        {{--                                    Immagine di copertina--}}
+                        {{--                                </label>--}}
+
+                        {{--                                <div--}}
+                        {{--                                    class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">--}}
+                        {{--                                    <div class="space-y-1 text-center">--}}
+                        {{--                                        <div class="flex text-md py-2 pl-3 text-gray-600">--}}
+                        {{--                                            <label for="cover"--}}
+                        {{--                                                   class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">--}}
+
+                        {{--                                                <input type="file" name="cover" class="form-control">--}}
+                        {{--                                            </label>--}}
+                        {{--                                        </div>--}}
+                        {{--                                        <p class="text-xs text-gray-500">--}}
+                        {{--                                            PNG, JPG, GIF fino a 6MB--}}
+                        {{--                                        </p>--}}
+                        {{--                                    </div>--}}
+                        {{--                                </div>--}}
+                        {{--                            </div>--}}
+
+                        {{--                        </div>--}}
+
                         <br>
                         <br>
                         <hr>
-                        <div class="text-left mt-8">
+                        <div class="px-4 py-3 text-left sm:px-6 pb-10 mt-8">
                             <button type="submit"
                                     class="btn px-6 py-2.5 bg-blue-700 hover:bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
-                                Save
+                                Salva impostazioni
                             </button>
                             <a href="{{url()->previous()}}"
                                class="btn px-6 ml-7 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-green-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
-                                Go Back
+                                Torna indietro
                             </a>
                         </div>
                     </div>

@@ -1,10 +1,10 @@
 @extends('backend.adminlayouts.master')
 
 @section('body')
-    <h3 class="text-gray-700 text-3xl font-medium">Modifica Product</h3>
+    <h3 class="text-gray-700 text-3xl font-medium">Modifica Prodotto</h3>
     <div class="md:grid md:grid-cols-3 md:gap-6 mt-10 mb-10">
         <div class="mt-5 md:mt-0 md:col-span-6">
-            <form action="{{ route('brands.update', $brand->id) }}"
+            <form action="{{ route('brands.update',[ $brand->id]) }}"
                   method="POST"
                   enctype="multipart/form-data">
                 @csrf
@@ -43,7 +43,7 @@
                         <div class="grid grid-cols-6 gap-6 py-3">
                             <div class="col-span-4 sm:col-span-2">
                                 <label for="products[]"
-                                       class="block my-2 text-sm font-medium text-gray-700">Products</label>
+                                       class="block my-2 text-sm font-medium text-gray-700">Prodotti</label>
 
                                 <select
                                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -65,7 +65,7 @@
                         <div class="grid grid-cols-1 gap-1 pt-3">
                             <div class="col-span-1 sm:col-span-1 lg:col-span-2 pt-3">
                                 <label class="block my-2 text-md py-2 font-medium text-gray-700">
-                                    Cover Image
+                                    Immagine di copertina
                                 </label>
 
                                 <div
@@ -86,14 +86,14 @@
                             </div>
                             <hr class="mt-8">
                         </div>
-                        <div class="text-left pb-10 mt-8">
+                        <div class="px-4 py-3 text-left sm:px-6 pb-10 mt-8">
                             <button type="submit"
                                     class="btn px-6 py-2.5 bg-blue-700 hover:bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
-                                Save
+                                Salva impostazioni
                             </button>
                             <a href="{{url()->previous()}}"
                                class="btn px-6 ml-7 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-green-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
-                                Go Back
+                                Torna indietro
                             </a>
                         </div>
                     </div>

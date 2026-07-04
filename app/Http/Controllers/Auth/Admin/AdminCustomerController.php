@@ -67,7 +67,7 @@ class AdminCustomerController extends Controller
         $input['password'] = Hash::make($input['password']);
         $input['ip_address'] = request()->ip();
 
-        return redirect()->route('customers.index')->with('success', 'User creato con successo');
+        return redirect()->route('customers.index')->with('success', 'Utente creato con successo');
     }
 
 
@@ -122,7 +122,7 @@ class AdminCustomerController extends Controller
 
         $customer->save();
 
-        return redirect()->route('customers.index', ['customer' => $customer])->with('success', 'User updated successfully');
+        return redirect()->route('customers.index', ['customer' => $customer])->with('success', 'Utente modificato con successo');
 
     }
 
@@ -132,7 +132,7 @@ class AdminCustomerController extends Controller
             Customer::findOrFail($id)->delete();
 
             return redirect()->route('customers.index')
-                ->with('success', 'User deleted successfully');
+                ->with('success', 'Utente eliminato con successo');
         } else {
             abort(404);
         }

@@ -4,35 +4,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
 import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
 window.Alpine = Alpine;
-import ApexCharts from 'apexcharts'
-import areaChart from "./areaChart"
-import columnChart from "./columnChart"
-import multiColumnChart from "./multiColumnChart"
-import lineChart from "./lineChart"
-import multiLineChart from "./multiLineChart"
-import pieChart from "./pieChart"
-import radarChart from "./radarChart"
-import treeMapChart from "./treeMapChart"
-import radialChart from "./radialChart"
-
-window.ApexCharts = ApexCharts
-window.livewireChartsAreaChart = areaChart
-window.livewireChartsColumnChart = columnChart
-window.livewireChartsLineChart = lineChart
-window.livewireChartsMultiLineChart = multiLineChart
-window.livewireChartsPieChart = pieChart
-window.livewireChartsMultiColumnChart = multiColumnChart
-window.livewireChartsRadarChart = radarChart
-window.livewireChartsTreeMapChart = treeMapChart
-window.livewireChartsRadialChart = radialChart
-
 Alpine.start();
-import jQuery from 'jquery';
-window.$ = jQuery;
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

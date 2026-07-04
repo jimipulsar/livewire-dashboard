@@ -12,7 +12,7 @@
                             <p class="mb-45">Ricevi tutte le <span class="text-brand">novità</span> e aggiornamenti
                                 sugli articoli in vendita
                             </p>
-                            <form action="#" method="POST"
+                            <form action="{{ route('newRegistration') }}" method="POST"
                                   enctype="multipart/form-data"
                                   class="form-subcriber d-flex">
                                 @csrf
@@ -134,14 +134,19 @@
                 <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".1s">
                     <h4 class="widget-title">Azienda</h4>
                     <ul class="footer-list mb-sm-5 mb-md-0">
-
+                        <li><a href="{{route('about')}}">Chi siamo</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Termini e Condizioni</a></li>
+                        <li><a href="{{route('contacts')}}">Contattaci</a></li>
                     </ul>
                 </div>
                 <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
                     <h4 class="widget-title">Account</h4>
                     <ul class="footer-list mb-sm-5 mb-md-0">
                         {{--                        <li><a href="{{route('customerLogin')}}">Accedi</a></li>--}}
-
+                        <li><a href="{{route('cart')}}">Carrello</a></li>
+                        <li><a href="{{route('wishlist')}}">Lista dei desideri</a></li>
+                        <li><a href="{{route('compare')}}">Confronta prodotti</a></li>
                     </ul>
                 </div>
                 <div class="footer-link-widget col wow animate__animated animate__fadeInUp notranslate"
@@ -150,7 +155,7 @@
                     <ul class="footer-list mb-sm-5 mb-md-0 notranslate">
                         @foreach (getCategories() as $cat)
                             <li>
-                                <a href="#">{{ucFirst($cat->name)}}</a>
+                                <a href="{{ route('categoryPage',[$cat->id,  $cat->category_slug]) }}">{{ucFirst($cat->name)}}</a>
                             </li>
                         @endforeach
                     </ul>

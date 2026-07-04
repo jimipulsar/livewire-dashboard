@@ -1,6 +1,9 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors')
+
 module.exports = {
+    content: ['./src/**/*.{html,js}'],
+    darkMode: 'class',
     mode: 'jit',
 
     purge: [
@@ -10,16 +13,16 @@ module.exports = {
     ],
 
     theme: {
+        fontFamily: {
+            satoshi: ['Satoshi', 'sans-serif'],
+        },
+        screens: {
+            '2xsm': '375px',
+            xsm: '425px',
+            '3xl': '2000px',
+            ...defaultTheme.screens,
+        },
         extend: {
-            fontFamily: {
-                sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
-            },
-            screens: {
-                '2xsm': '375px',
-                xsm: '425px',
-                '3xl': '2000px',
-                ...defaultTheme.screens,
-            },
             colors: {
                 current: 'currentColor',
                 transparent: 'transparent',
@@ -230,7 +233,7 @@ module.exports = {
             content: {
                 'icon-copy': 'url("../images/icon/icon-copy-alt.svg")',
             },
-            transitionProperty: {width: 'width', stroke: 'stroke'},
+            transitionProperty: { width: 'width', stroke: 'stroke' },
             borderWidth: {
                 6: '6px',
             },
@@ -256,39 +259,39 @@ module.exports = {
             },
             keyframes: {
                 linspin: {
-                    '100%': {transform: 'rotate(360deg)'},
+                    '100%': { transform: 'rotate(360deg)' },
                 },
                 easespin: {
-                    '12.5%': {transform: 'rotate(135deg)'},
-                    '25%': {transform: 'rotate(270deg)'},
-                    '37.5%': {transform: 'rotate(405deg)'},
-                    '50%': {transform: 'rotate(540deg)'},
-                    '62.5%': {transform: 'rotate(675deg)'},
-                    '75%': {transform: 'rotate(810deg)'},
-                    '87.5%': {transform: 'rotate(945deg)'},
-                    '100%': {transform: 'rotate(1080deg)'},
+                    '12.5%': { transform: 'rotate(135deg)' },
+                    '25%': { transform: 'rotate(270deg)' },
+                    '37.5%': { transform: 'rotate(405deg)' },
+                    '50%': { transform: 'rotate(540deg)' },
+                    '62.5%': { transform: 'rotate(675deg)' },
+                    '75%': { transform: 'rotate(810deg)' },
+                    '87.5%': { transform: 'rotate(945deg)' },
+                    '100%': { transform: 'rotate(1080deg)' },
                 },
                 'left-spin': {
-                    '0%': {transform: 'rotate(130deg)'},
-                    '50%': {transform: 'rotate(-5deg)'},
-                    '100%': {transform: 'rotate(130deg)'},
+                    '0%': { transform: 'rotate(130deg)' },
+                    '50%': { transform: 'rotate(-5deg)' },
+                    '100%': { transform: 'rotate(130deg)' },
                 },
                 'right-spin': {
-                    '0%': {transform: 'rotate(-130deg)'},
-                    '50%': {transform: 'rotate(5deg)'},
-                    '100%': {transform: 'rotate(-130deg)'},
+                    '0%': { transform: 'rotate(-130deg)' },
+                    '50%': { transform: 'rotate(5deg)' },
+                    '100%': { transform: 'rotate(-130deg)' },
                 },
                 rotating: {
-                    '0%, 100%': {transform: 'rotate(360deg)'},
-                    '50%': {transform: 'rotate(0deg)'},
+                    '0%, 100%': { transform: 'rotate(360deg)' },
+                    '50%': { transform: 'rotate(0deg)' },
                 },
                 topbottom: {
-                    '0%, 100%': {transform: 'translate3d(0, -100%, 0)'},
-                    '50%': {transform: 'translate3d(0, 0, 0)'},
+                    '0%, 100%': { transform: 'translate3d(0, -100%, 0)' },
+                    '50%': { transform: 'translate3d(0, 0, 0)' },
                 },
                 bottomtop: {
-                    '0%, 100%': {transform: 'translate3d(0, 0, 0)'},
-                    '50%': {transform: 'translate3d(0, -100%, 0)'},
+                    '0%, 100%': { transform: 'translate3d(0, 0, 0)' },
+                    '50%': { transform: 'translate3d(0, -100%, 0)' },
                 },
             },
             animation: {
@@ -307,7 +310,6 @@ module.exports = {
                 'spin-3': 'spin 3s linear infinite',
             },
         },
-
     },
 
     variants: {
@@ -315,12 +317,11 @@ module.exports = {
             opacity: ['disabled'],
         },
     },
-    content: ['./src/**/*.{html,js}',
+    content: [    './src/**/*.{html,js}',
         'node_modules/preline/dist/*.js',
     ],
     darkMode: 'class',
     plugins: [
-        require('@tailwindcss/forms'),
-        require('preline/plugin')
+        require('@tailwindcss/forms')
     ]
 };

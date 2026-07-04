@@ -29,23 +29,21 @@
                      </svg>
                 @endif
             </button>
-            <div x-show="notificationOpen" @click="notificationOpen = false"
-                 class="fixed inset-0 h-full w-full z-10"></div>
             <div x-show="notificationOpen"
                  class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl overflow-hidden z-10"
-                 style="width:20rem;">
+                 style="width:20rem;" x-cloak>
                 @if($notifications->count() > 0)
                     @foreach( $notifications as $notify)
                         @if($notify->order_id)
-                            <a href="{{ route('adminOrders.show', $notify->order_id) }}"
+                            <a href="{{ route('adminOrders.show',[ $notify->order_id]) }}"
                                class="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-blue-900 -mx-2">
                                 <svg class="svg-icon font-size-11" viewBox="0 0 20 20" style="height:20px">
                                     <path
                                         d="M17.35,2.219h-5.934c-0.115,0-0.225,0.045-0.307,0.128l-8.762,8.762c-0.171,0.168-0.171,0.443,0,0.611l5.933,5.934c0.167,0.171,0.443,0.169,0.612,0l8.762-8.763c0.083-0.083,0.128-0.192,0.128-0.307V2.651C17.781,2.414,17.587,2.219,17.35,2.219M16.916,8.405l-8.332,8.332l-5.321-5.321l8.333-8.332h5.32V8.405z M13.891,4.367c-0.957,0-1.729,0.772-1.729,1.729c0,0.957,0.771,1.729,1.729,1.729s1.729-0.772,1.729-1.729C15.619,5.14,14.848,4.367,13.891,4.367 M14.502,6.708c-0.326,0.326-0.896,0.326-1.223,0c-0.338-0.342-0.338-0.882,0-1.224c0.342-0.337,0.881-0.337,1.223,0C14.84,5.826,14.84,6.366,14.502,6.708"></path>
                                 </svg>
                                 <p class="text-sm mx-2">
-                                    Request <span
-                                        class="font-bold">new order</span>
+                                    Richiesta <span
+                                        class="font-bold">nuovo ordine</span>
                                     - {{ Carbon\Carbon::parse($notify->created_at)->diffForHumans() }}
                                 </p>
                             </a>
@@ -60,7 +58,7 @@
                                             d="M17.35,2.219h-5.934c-0.115,0-0.225,0.045-0.307,0.128l-8.762,8.762c-0.171,0.168-0.171,0.443,0,0.611l5.933,5.934c0.167,0.171,0.443,0.169,0.612,0l8.762-8.763c0.083-0.083,0.128-0.192,0.128-0.307V2.651C17.781,2.414,17.587,2.219,17.35,2.219M16.916,8.405l-8.332,8.332l-5.321-5.321l8.333-8.332h5.32V8.405z M13.891,4.367c-0.957,0-1.729,0.772-1.729,1.729c0,0.957,0.771,1.729,1.729,1.729s1.729-0.772,1.729-1.729C15.619,5.14,14.848,4.367,13.891,4.367 M14.502,6.708c-0.326,0.326-0.896,0.326-1.223,0c-0.338-0.342-0.338-0.882,0-1.224c0.342-0.337,0.881-0.337,1.223,0C14.84,5.826,14.84,6.366,14.502,6.708"></path>
                                     </svg>
                                     <p class="text-sm mx-2">
-                                        New user subscripted to the <span
+                                        Nuovo utente iscritto alla <span
                                             class="font-bold">newsletter</span>
                                         - {{ Carbon\Carbon::parse($notify->created_at)->diffForHumans() }}
                                     </p>
@@ -76,7 +74,7 @@
                                             d="M17.35,2.219h-5.934c-0.115,0-0.225,0.045-0.307,0.128l-8.762,8.762c-0.171,0.168-0.171,0.443,0,0.611l5.933,5.934c0.167,0.171,0.443,0.169,0.612,0l8.762-8.763c0.083-0.083,0.128-0.192,0.128-0.307V2.651C17.781,2.414,17.587,2.219,17.35,2.219M16.916,8.405l-8.332,8.332l-5.321-5.321l8.333-8.332h5.32V8.405z M13.891,4.367c-0.957,0-1.729,0.772-1.729,1.729c0,0.957,0.771,1.729,1.729,1.729s1.729-0.772,1.729-1.729C15.619,5.14,14.848,4.367,13.891,4.367 M14.502,6.708c-0.326,0.326-0.896,0.326-1.223,0c-0.338-0.342-0.338-0.882,0-1.224c0.342-0.337,0.881-0.337,1.223,0C14.84,5.826,14.84,6.366,14.502,6.708"></path>
                                     </svg>
                                     <p class="text-sm mx-2">
-                                        New utente <span
+                                        Nuovo utente <span
                                             class="font-bold">registrato</span>
                                         - {{ Carbon\Carbon::parse($notify->created_at)->diffForHumans() }}
                                     </p>
@@ -100,14 +98,14 @@
             </div>
         </div>
 
-        <div x-data="{ dropdownOpen: false }" class="relative">
+        <div x-data="{ dropdownOpen: false }" class="relative" >
             <button @click="dropdownOpen = ! dropdownOpen"
                     class="relative inline-block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
                 <img class="h-full w-full object-cover" src="/uploads/icon/avatar.png" alt="Your avatar">
             </button>
-            <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+            <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10" x-cloak></div>
             <div x-show="dropdownOpen"
-                 class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10">
+                 class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10" x-cloak>
                 {{-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-900 hover:text-white">Profile</a>
                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-900 hover:text-white">Products</a> --}}
                 @if(Auth::guard('admin')->user())
@@ -118,7 +116,7 @@
                        href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                        {{ __('Esci') }}
                     </a>
                     <form id="logout-form" action="{{ route('adminLogout') }}" method="POST"
                           class="d-none">

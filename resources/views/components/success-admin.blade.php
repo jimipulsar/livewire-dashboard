@@ -1,5 +1,5 @@
 @if (Session::has('success'))
-    <div class="rounded-md py-4 px-4 overflow-x-auto whitespace-no-wrap animated slideInRight" id="hideMeBack">
+    <div class="rounded-md py-4 px-4 overflow-x-auto whitespace-no-wrap animated slideInRight " id="hideMeBack">
 
         <div class="inline-flex max-w-sm w-full bg-white shadow-md rounded-lg overflow-hidden ml-3">
             <div class="flex justify-center items-center w-12 bg-green-500">
@@ -13,7 +13,7 @@
             <div class="-mx-3 py-2 px-4">
                 <div class="mx-3">
                         <span
-                                class="text-green-500 font-semibold">Operation performed</span>
+                                class="text-green-500 font-semibold">Operazione eseguita</span>
                     <p class="text-gray-600 text-sm">{{ \Session::get('success') }}</p>
                 </div>
             </div>
@@ -34,7 +34,7 @@
 
             <div class="-mx-3 py-2 px-4">
                 <div class="mx-3">
-                    <span class="text-red-500 font-semibold">Warning!</span>
+                    <span class="text-red-500 font-semibold">Attenzione!</span>
                     <p class="text-gray-600 text-sm">{{ \Session::get('danger') }}</p>
                 </div>
             </div>

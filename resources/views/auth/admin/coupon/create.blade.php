@@ -7,7 +7,7 @@
         <div class="md:grid md:grid-cols-1 md:gap-2">
             <div class="md:col-span-1">
                 <div class="px-4 sm:px-0">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">Crea Product</h3>
+                    <h3 class="text-lg font-medium leading-6 text-gray-900">Crea Prodotto</h3>
                 </div>
             </div>
             <div class="mt-5 md:mt-0 md:col-span-2">
@@ -17,7 +17,7 @@
                         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">
-                                    Cover Image
+                                    Immagine di copertina
                                 </label>
                                 <div
                                     class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                                <label for="name" class="block text-sm font-medium text-gray-700">Title</label>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Titolo</label>
                                 <input type="text" name="name" id="name"
                                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>

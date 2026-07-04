@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-') }}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -45,7 +45,7 @@
 <script src="/assets/js/vendor/bootstrap.bundle.min.js"></script>
 <script src="/assets/js/plugins/slick.js"></script>
 <script src="/assets/js/plugins/jquery.syotimer.min.js"></script>
-<script src="/assets/js/plugins/wow.js"></script>
+{{--<script src="/assets/js/plugins/wow.js"></script>--}}
 <script src="/assets/js/plugins/slider-range.js"></script>
 <script src="/assets/js/plugins/perfect-scrollbar.js"></script>
 <script src="/assets/js/plugins/magnific-popup.js"></script>

@@ -32,7 +32,7 @@
 
                     <div class="mx-5">
                         <h4 class="text-2xl font-semibold text-gray-700">{{$customers->count()}}</h4>
-                        <div class="text-gray-500">Users registered</div>
+                        <div class="text-gray-500">Utenti registrati</div>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
 
                     <div class="mx-5">
                         <h4 class="text-2xl font-semibold text-gray-700">{{$orders->total()}}</h4>
-                        <div class="text-gray-500">Total orders</div>
+                        <div class="text-gray-500">Ordini totali</div>
                     </div>
                 </div>
             </div>
@@ -76,15 +76,15 @@
 
                     <div class="mx-5">
                         <h4 class="text-2xl font-semibold text-gray-700">{{$products}}</h4>
-                        <div class="text-gray-500">Products in stock</div>
+                        <div class="text-gray-500">Prodotti in magazzino</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="mt-4">
-        <div class="flex flex-wrap mt-4">
-            <div class="w-full sm:w-1/3 md:w-1/2 lg:w-1/3 xl:w-1/2 ">
+    <div class="mt-5">
+        <div class="flex flex-wrap mt-6">
+            <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 ">
                 <div class="flex items-center shadow-sm rounded-md bg-white py-3 my-3 " style="height: 14rem;">
                     <livewire:livewire-pie-chart
                         key="{{ $columnChartModel->reactiveKey() }}"
@@ -95,9 +95,9 @@
             <div class="w-full pl-5  sm:w-1/4 md:w-1/2 lg:w-1/2 xl:w-1/2 ">
 
                 <div class="flex items-center shadow-sm rounded-md bg-white py-3 my-3 " style="height: 14rem;">
-                    <livewire:livewire-column-chart
+                    <livewire:livewire-area-chart
                         key="{{ $lineChartModel->reactiveKey() }}"
-                        :column-chart-model="$lineChartModel"
+                        :area-chart-model="$lineChartModel"
                     />
                 </div>
             </div>

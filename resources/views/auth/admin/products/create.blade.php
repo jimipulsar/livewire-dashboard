@@ -1,303 +1,265 @@
 @extends('backend.adminlayouts.master')
 
 @section('body')
-    <h3 class="text-gray-700 text-3xl font-medium">Crea Product</h3>
+    <h3 class="text-gray-700 text-3xl font-medium">Crea Prodotto</h3>
     <div class="md:grid md:grid-cols-3 md:gap-6 mt-10 mb-10">
         <div class="mt-5 md:mt-0 md:col-span-6">
-            <form action="{{ route('products.store') }}" method="POST"
+            <form action="{{ route('products.store') }}"
+                  method="POST"
                   enctype="multipart/form-data">
                 @csrf
                 <div class="shadow overflow-hidden sm:rounded-md">
                     <div class="px-4 py-5 bg-white sm:p-6">
-                        <div class="col-span-9 sm:col-span-4">
-                            <div class="grid grid-cols-6 gap-6">
-                                <div class="col-span-2 sm:col-span-2">
-                                    <label for="item_name"
-                                           class="block my-2 text-sm font-medium text-gray-700">Item Name</label>
-                                    <input type="text" name="item_name" id="item_name"
-                                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                           required>
-                                </div>
-                                <div class="col-span-2 sm:col-span-2">
-                                    <label for="item_code" class="block my-2 text-sm font-medium text-gray-700">Codice
-                                        Articolo</label>
-                                    <input type="text" name="item_code" id="item_code"
-                                           autocomplete="item_code"
-                                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                           required>
-                                </div>
-                                <div class="col-span-2 sm:col-span-1">
-                                    <label for="purchasable" class="block my-2 text-sm font-medium text-gray-700">Purchasable</label>
-                                    <div class="mt-4">
-                                        <input type="radio" class="form-radio" name="purchasable" id="purchasable"
-                                               value="1"
-                                               {{\request()->input('purchasable') == '1' ? 'checked' : ''}} checked>
-                                        <span class="ml-2" style="margin-left:6px;margin-right:10px;">Si</span>
-                                        <input type="radio" class="form-radio" name="purchasable" id="purchasable"
-                                               value="0" {{\request()->input('purchasable') == '0' ? 'checked' : ''}}>
-                                        <span class="mr-2 ml-2" style="margin-left:6px; ">No</span>
+                        <div class="grid grid-cols-6 gap-6">
+                            <div class="col-span-2 sm:col-span-2">
+                                <label for="item_name"
+                                       class="block my-2 text-sm font-medium text-gray-700">Nome Articolo</label>
+                                <input type="text" name="item_name" id="item_name"
+                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                       value="">
+                            </div>
 
+                            <div class="col-span-2 sm:col-span-2">
+                                <label for="item_code" class="block my-2 text-sm font-medium text-gray-700">Codice
+                                    Articolo</label>
+                                <input type="text" name="item_code" id="item_code"
+                                       autocomplete="item_code"
+                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                       value="">
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="purchasable"
+                                       class="block my-2 text-sm font-medium text-gray-700">Acquistabile</label>
+                                <div class="mt-4">
+
+                                    <input type="radio" class="form-radio" name="purchasable" id="purchasable"
+                                           value="1" >
+                                    <span class="ml-2" style="margin-left:6px;margin-right:10px;">Si</span>
+                                    <input type="radio" class="form-radio" name="purchasable" id="purchasable"
+                                           value="0" >
+                                    <span class="mr-2 ml-2" style="margin-left:6px; ">No</span>
+
+                                </div>
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label for="published"
+                                       class="block my-2 text-sm font-medium text-gray-700">Pubblicato</label>
+                                <div class="mt-4">
+
+                                    <input type="radio" class="form-radio" name="published" id="published"
+                                           value="1">
+                                    <span class="ml-2" style="margin-left:6px;margin-right:10px;">Si</span>
+                                    <input type="radio" class="form-radio" name="published" id="published"
+                                           value="0">
+                                    <span class="mr-2 ml-2" style="margin-left:6px; ">No</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-6 gap-6 py-3">
+                            <div class="col-span-2 sm:col-span-2">
+                                <label for="categories[]"
+                                       class="block my-2 text-sm font-medium text-gray-700">Categoria</label>
+
+                                <select
+                                    class="mt-1 catSel block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    name="categories[]" id="categories" autocomplete="categories" required>
+                                    <option disabled selected value> -- Seleziona</option>
+                                    @foreach ($subCategories as $category)
+                                        @if($category->parentCategory)
+                                            <option value="{{$category->id }}">{{ $category->name }}
+                                                / {{ $category->parentCategory->name }}</option>
+                                        @else
+                                            <td class="text-sm px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $category->name }}</td>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($mainCategory as $category)
+                                        <option value="{{$category->id }}">{{ ucFirst($category->name) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @if($errors->has('categories'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('categories') }}
                                     </div>
-                                </div>
+                                @endif
+                            </div>
 
-                                <div class="col-span-2 sm:col-span-1">
-                                    <label for="published" class="block my-2 text-sm font-medium text-gray-700">Published</label>
-                                    <div class="mt-4">
+                            <div class="col-span-1 sm:col-span-1">
 
-                                        <input type="radio" class="form-radio" name="published" id="published"
-                                               value="1"
-                                               {{\request()->input('published') == '1' ? 'checked' : ''}} checked>
-                                        <span class="ml-2" style="margin-left:6px;margin-right:10px;">Si</span>
-                                        <input type="radio" class="form-radio" name="published" id="published"
-                                               value="0" {{\request()->input('published') == '0' ? 'checked' : ''}}>
-                                        <span class="mr-2 ml-2" style="margin-left:6px; ">No</span>
+                                <label for="stock_qty"
+                                       class="block my-2 text-sm font-medium text-gray-700">Quantità</label>
+                                <input type="number" name="stock_qty" id="stock_qty" value=""
+                                       class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            </div>
+                            <div class="col-span-1 sm:col-span-1">
+                                <label for="price" class="block my-2 text-sm font-medium text-gray-700">Prezzo
+                                    in
+                                    €</label>
+                                <input type="text" name="price" id="price" value=""
+                                       class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                >
+                            </div>
+                            <div class="col-span-4 sm:col-span-2" hidden>
+                                <label for="attributes[]"
+                                       class="block my-2 text-sm font-medium text-gray-700">Attributo principale</label>
+                                <select
+                                    class="mt-1 block mainCatSel w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    name="attributes[]" id="attributes" autocomplete="attributes">
+                                    <option disabled selected value> -- Seleziona</option>
+                                    <option value="null"></option>
+                                </select>
+                                @if($errors->has('attributes'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('attributes') }}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="col-span-1 sm:col-span-1">
+                                <label for="attributes[]"
+                                       class="block my-2 text-sm font-medium text-gray-700">Attributo</label>
 
+                                <select
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    name="attributes[]" id="attributes" autocomplete="attributes" required>
+                                    <option disabled selected value> -- Seleziona</option>
+                                    @foreach ($subAttributes as $attribute)
+                                        @if($attribute->parentAttribute)
+                                            <option value="{{$attribute->id }}">{{ $attribute->name }}
+                                                / {{ $attribute->parentAttribute->name }}</option>
+                                        @else
+                                            <td class="text-sm px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $attribute->name }}</td>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($mainAttributes as $attr)
+                                        <option value="{{$attr->id }}">{{ ucFirst($attribute->name) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @if($errors->has('attributes'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('attributes') }}
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="col-span-4 sm:col-span-3">
+                                <label for="link"
+                                       class="block my-2 text-sm font-medium text-gray-700">Link</label>
+                                <input type="text" name="link" id="link"
+                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                       value="">
+                            </div>
+                            <div class="col-span-4 sm:col-span-3">
+                                <label for="link_2"
+                                       class="block my-2 text-sm font-medium text-gray-700">Link #2</label>
+                                <input type="text" name="link_2" id="link_2"
+                                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                       value="">
+                            </div>
+
+
+                            <div class="col-span-4 sm:col-span-3">
+                                <label for="Descrizione"
+                                       class="block my-2 text-sm font-medium text-gray-700">Descrizione Breve</label>
+
+                                <textarea id="myeditorinstance" name="short_description" rows="3"
+                                          class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                                          placeholder=""></textarea>
+
+                            </div>
+                            <div class="col-span-4 sm:col-span-3">
+                                <label for="Descrizione"
+                                       class="block my-2 text-sm font-medium text-gray-700">Descrizione Estesa</label>
+
+                                <textarea id="myeditorinstance" name="long_description" rows="3"
+                                          class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+                                          placeholder=""></textarea>
+
+                            </div>
+
+
+                            <div class="col-span-4 sm:col-span-3">
+                                <label class="block my-2 text-md py-2 font-medium text-gray-700">
+                                    Immagine di copertina
+                                </label>
+
+                                <div
+                                    class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                    <div class="space-y-1 text-center">
+                                            <img src="" id="img-resize">
+
+                                        <div class="flex text-md py-2 pl-3 text-gray-600">
+                                            <label for="img_01"
+                                                   class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+
+                                                <input type="file" name="img_01" class="form-control">
+                                            </label>
+                                        </div>
+                                        <p class="text-xs text-gray-500">
+                                            PNG, JPG, GIF fino a 6MB
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="grid grid-cols-6 gap-6 py-3">
-                                <div class="col-span-4 sm:col-span-2" hidden>
-                                    <label for="categories[]"
-                                           class="block my-2 text-sm font-medium text-gray-700">Categoria
-                                        principale</label>
-                                    <select
-                                        class="mainCatSel mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        name="categories[]" id="categories" autocomplete="categories">
-                                        <option disabled selected value> -- Select</option>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label class="block my-2 text-md py-2 font-medium text-gray-700">
+                                    Immagine #2
+                                </label>
+                                <div
+                                    class="mt-1 mb-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                    <div class="space-y-1 text-center">
+                                            <img src="" id="img-resize">
+                                        <div class="flex text-md py-2 pl-3 text-gray-600">
+                                            <label for="img_02"
+                                                   class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
 
-                                        @foreach ($mainCategory as $cat)
-                                            @if($cat->childCategories)
-                                                <option value="{{$cat->id}}">  {{ $cat->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @if($errors->has('categories'))
-                                        <div class="invalid-feedback">
-                                            {{ $errors->first('categories') }}
+                                                <input type="file" name="img_02" class="form-control">
+                                            </label>
                                         </div>
-                                    @endif
-                                </div>
-                                <div class="col-span-2 sm:col-span-2">
-                                    <label for="categories[]"
-                                           class="block my-2 text-sm font-medium text-gray-700">Categoria</label>
-                                    <select
-                                        class="catSel mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        name="categories[]" id="categories" autocomplete="categories" required>
-                                        <option disabled selected value> -- Select</option>
-                                        @foreach ($subCategories as $category)
-                                            {{--                                        @if ($loop->first) @continue @endif--}}
-                                            @if($category->parentCategory)
-
-                                                <option value="{{$category->id }}">{{ $category->name }}
-                                                    / {{ $category->parentCategory->name }}</option>
-                                            @else
-                                                <td class="text-sm px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $category->name }}</td>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @if($errors->has('categories'))
-                                        <div class="invalid-feedback">
-                                            {{ $errors->first('categories') }}
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="col-span-1 sm:col-span-1">
-                                    <label for="stock_qty"
-                                           class="block my-2 text-sm font-medium text-gray-700">Quantity</label>
-                                    <input type="number" name="stock_qty" id="stock_qty"
-                                           autocomplete="street-address"
-                                           class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                </div>
-                                <div class="col-span-1 sm:col-span-1">
-                                    <label for="price" class="block my-2 text-sm font-medium text-gray-700">Price
-                                        in
-                                        €</label>
-                                    <input type="number" name="price" id="price"
-                                           class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                           required>
-                                </div>
-                                <div class="col-span-4 sm:col-span-2" hidden>
-                                    <label for="attributes[]"
-                                           class="block my-2 text-sm font-medium text-gray-700">Attributo
-                                        principale</label>
-
-                                    <select
-                                        class=" mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        name="attributes[]" id="attributes" autocomplete="attributes">
-                                        <option disabled selected value> -- Select</option>
-
-                                        @foreach ($mainAttributes as $mainAttr)
-                                            @if($mainAttr->childAttributes)
-                                                <option value="{{$mainAttr->id}}">  {{ $mainAttr->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @if($errors->has('attributes'))
-                                        <div class="invalid-feedback">
-                                            {{ $errors->first('attributes') }}
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="col-span-2 sm:col-span-2">
-                                    <label for="attributes[]"
-                                           class="block my-2 text-sm font-medium text-gray-700">Attributes</label>
-
-                                    <select
-                                        class=" mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                        name="attributes[]" id="attributes" autocomplete="attributes" required>
-                                        <option disabled selected value> -- Select</option>
-                                        @foreach ($subAttributes as $subAttr)
-                                            @if($subAttr->parentAttribute)
-                                                <option value="{{$subAttr->id }}">{{ $subAttr->name }}
-                                                    / {{ $subAttr->parentAttribute->name }}</option>
-                                            @else
-                                                <td class="text-sm px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $subAttr->name }}</td>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                    @if($errors->has('categories'))
-                                        <div class="invalid-feedback">
-                                            {{ $errors->first('categories') }}
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <div class="col-span-4 sm:col-span-3">
-                                    <label for="link"
-                                           class="block my-2 text-sm font-medium text-gray-700">Link</label>
-                                    <input type="text" name="link" id="link"
-                                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    >
-                                </div>
-                                <div class="col-span-4 sm:col-span-3">
-                                    <label for="link_2"
-                                           class="block my-2 text-sm font-medium text-gray-700">Link #2</label>
-                                    <input type="text" name="link_2" id="link_2"
-                                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    >
-                                </div>
-                                {{--                                <div class="col-span-6 sm:col-span-6">--}}
-                                {{--                                    <label class="block my-2 text-md py-2 font-medium text-gray-700">--}}
-                                {{--                                        Allegato--}}
-                                {{--                                    </label>--}}
-
-                                {{--                                    <div--}}
-                                {{--                                        class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">--}}
-                                {{--                                        <div class="space-y-1 text-center">--}}
-                                {{--                                            <div class="flex text-md py-2 pl-3 text-gray-600">--}}
-                                {{--                                                <label for="attachment"--}}
-                                {{--                                                       class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">--}}
-                                {{--                                                    <input type="file" name="attachment"--}}
-                                {{--                                                           class="@error('attachment') is-invalid @enderror">--}}
-                                {{--                                                </label>--}}
-                                {{--                                            </div>--}}
-                                {{--                                            <p class="text-xs text-gray-500">--}}
-                                {{--                                                <span> </span>--}}
-                                {{--                                            </p>--}}
-                                {{--                                            --}}{{--                                            <p class="text-xs text-gray-500">--}}
-                                {{--                                            --}}{{--                                                ppt,pptx,doc,docx,pdf,xls,xlsx fino a 10 MB--}}
-                                {{--                                            --}}{{--                                            </p>--}}
-                                {{--                                            @error('attachment')--}}
-                                {{--                                            <div class="text-sm text-red-700"> * {{ $message }}</div>--}}
-                                {{--                                            @enderror--}}
-                                {{--                                        </div>--}}
-                                {{--                                    </div>--}}
-                                {{--                                </div>--}}
-                                <div class="col-span-4 sm:col-span-3">
-                                    <label for="Descrizione"
-                                           class="block my-2 text-sm font-medium text-gray-700">Descrizione
-                                        Breve</label>
-                                    <textarea id="myeditorinstance" name="short_description" rows="3"
-                                              class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
-                                              placeholder=""></textarea>
-                                </div>
-                                <div class="col-span-4 sm:col-span-3">
-                                    <label for="Descrizione"
-                                           class="block my-2 text-sm font-medium text-gray-700">Descrizione
-                                        Estesa</label>
-
-                                    <textarea id="myeditorinstance" name="long_description" rows="3"
-                                              class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
-                                              placeholder=""></textarea>
-                                </div>
-                                <div class="col-span-4 sm:col-span-3">
-                                    <label class="block my-2 text-md py-2 font-medium text-gray-700">
-                                        Cover Image
-                                    </label>
-                                    <div
-                                        class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                        <div class="space-y-1 text-center">
-                                            <div class="flex text-md py-2 pl-3 text-gray-600">
-                                                <label for="img_01"
-                                                       class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-
-                                                    <input type="file" name="img_01" class="form-control">
-                                                </label>
-                                            </div>
-                                            <p class="text-xs text-gray-500">
-                                                PNG, JPG, GIF fino a 6MB
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-span-4 sm:col-span-3">
-                                    <label class="block my-2 text-md py-2 font-medium text-gray-700">
-                                        Image #2
-                                    </label>
-                                    <div
-                                        class="mt-1 mb-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                        <div class="space-y-1 text-center">
-                                            <div class="flex text-md py-2 pl-3 text-gray-600">
-                                                <label for="img_02"
-                                                       class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-
-                                                    <input type="file" name="img_02" class="form-control">
-                                                </label>
-                                            </div>
-                                            <p class="text-xs text-gray-500">
-                                                PNG, JPG, GIF fino a 6MB
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-span-4 sm:col-span-3">
-                                    <label class="block my-2 text-md py-2 font-medium text-gray-700">
-                                        Image #3
-                                    </label>
-                                    <div
-                                        class="mt-1 mb-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                        <div class="space-y-1 text-center">
-                                            <div class="flex text-md py-2 pl-3 text-gray-600">
-                                                <label for="img_03"
-                                                       class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-
-                                                    <input type="file" name="img_03" class="form-control">
-                                                </label>
-                                            </div>
-                                            <p class="text-xs text-gray-500">
-                                                PNG, JPG, GIF fino a 6MB
-                                            </p>
-                                        </div>
+                                        <p class="text-xs text-gray-500">
+                                            PNG, JPG, GIF fino a 6MB
+                                        </p>
                                     </div>
                                 </div>
                             </div>
 
-                            <br>
-                            <hr>
-                            <div class="text-left pb-10 mt-8">
-                                <button type="submit"
-                                        class="btn px-6 py-2.5 bg-blue-700 hover:bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
-                                    Save
-                                </button>
-                                <a href="{{url()->previous()}}"
-                                   class="btn px-6 ml-7 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-green-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
-                                    Go Back
-                                </a>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label class="block my-2 text-md py-2 font-medium text-gray-700">
+                                    Immagine #3
+                                </label>
+
+                                <div
+                                    class="mt-1 mb-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                    <div class="space-y-1 text-center">
+                                            <img src="" id="img-resize">
+                                        <div class="flex text-md py-2 pl-3 text-gray-600">
+                                            <label for="img_03"
+                                                   class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+
+                                                <input type="file" name="img_03" class="form-control">
+                                            </label>
+                                        </div>
+                                        <p class="text-xs text-gray-500">
+                                            PNG, JPG, GIF fino a 6MB
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <div class="px-4 py-3 text-left sm:px-6 pb-10 mt-8">
+                            <button type="submit"
+                                    class="btn px-6 py-2.5 bg-blue-700 hover:bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
+                                Salva impostazioni
+                            </button>
+                            <a href="{{url()->previous()}}"
+                               class="btn px-6 ml-7 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-green-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
+                                Torna indietro
+                            </a>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-
 @endsection

@@ -80,17 +80,17 @@
                         <div class="header-action-right">
                             <div class="header-action-2">
                                 <div class="header-action-icon-2">
-                                    <a href="#">
+                                    <a href="{{route('compare')}}">
                                         <img class="svgInject" alt="Livewire"
                                              src="/assets/imgs/theme/icons/icon-compare.svg"/>
                                         @if(session('compare'))
                                             <span class="pro-count blue">{{ count((array) session('compare')) }}</span>
                                         @endif
                                     </a>
-                                    <a href="#"><span class="lable ml-0">Confronta</span></a>
+                                    <a href="{{route('compare')}}"><span class="lable ml-0">Confronta</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a href="#">
+                                    <a href="{{route('wishlist')}}">
                                         <img class="svgInject" alt="Livewire"
                                              src="/assets/imgs/theme/icons/icon-heart.svg"/>
                                         @if(session('wishlist'))
@@ -100,47 +100,47 @@
                                             <span class="pro-count blue">{{ getFavorites()->count()  }}</span>
                                         @endif
                                     </a>
-                                    <a href="#"><span
+                                    <a href="{{route('wishlist')}}"><span
                                             class="lable">Wishlist</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a class="mini-cart-icon" href="#">
+                                    <a class="mini-cart-icon" href="{{route('cart')}}">
                                         <img alt="Livewire" src="/assets/imgs/theme/icons/icon-cart.svg"/>
 
                                         @if(session('cart'))
                                             <span class="pro-count blue">{{ count((array) session('cart')) }}</span>
                                         @endif
                                     </a>
-                                    <a href="#"><span class="lable">Carrello</span></a>
+                                    <a href="{{route('cart')}}"><span class="lable">Carrello</span></a>
                                     @if(session('cart'))
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                             <ul>
                                                 @foreach(session('cart') as $id => $details)
                                                     <li>
 
-                                                        @if(file_exists(public_path('storage/' .$details['img_01'])))
+                                                        @if(file_exists(public_path('storage/' . $details['img_01'] )) && $details['img_01'] != null)
                                                             <div class="shopping-cart-img">
-                                                                <a href="{{ route('shop.show',$id,$details['slug']) }}"><img
+                                                                <a href="{{ route('shop.show',[$id,$details['slug']]) }}"><img
                                                                         alt="Livewire"
                                                                         src="{{'/storage/' . $details['img_01'] }}"/></a>
                                                             </div>
                                                         @else
                                                             <div class="shopping-cart-img">
-                                                                <a href="{{ route('shop.show',$id,$details['slug']) }}"><img
+                                                                <a href="{{ route('shop.show',[$id,$details['slug']]) }}"><img
                                                                         alt="Livewire"
                                                                         src="{{'/uploads/default/default.jpg'}}"/></a>
                                                             </div>
                                                         @endif
                                                         <div class=" shopping-cart-title">
                                                             <h4>
-                                                                <a href="{{ route('shop.show',$id,$details['slug']) }}">{{$details['name']}}</a>
+                                                                <a href="{{ route('shop.show',[$id,$details['slug']]) }}">{{$details['name']}}</a>
                                                             </h4>
                                                             <h4>
                                                                 <span>{{$details['quantity']}} × </span>€ {{ price($details['price']) }}
                                                             </h4>
                                                         </div>
                                                         <div class="shopping-cart-delete">
-                                                            <a href="{{route('remove',$id)}}"><i
+                                                            <a href="{{route('remove', [$id])}}"><i
                                                                     class="fi-rs-cross-small"></i></a>
                                                         </div>
                                                     </li>
@@ -148,12 +148,12 @@
                                             </ul>
                                             <div class="shopping-cart-footer">
                                                 <div class="shopping-cart-total">
-                                                    <h4>Total
+                                                    <h4>Totale
                                                         <span>{{ price($details['quantity'] * $details['price'])}}</span>
                                                     </h4>
                                                 </div>
                                                 <div class="shopping-cart-button">
-                                                    <a href="#"
+                                                    <a href="{{route('cart')}}"
                                                        class="outline">Carrello</a>
                                                     <a href="{{route('checkout')}}">Checkout</a>
                                                 </div>
@@ -219,30 +219,50 @@
                     <a href="{{url('/')}}"><img src="/uploads/logo/logo.png" alt="logo" style="height: 71px;width: 100%;object-fit: contain;"/></a>
                 </div>
                 <div class="header-nav d-none d-lg-flex">
-                    @if(getCategories()->count())
-                    <div class="main-categori-wrap d-none d-lg-block">
-                        <a class="categories-button-active" href="#">
-                            <span class="fi-rs-apps"></span> <span class="et"></span> Categorie
-                            <i class="fi-rs-angle-down"></i>
-                        </a>
-                        <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading notranslate">
-                            <div class="d-flex categori-dropdown-inner">
-                                <ul>
-                                    @foreach (getCategories() as $cat)
-                                        <li>
-                                            <a href="#"><img
-                                                        src='/assets/imgs/theme/icons/category-{{$cat->id ?? 1}}.svg'
-                                                        alt=""/>{{ucFirst($cat->name)}}</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                                <ul class="end">
-                                </ul>
-                            </div>
-                        </div>
+{{--                    @if(getCategories()->count())--}}
+{{--                    <div class="main-categori-wrap d-none d-lg-block">--}}
+{{--                        <a class="categories-button-active" href="#">--}}
+{{--                            <span class="fi-rs-apps"></span> <span class="et"></span> Categorie--}}
+{{--                            <i class="fi-rs-angle-down"></i>--}}
+{{--                        </a>--}}
+{{--                        <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading notranslate">--}}
+{{--                            <div class="d-flex categori-dropdown-inner">--}}
+{{--                                <ul>--}}
+{{--                                    @foreach (getCategories() as $cat)--}}
+{{--                                        <li>--}}
+{{--                                            <a href="{{ route('categoryPage',[$cat->id,  $cat->category_slug]) }}"><img--}}
+{{--                                                        src='/assets/imgs/theme/icons/category-{{$cat->id ?? 1}}.svg'--}}
+{{--                                                        alt=""/>{{ucFirst($cat->name)}}</a>--}}
+{{--                                        </li>--}}
+{{--                                    @endforeach--}}
+{{--                                </ul>--}}
+{{--                                <ul class="end">--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    @endif--}}
+                    <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
+                        <nav>
+                            <ul>
+                                <li class="{{ (request()->routeIs('about')) ? 'active' : '' }}">
+                                    <a href="{{route('about')}}">Azienda</a>
+                                </li>
+                                <li class="{{ (request()->routeIs('shop.index')) ? 'active' : '' }}">
+                                    <a href="{{route('shop.index')}}">Shop</a>
+                                </li>
+{{--                                <li class="{{ (request()->routeIs('brands')) ? 'active' : '' }}">--}}
+{{--                                    <a href="{{route('brands')}}">Marchi</a>--}}
+{{--                                </li>--}}
+                                <li class="{{ (request()->routeIs('news')) ? 'active' : '' }}">
+                                    <a href="{{route('news')}}">News</a>
+                                </li>
+                                <li class="{{ (request()->routeIs('contacts')) ? 'active' : '' }}">
+                                    <a href="{{route('contacts')}}">Contatti</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                    @endif
-
                 </div>
                 <div class="hotline d-none d-lg-flex">
                     <img src="/assets/imgs/theme/icons/icon-headphone.svg" alt="hotline"/>
@@ -258,7 +278,7 @@
                 <div class="header-action-right d-block d-lg-none">
                     <div class="header-action-2">
                         <div class="header-action-icon-2">
-                            <a href="#">
+                            <a href="{{route('wishlist')}}">
                                 <img alt="Livewire" src="/assets/imgs/theme/icons/icon-heart.svg"/>
                                 @if(getFavorites())
                                     <span class="pro-count white">{{ getFavorites()->count()  }}</span>
@@ -266,34 +286,42 @@
                             </a>
                         </div>
                         <div class="header-action-icon-2">
-                            <a class="mini-cart-icon" href="#">
+                            <a class="mini-cart-icon" href="{{route('cart')}}">
                                 <img alt="Livewire" src="/assets/imgs/theme/icons/icon-cart.svg"/>
 
                                 @if(session('cart'))
                                     <span class="pro-count blue">{{ count((array) session('cart')) }}</span>
                                 @endif
                             </a>
-                            <a href="#}"><span class="lable">Carrello</span></a>
+                            <a href="{{route('cart')}}"><span class="lable">Carrello</span></a>
                             @if(session('cart'))
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
                                         @foreach(session('cart') as $id => $details)
                                             <li>
                                                 <div class="shopping-cart-img">
-                                                    <a href="{{ route('shop.show',$id,$details['slug']) }}"><img
+                                                    @if(file_exists(public_path('storage/' . $details['img_01'])) && $details['img_01'] != null)
+                                                    <a href="{{ route('shop.show',[$id,$details['slug']]) }}">
+                                                        <img
                                                             alt="Livewire"
                                                             src="{{'/storage/' . $details['img_01'] }}"/></a>
+                                                    @else
+                                                        <a href="{{ route('shop.show',[$id,$details['slug']]) }}">
+                                                            <img
+                                                                alt="Livewire"
+                                                                src="{{'/uploads/default/default.jpg' }}"/></a>
+                                                    @endif
                                                 </div>
                                                 <div class="shopping-cart-title">
                                                     <h4>
-                                                        <a href="{{ route('shop.show',$id,$details['slug']) }}">{{$details['name']}}</a>
+                                                        <a href="{{ route('shop.show',[$id,$details['slug']]) }}">{{$details['name']}}</a>
                                                     </h4>
                                                     <h4>
                                                         <span>{{$details['quantity']}} × </span>€ {{ price($details['price']) }}
                                                     </h4>
                                                 </div>
                                                 <div class="shopping-cart-delete">
-                                                    <a href="{{route('remove',$id)}}"><i
+                                                    <a href="{{route('remove', [$id])}}"><i
                                                             class="fi-rs-cross-small"></i></a>
                                                 </div>
                                             </li>
@@ -301,12 +329,12 @@
                                     </ul>
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">
-                                            <h4>Total
+                                            <h4>Totale
                                                 <span>{{ price($details['quantity'] * $details['price'])}}</span>
                                             </h4>
                                         </div>
                                         <div class="shopping-cart-button">
-                                            <a href="#"
+                                            <a href="{{route('cart')}}"
                                                class="outline">Carrello</a>
                                             <a href="{{route('checkout')}}">Checkout</a>
                                         </div>
@@ -351,13 +379,29 @@
             <div class="mobile-menu-wrap mobile-header-border">
                 <!-- mobile menu start -->
                 <nav>
-
+                    <ul class="mobile-menu font-heading">
+                        <li class="{{ (request()->routeIs('about')) ? 'active' : '' }}">
+                            <a href="{{route('about')}}">Azienda</a>
+                        </li>
+                        <li class="{{ (request()->routeIs('shop.index')) ? 'active' : '' }}">
+                            <a href="{{route('shop.index')}}">Shop</a>
+                        </li>
+                        {{--                        <li class="{{ (request()->routeIs('brands')) ? 'active' : '' }}">--}}
+                        {{--                            <a href="{{route('brands')}}">Marchi</a>--}}
+                        {{--                        </li>--}}
+                        <li class="{{ (request()->routeIs('news')) ? 'active' : '' }}">
+                            <a href="{{route('news')}}">News</a>
+                        </li>
+                        <li class="{{ (request()->routeIs('contacts')) ? 'active' : '' }}">
+                            <a href="{{route('contacts')}}">Contatti</a>
+                        </li>
+                    </ul>
                 </nav>
                 <!-- mobile menu end -->
             </div>
             <div class="mobile-header-info-wrap">
                 <div class="single-mobile-header-info">
-                    <a href="#"><i class="fi-rs-marker"></i> <span>Suzy Queue<br> 4455 Landing Lange, APT 4 <br> Louisville, KY 40018-1234</span>
+                    <a href="{{route('contacts')}}"><i class="fi-rs-marker"></i> <span>Suzy Queue<br> 4455 Landing Lange, APT 4 <br> Louisville, KY 40018-1234</span>
                     </a>
                 </div>
                 <div class="single-mobile-header-info">

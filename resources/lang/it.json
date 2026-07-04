@@ -2,8 +2,8 @@
     "materie prime": "materie prime",
     "packaging decorazioni": "packaging decorazioni",
     "attrezzature" : "attrezzature",
-    "processing" : "Processing",
-    "pending" : "Pending",
-    "completed" : "Completed",
-    "decline" : "Decline"
+    "processing" : "In elaborazione",
+    "pending" : "In sospeso",
+    "completed" : "Completato",
+    "decline" : "Annullato"
 }

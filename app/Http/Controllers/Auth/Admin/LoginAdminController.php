@@ -16,7 +16,7 @@ class LoginAdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('web')->except('logout');
+//        $this->middleware('guest')->except('logout');
 
     }
 
@@ -42,7 +42,7 @@ class LoginAdminController extends Controller
             $admin = auth()->guard('admin')->user();
 
             event(new AdminLoginHistory($admin));
-            return redirect()->route('dashboard')->with('success', 'Authentication approved!');
+            return redirect()->route('dashboard')->with('success', 'Autenticazione avvenuta!');
 
         } else {
             return $this->sendFailedLoginResponse($request);

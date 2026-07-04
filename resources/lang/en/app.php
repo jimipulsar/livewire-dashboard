@@ -31,7 +31,7 @@ return [
     'myAccount' => 'My Account',
     'profile' => 'My profile',
     'logout' => 'Logout',
-    'single' => 'Singolo product',
+    'single' => 'Singolo prodotto',
     'share' => 'Condividi',
     'newsletter' => [
         '1' => 'Subscribe to the newsletter',

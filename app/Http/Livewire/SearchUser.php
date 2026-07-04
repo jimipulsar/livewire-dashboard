@@ -29,7 +29,7 @@ class SearchUser extends Component
     /*
      * Reset pagination when doing a search
      */
-    public function updated()
+    public function updatingSearch()
     {
         $this->resetPage();
     }

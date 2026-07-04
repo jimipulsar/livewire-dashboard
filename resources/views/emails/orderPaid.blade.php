@@ -5,14 +5,14 @@
             <img src="{{(asset('/uploads/logo/logo.png'))}}" style="height:80px;">
         @endcomponent
     @endslot
-    <h2 style="margin-bottom:20px;">Order N. {{$order->order_number}}<br></h2>
+    <h2 style="margin-bottom:20px;">Ordine N. {{$order->order_number}}<br></h2>
     <strong>
         <table class="table table-bordered pt-3" style="width:100% !important">
             <thead style="padding:10px">
             <tr style="padding:10px">
-                <th style="text-align:left;padding:10px">Nome product</th>
-                <th style="text-align:left;padding:10px">Quantity</th>
-                <th style="text-align:left;padding:10px">Price</th>
+                <th style="text-align:left;padding:10px">Nome prodotto</th>
+                <th style="text-align:left;padding:10px">Quantità</th>
+                <th style="text-align:left;padding:10px">Prezzo</th>
             </tr>
             </thead>
             <tbody>
@@ -31,14 +31,14 @@
     @if($order->discount)
         <p style="text-align:right;  font-size:14px">Coupon : - € {{ price($order->discount)}}</p>
     @endif
-    <p style="text-align:right; font-weight:bold">Total ordine : € {{ price($order->grand_total)}}</p>
+    <p style="text-align:right; font-weight:bold">Totale ordine : € {{ price($order->grand_total)}}</p>
     <hr style="border:1px solid #e3e3e3">
     @if($order->payment_method === 'wire transfer')
         <p class="pt-3" style="font-size:14px">Ecco le coordinate bancarie per effettuare l'acquisto:</p>
         <p class="pt-3" style="font-size:14px">IBAN:  </p>
         <p class="pt-3" style="font-size:14px">BIC:  </p>
         <p class="pt-3" style="font-size:14px">Banca: </p>
-        <p class="pt-3" style="font-size:14px">CAUSALE: Order N. {{$order->order_number}}</p>
+        <p class="pt-3" style="font-size:14px">CAUSALE: Ordine N. {{$order->order_number}}</p>
         <p class="pt-3 font-weight-bold" style="font-size:14px">Importo totale:
             € {{ number_format($order->grand_total , 2, ',', ' ')}}</p>
         <hr>

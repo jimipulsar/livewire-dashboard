@@ -8,7 +8,7 @@
 
         <div class="pull-left">
 
-            <h2> Modifica Profile</h2>
+            <h2> Modifica Profilo</h2>
 
         </div>
 

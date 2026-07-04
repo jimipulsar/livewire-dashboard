@@ -18,19 +18,19 @@
                                   method="post"
                                   enctype="multipart/form-data">
                                 @csrf
-                                <p class="mb-4">Register for access to restricted area</p>
+                                <p class="mb-4">Registrati per accedere all'area riservata</p>
                                 <div class="mb-4">
                                     <input
                                         class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         type="text" id="name" name="name"
-                                        placeholder="Name"
+                                        placeholder="Nome"
                                     />
                                 </div>
                                 <div class="mb-4">
                                     <input
                                         class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         type="text" id="address" name="address"
-                                        placeholder="Address"
+                                        placeholder="Indirizzo"
                                     />
                                 </div>
                                 <div class="mb-4">
@@ -79,7 +79,7 @@
                                         data-mdb-ripple="true"
                                         data-mdb-ripple-color="light"
                                         style=" background: linear-gradient( to right,#ee7724, #d8363a,  #dd3675,#b44593);">
-                                        Confirm Registration
+                                        Registrati
                                     </button>
                                 </div>
                                 <div class="d-block text-center">
@@ -87,7 +87,7 @@
                                        class="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                                        data-mdb-ripple="true"
                                        data-mdb-ripple-color="light">
-                                        Go Back
+                                        Torna in Home Page
                                     </a>
                                 </div>
                             </form>

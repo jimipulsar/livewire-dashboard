@@ -8,6 +8,7 @@ use App\Mail\OrderShipped;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\SubOrder;
 use App\Models\SubOrderItem;
 use App\Models\Transaction;
@@ -77,7 +78,7 @@ class AdminOrderController extends Controller
     public function edit( $id)
     {
         $orderInfo = Order::findOrFail($id);
-        return redirect()->route('adminOrders.show', ['orderInfo' => $orderInfo])->with('success', 'Order updated!');
+        return redirect()->route('adminOrders.show', ['orderInfo' => $orderInfo])->with('success', 'Ordine aggiornato!');
 
     }
 
@@ -105,10 +106,25 @@ class AdminOrderController extends Controller
         $order->is_paid = '1';
         $order->status = 'completed';
 
-
+        // sottraggo ai prodotti il numero delle quantità di magazzino dopo il pagamento con Stripe
+        foreach ($order->items()->get() as $pro) {
+            Product::where('id', $pro->pivot->product_id)->decrement('stock_qty', $pro->pivot->quantity);
+        }
         $order->save();
 
-        return redirect()->route('adminOrders.show', $order->id)->with('success', 'Shipping confirmed');
+        //inserisco una nuova transazione
+        $transactionUpdate = new Transaction();
+        $subOrderItem = SubOrder::where('order_id', $order->id)->first();
+        $transactionUpdate->sub_order_id = $subOrderItem->id;
+        $transactionUpdate->transaction_id = $subOrderItem->id;
+        $transactionUpdate->amount_paid = $order->grand_total;
+        $transactionUpdate->payer_email = $order->customer->email;
+        $transactionUpdate->payer_order_id = $order->id;
+        $transactionUpdate->customer_id = $order->customer_id;
+        $transactionUpdate->status = 'completed';
+        $transactionUpdate->save();
+
+        return redirect()->route('adminOrders.show', [ $order->id])->with('success', 'Spedizione confermata');
     }
 
     /**
@@ -124,6 +140,6 @@ class AdminOrderController extends Controller
         $orderId->status = "decline";
         $orderId->is_shipped = "0";
         $orderId->update();
-        return redirect()->route('dashboard')->with('success', 'You have successfully cancelled an order');
+        return redirect()->route('dashboard')->with('success', 'Hai annullato correttamente un ordine!');
     }
 }

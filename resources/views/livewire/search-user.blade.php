@@ -14,10 +14,10 @@
                                       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                         </div>
-                        <input wire:model.live="searchUser" type="search" id="default-search"
+                        <input wire:model="searchUser" type="search" id="default-search"
                                class="block p-4 pl-10 w-full text-sm text-gray-900 bg-white-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                               placeholder="Search User..." required>
-                        {{--                        <button type="submit" class="btn px-6  py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out  absolute right-2.5 bottom-2.5">Search</button>--}}
+                               placeholder="Cerca Utente..." required>
+                        {{--                        <button type="submit" class="btn px-6  py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out  absolute right-2.5 bottom-2.5">Cerca</button>--}}
                     </div>
                 </form>
             </div>
@@ -40,7 +40,7 @@
                 <tr>
                     <th style="cursor:pointer; width:200px" wire:click.prevent="sortBy('billing_name')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Full Name
+                        Nome completo
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                              stroke="{{ $sortColumnName === 'billing_name' && $sortDirection === 'asc' ? 'black' : 'currentColor' }}"
                              class="w-3 h-3 inline-block">
@@ -71,14 +71,14 @@
                         </svg>
                     </th>
                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Address
+                        Indirizzo
                     </th>
                     <th style="width:200px" class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Phone number
+                        Telefono
                     </th>
                     <th style="width:200px; cursor:pointer" wire:click.prevent="sortBy('billing_city')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        City
+                        Città
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                              stroke="{{ $sortColumnName === 'billing_city' && $sortDirection === 'asc' ? 'black' : 'currentColor' }}"
                              class="w-3 h-3 inline-block">
@@ -93,7 +93,7 @@
                         </svg>
                     </th>
                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Orders
+                        Ordini
                     </th>
                 </tr>
                 </thead>

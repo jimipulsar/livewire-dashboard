@@ -30,7 +30,7 @@ return [
     'categories' => 'Categorie',
     'myAccount' => 'Il mio account',
     'profile' => 'Il mio profilo',
-    'logout' => 'Logout',
+    'logout' => 'Esci',
     'single' => 'Singolo prodotto',
     'share' => 'Condividi',
     'newsletter' => [

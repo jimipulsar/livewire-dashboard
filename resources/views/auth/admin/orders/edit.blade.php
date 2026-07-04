@@ -61,11 +61,11 @@
                     <div class="text-right mt-10">
                         <a href="{{url()->previous()}}"
                            class="btn px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-yellow-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
-                            Go Back
+                            Torna indietro
                         </a>
                         <button type="submit"
                                 class="ml-7 btn px-6 py-2.5 bg-blue-700 hover:bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-yellow-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
-                            Save
+                            Salva impostazioni
                         </button>
                     </div>
                 </div>

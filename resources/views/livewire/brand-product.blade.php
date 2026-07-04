@@ -14,10 +14,10 @@
                                       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                         </div>
-                        <input wire:model.live="searchTerm" type="search" id="default-search"
+                        <input wire:model="searchTerm" type="search" id="default-search"
                                class="block p-4 pl-10 w-full text-sm text-gray-900 bg-white-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                               placeholder="Search Brand..." required>
-                        {{--                        <button type="submit" class="btn px-6  py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out  absolute right-2.5 bottom-2.5">Search</button>--}}
+                               placeholder="Cerca Marchio..." required>
+                        {{--                        <button type="submit" class="btn px-6  py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out  absolute right-2.5 bottom-2.5">Cerca</button>--}}
                     </div>
                 </form>
             </div>
@@ -44,7 +44,7 @@
                 <tr>
                     <th style="width:100px"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Image
+                        Immagine
                     </th>
                     <th style="width:200px; cursor:pointer" wire:click.prevent="sortBy('name')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
@@ -64,7 +64,7 @@
                     </th>
                     <th style="width:200px;text-align:right"
                         class="pr-20 px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
+                        Azioni
                     </th>
                 </tr>
                 </thead>
@@ -109,17 +109,15 @@
 
                                 <!-- Modal -->
                                 <div
-                                    class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
-                                    x-show="showModal"
-                                >
+                                    class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-opacity-50" style="backdrop-filter: blur(10px); background-color: #0000002e;"
+                                    x-show="showModal" x-cloak
+                                    x-transition:enter="motion-safe:ease-out duration-300"
+                                    x-transition:enter-start="opacity-0 scale-90"
+                                    x-transition:enter-end="opacity-100 scale-100" >
                                     <!-- Modal inner -->
                                     <div
-                                        class="max-w-6xl px-6 py-6 mx-auto text-left rounded"
-                                        @click.away="showModal = false"
-                                        x-transition:enter="motion-safe:ease-out duration-300"
-                                        x-transition:enter-start="opacity-0 scale-90"
-                                        x-transition:enter-end="opacity-100 scale-100"
-                                    >
+                                        class="max-w-2xl px-6 py-6 mx-auto text-left rounded"
+                                        @click.away="showModal = false">
                                         <!-- Title / Close-->
                                         <div class="flex items-center justify-between">
                                             <h5 class="mr-3 text-black max-w-none">Title</h5>
@@ -167,7 +165,7 @@
                                             </div>
                                             <div class="bg-gray-50 px-4 pb-7 sm:px-6 sm:flex sm:flex-row-reverse">
                                                 <form
-                                                    action="{{ route('brands.destroy' , $brand->id) }}"
+                                                    action="{{ route('brands.destroy' ,[ $brand->id]) }}"
                                                     method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('DELETE')
@@ -193,11 +191,11 @@
                             <a data-toggle="tooltip" data-placement="bottom"
                                class="px-4 py-2.5 ml-2 bg-yellow-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-yellow-700 hover:shadow-lg focus:bg-yellow-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-800 active:shadow-lg transition duration-150 ease-in-out"
                                title="Modifica"
-                               href="{{ route('brands.edit', $brand->id) }}"
+                               href="{{ route('brands.edit',[ $brand->id]) }}"
                                id="btRight"><i
                                     class="fas fa-edit" title="Modifica"></i></a>
                             <a class="px-4 py-2.5 ml-2 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
-                               href="{{ route('brands.duplicate',[$brand->id]) }}"
+                               href="{{ route('brands.duplicate',[ $brand->id]) }}"
                                data-toggle="tooltip" data-placement="bottom" title="Duplica" id="btRight"><i
                                     class="far fa-copy"></i></a>
                         </td>
@@ -215,3 +213,14 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("livewire:load", function (event) {
+        window.livewire.hook('beforeDomUpdate', () => {
+            // Add your custom JavaScript here.
+        });
+
+        window.livewire.hook('afterDomUpdate', () => {
+            // Add your custom JavaScript here.
+        });
+    });
+</script>

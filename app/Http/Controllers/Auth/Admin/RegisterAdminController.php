@@ -70,7 +70,7 @@ class RegisterAdminController extends Controller
             $admin = auth()->guard('admin')->user();
 
             event(new AdminLoginHistory($admin));
-            return redirect()->route('dashboard')->with('success', 'Authentication approved!');
+            return redirect()->route('dashboard')->with('success', 'Autenticazione avvenuta!');
 
         } else {
             return $this->sendFailedLoginResponse($request);

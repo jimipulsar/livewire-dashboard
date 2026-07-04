@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Order;
-use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -16,10 +15,12 @@ class DashboardOrders extends Component
 
     protected $paginationTheme = 'bootstrap';
     public $searchOrder;
-    public $perPage = 9;
+    public $perPage = 10;
     public $sort = 'created_at|desc';
     public $sortColumnName = 'created_at';
     public $sortDirection = 'desc';
+    public $field;
+    public $filter = "";
     public $filters = [
         'processing' => false,
         'pending' => false,
@@ -27,9 +28,12 @@ class DashboardOrders extends Component
         'decline' => false,
     ];
     public $selected;
+    public $ids = [];
 
     public function mount()
     {
+
+
     }
 
     /*
@@ -118,4 +122,9 @@ class DashboardOrders extends Component
         return $this->sortDirection === 'asc' ? 'desc' : 'asc';
     }
 
+    public function setFilter(string $filter): DashboardOrders
+    {
+        $this->filter = $filter;
+        return $this;
+    }
 }

@@ -299,11 +299,75 @@ body {
 /*    background: #ffffffb0 !important;*/
 /*    padding: 52px !important;*/
 /*}*/
+#loading{
+    border: 12px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 12px solid #444444;
+    width: 70px;
+    height: 70px;
+    animation: spin 1s linear infinite;
+}
+
+.center {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.fade-in-fast {
+    animation: fadeIn 0.2s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+/*.modal {*/
+/*    transition: opacity 0.25s ease;*/
+/*}*/
+
+/*body.modal-active {*/
+/*    overflow-x: hidden;*/
+/*    overflow-y: visible !important;*/
+/*}*/
+
+/*!* Toggle A *!*/
+/*input:checked ~ .dot {*/
+/*    transform: translateX(100%);*/
+/*    background-color: #48bb78;*/
+/*}*/
+
+/*.tox .tox-promotion-link {*/
+/*    display: none !important;*/
+/*}*/
+
+/*!* Toggle B *!*/
+/*input:checked ~ .dot {*/
+/*    transform: translateX(100%);*/
+/*    background-color: #48bb78;*/
+/*}*/
+
+[x-cloak] {
+    display: none !important;
+}
+.tox .tox-promotion-link {
+    display: none !important;
+}
+.tox .tox-statusbar__text-container.tox-statusbar__text-container--flex-start {
+    display:none !important;
+}
 #pageloader
 {
-    background: rgba( 255, 255, 255, 0.8 );
+    background: rgba( 255, 255, 255, 0.1 );
     background-size:cover;
-    display: none;
     position: fixed;
     left: 0;
     top: 0;
@@ -314,11 +378,9 @@ body {
 
 #pageloader img
 {
-    left: 50%;
-    margin-left: -50px;
-    margin-top: -100px;
+    left: 53%;
     position: absolute;
-    top: 50%;
+    top: 47%;
 }
 .breadcrumb {
     border-bottom: 0 solid #eee !important;
@@ -502,28 +564,6 @@ a.disabled {
 }
 .product-sticky-content.fixed .product-form {
     display: none !important
-}
-.modal {
-    transition: opacity 0.500s ease;
-}
-
-body.modal-active {
-    overflow-x: hidden;
-    overflow-y: visible !important;
-}
-
-/* Toggle A */
-input:checked ~ .dot {
-    transform: translateX(100%);
-    background-color: #48bb78;
-}
-.tox .tox-promotion-link {
-    display: none !important;
-}
-/* Toggle B */
-input:checked ~ .dot {
-    transform: translateX(100%);
-    background-color: #48bb78;
 }
 /*.form-check-input[type="checkbox"] {*/
 /*    float: left !important;*/

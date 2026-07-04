@@ -25,7 +25,7 @@ return [
         '0' => 'In preparazione',
         '1' => 'Spedito',
         '2' => 'In elaborazione',
-        '3' => 'Cancelled',
+        '3' => 'Annullato',
     ],
     'address' => [
         '0' => 'I miei indirizzi',
@@ -42,14 +42,14 @@ return [
     ],
     'favourites' => [
         '1' => 'I miei preferiti',
-        '2' => 'Image',
+        '2' => 'Immagine',
         '3' => 'Prodotto',
-        '4' => 'Price unitario',
+        '4' => 'Prezzo unitario',
         '5' => 'Stato',
-        '6' => 'In Stock',
+        '6' => 'In magazzino',
         '7' => 'Non disponibile',
         '8' => 'Aggiungi al carrello',
-        '9' => 'Actions',
+        '9' => 'Azioni',
         '10' => 'Disponibile'
     ],
     'noOrders' => 'Nessun ordine trovato'

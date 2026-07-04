@@ -33,7 +33,9 @@
     });
 
     /*------ Wow Active ----*/
-    new WOW().init();
+    $( document ).ready(function() {
+        new WOW().init()
+    });
 
     //sidebar sticky
     if ($(".sticky-sidebar").length) {
@@ -477,7 +479,7 @@
     }
 
     /*-----------------------
-        Shop filter active 
+        Shop filter active
     ------------------------- */
     $(".shop-filter-toogle").on("click", function (e) {
         e.preventDefault();

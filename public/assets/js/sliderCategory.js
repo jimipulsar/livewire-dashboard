@@ -1,4 +1,4 @@
-$(function () {
+$(document).ready(function () {
     $('#categories .list-second-level').hide();
 
     $('#categories li').click(function () {

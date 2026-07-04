@@ -86,7 +86,7 @@ class BrandController extends Controller
         return redirect()->route('brands.index'
         )->with([
             'brand' => $brand
-        ])->with('success', 'Brand creato con successo!');
+        ])->with('success', 'Marchio creato con successo!');
     }
 
     /**
@@ -163,7 +163,7 @@ class BrandController extends Controller
         return redirect()->route('brands.index'
         )->with([
             'brand' => $brand
-        ])->with('success', 'Product updated successfully!');
+        ])->with('success', 'Prodotto modificato con successo!');
     }
 
     /**
@@ -183,7 +183,7 @@ class BrandController extends Controller
         return redirect()->route('brands.index'
         )->with([
             'brand' => $brand
-        ])->with('success', 'Product deleted successfully!');
+        ])->with('success', 'Prodotto eliminato con successo!');
     }
 
     public function remove1( $id)
@@ -197,7 +197,7 @@ class BrandController extends Controller
             'img_01' => null,
         ]);
 
-        return redirect()->route('brands.index')->with('success', 'Image # 2 eliminata con successo!');
+        return redirect()->route('brands.index')->with('success', 'Immagine # 2 eliminata con successo!');
     }
 
     public function remove2( $id)
@@ -211,7 +211,7 @@ class BrandController extends Controller
             'img_02' => null,
         ]);
 
-        return redirect()->route('brands.index')->with('success', 'Image # 2 eliminata con successo!');
+        return redirect()->route('brands.index')->with('success', 'Immagine # 2 eliminata con successo!');
     }
 
     public function remove3( $id)
@@ -227,7 +227,7 @@ class BrandController extends Controller
         ]);
 
 
-        return redirect()->route('brands.index')->with('success', 'Image # 3 eliminata con successo!');
+        return redirect()->route('brands.index')->with('success', 'Immagine # 3 eliminata con successo!');
     }
 
     public function removeAttachment( $id)
@@ -242,7 +242,7 @@ class BrandController extends Controller
             'attachment' => null,
         ]);
 
-        return redirect()->route('brands.index')->with('success', 'Image # 2 eliminata con successo!');
+        return redirect()->route('brands.index')->with('success', 'Immagine # 2 eliminata con successo!');
     }
 
     public
@@ -257,7 +257,7 @@ class BrandController extends Controller
         return redirect()->route('brands.index'
         )->with([
             'brand' => $brand
-        ])->with('success', 'Product duplicated successfully!');
+        ])->with('success', 'Prodotto duplicato con successo!');
     }
 
     public function searchBrand()

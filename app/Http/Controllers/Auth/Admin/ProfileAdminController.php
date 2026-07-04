@@ -67,7 +67,7 @@ class ProfileAdminController extends Controller
         /**
          * after everything is done return them pack to /profile/ uri
          **/
-        return redirect()->route('profileAdmin')->with('success', ' Profile updated successfully!');
+        return redirect()->route('profileAdmin')->with('success', ' Profilo modificato con successo!');
     }
 
 }

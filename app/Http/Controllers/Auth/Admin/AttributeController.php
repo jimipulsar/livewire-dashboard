@@ -146,7 +146,7 @@ class AttributeController extends Controller
         return redirect()->route('attributes.index'
         )->with([
             'attribute' => $attribute
-        ])->with('success', 'Attributo duplicated successfully!');
+        ])->with('success', 'Attributo duplicato con successo!');
     }
     public function searchAttribute()
     {

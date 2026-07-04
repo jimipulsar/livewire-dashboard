@@ -51,12 +51,12 @@
                             <a href="{{url()->previous()}}">
                                 <button type="button"
                                         class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Go Back
+                                    Torna indietro
                                 </button>
                             </a>
                             <button type="submit"
                                     class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                Save
+                                Salva impostazioni
                             </button>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
 
     {{--                                <p class="text-right">Inserisci la destinazione per avere un preventivo delle spese.</p>--}}
     {{--                                <form data-fsl method="post"--}}
-    {{--                                      action="{{route('calculate.shipping.view', $orderInfo->id)}}"--}}
+    {{--                                      action="{{route('calculate.shipping.view',[ $orderInfo->id])}}"--}}
     {{--                                      class="tax-select-wrapper">--}}
     {{--                                    @csrf--}}
 

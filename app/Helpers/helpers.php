@@ -16,7 +16,13 @@ if (!function_exists('getCart')) {
 
     }
 }
+if (!function_exists('getNotifications')) {
+    function getNotifications(): \Illuminate\Support\Collection
+    {
+        return DB::table('notifications')->orderBy('created_at', 'DESC')->get();
 
+    }
+}
 if (!function_exists('getProducts')) {
     function getProducts()
     {
@@ -30,7 +36,7 @@ if (!function_exists('getBrands')) {
     {
         $paginate = 8;
         return Brand::orderBy('updated_at', 'DESC')->paginate($paginate);
-//        return Product::distinct()->get('item_name', 'Categoria', 'item_code', 'Descrizione', 'img_01', 'img_02', 'stock_qty', 'quantity ', 'Price');
+//        return Product::distinct()->get('item_name', 'Categoria', 'item_code', 'Descrizione', 'img_01', 'img_02', 'stock_qty', 'quantity ', 'Prezzo');
 
     }
 }
@@ -38,7 +44,8 @@ if (!function_exists('getAttributes')) {
     function getAttributes()
     {
         $paginate = 8;
-        return Attribute::orderBy('updated_at', 'DESC')->paginate($paginate);
+        return DB::table('attributes')->where('parent_id', '=', null)->get();
+
 
     }
 }
@@ -118,7 +125,7 @@ if (!function_exists('getCategories')) {
     function getCategories()
     {
         return DB::table('categories')->where('parent_id', '=', null)->get();
-//        return DB::table('products')->orderBy('Price', 'DESC')->get();
+//        return DB::table('products')->orderBy('Prezzo', 'DESC')->get();
     }
 }
 if (!function_exists('getSubCategories')) {
@@ -127,7 +134,7 @@ if (!function_exists('getSubCategories')) {
     {
         return DB::table('categories')->where('parent_id', '!=', null)->pluck('name');
 //        return Product::distinct()->get('SottoCategoria');
-//        return DB::table('products')->orderBy('Price', 'DESC')->get();
+//        return DB::table('products')->orderBy('Prezzo', 'DESC')->get();
     }
 }
 
@@ -204,6 +211,7 @@ if (!function_exists('getImgDir')) {
     }
 }
 if (!function_exists('price')) {
+
     /**
      * @param $format (product obj|string|decimal)
      * @return string
@@ -211,16 +219,6 @@ if (!function_exists('price')) {
     function price($format): string
     {
         return number_format(floatval($format->price ?? $format), 2, ',', '');
-    }
-}
-if (!function_exists('dateFormat')) {
-    /**
-     * @param $format (product obj|string|decimal)
-     * @return string
-     */
-    function dateFormat($format): string
-    {
-        return Carbon\Carbon::parse($format)->format('d/m/Y H:s');
     }
 }
 if (!function_exists('priceView')) {

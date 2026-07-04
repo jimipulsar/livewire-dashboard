@@ -5498,9 +5498,13 @@ table .product-thumbnail img {
 }
 
 .shopping-summery table tbody tr img {
-  max-width: 120px;
-  border: 1px solid #ececec;
-  border-radius: 15px;
+    width: 120px;
+    border: 1px solid #ececec;
+    border-radius: 15px;
+    height: 80px;
+    background-size: contain;
+    position: relative;
+    display: block;
 }
 
 table.no-border td, table.no-border th, table.no-border thead {
@@ -5647,10 +5651,13 @@ table.no-border td, table.no-border th, table.no-border thead {
 }
 
 .order_table table .product-thumbnail img {
-  max-width: 120px;
-  border-radius: 15px;
-  border: 1px solid #ececec;
-  padding: 5px;
+    width: 120px;
+    border: 1px solid #ececec;
+    border-radius: 15px;
+    height: 80px;
+    background-size: contain;
+    position: relative;
+    display: block;
 }
 
 .order_table table .w-160 {

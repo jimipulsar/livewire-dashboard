@@ -8,7 +8,9 @@ use App\Models\AttributeProduct;
 use App\Models\Category;
 use App\Models\CategoryProduct;
 use App\Models\Product;
+use DateTimeInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -22,9 +24,14 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
+    public $mainCategory;
+    public $mainAttributes;
+
     public function __construct()
     {
         $this->middleware('adminAuth')->except('logout');
+        $this->mainCategory = getCategories();
+        $this->mainAttributes = getAttributes();
     }
 
     public function index()
@@ -53,23 +60,18 @@ class ProductsController extends Controller
         $subCategories = Category::with('parentCategory')
             ->whereHas('parentCategory')
             ->get();
-        $mainCategory = Category::with('childCategories')
-            ->whereHas('childCategories')
-            ->get();
         $subAttributes = Attribute::with('parentAttribute')
             ->whereHas('parentAttribute')
             ->get();
-        $mainAttributes = Attribute::with('childAttributes')
-            ->whereHas('childAttributes')
-            ->get();
+
         $product->purchasable = \request()->input('purchasable');
 
         return view('auth.admin.products.create', [
             'product' => $product,
             'subCategories' => $subCategories,
-            'mainCategory' => $mainCategory,
             'subAttributes' => $subAttributes,
-            'mainAttributes' => $mainAttributes,
+            'mainCategory' => $this->mainCategory,
+            'mainAttributes' => $this->mainAttributes,
         ]);
     }
 
@@ -162,7 +164,7 @@ class ProductsController extends Controller
             return redirect()->route('products.index'
             )->with([
                 'product' => $product
-            ])->with('success', 'Product creato con successo!');
+            ])->with('success', 'Prodotto creato con successo!');
         } catch (\Throwable $e) {
 
             return back()->withErrors('Errore! ' . $e->getMessage());
@@ -204,34 +206,21 @@ class ProductsController extends Controller
         $subAttributes = Attribute::with('parentAttribute')
             ->whereHas('parentAttribute')
             ->get();
-        $mainAttributes = Attribute::with('childAttributes')
-            ->whereHas('childAttributes')
-            ->get();
-        $uniqueCategories = $this->getCategories();
-        $mainCategory = Category::with('childCategories')
-            ->whereHas('childCategories')
-            ->get();
+        $uniqueCategories = getCategories();
         $attributes = getAttributes();
 
         return view('auth.admin.products.edit', [
             'product' => $product,
             'subCategories' => $subCategories,
-            'mainCategory' => $mainCategory,
             'subAttributes' => $subAttributes,
-            'mainAttributes' => $mainAttributes,
+            'mainAttributes' => $this->mainAttributes,
             'uniqueCategories' => $uniqueCategories,
+            'mainCategory' => $this->mainCategory,
             'attributes' => $attributes
 //            'selectedCategory' => $selectedCategory
         ]);
     }
 
-    private function getCategories()
-    {
-        return Category::withCount('products')
-            ->having('products_count', '>', 0)
-            ->orderBy('products_count', 'DESC')
-            ->get();
-    }
 
     /**
      * Update the specified resource in storage.
@@ -320,22 +309,24 @@ class ProductsController extends Controller
             if ($selectedCategory[0]['parent_id'] !== null) {
                 $product->categories()->sync([$selectedCategory[0]['parent_id'], $selectedCategory[0]['id']]);
             } else {
-                $product->categories()->sync($selectedCategory[0]['parent_id'], \request()->input('categories.1'));
+                $product->categories()->sync($selectedCategory[0]['id'], \request()->input('categories'));
             }
+
+
             if ($selectedAttribute[0]['parent_id'] !== null) {
                 $product->attributes()->sync([$selectedAttribute[0]['parent_id'], $selectedAttribute[0]['id']]);
             } else {
-                $product->attributes()->sync($selectedAttribute[0]['parent_id'], \request()->input('attributes.1'));
+                $product->attributes()->sync($selectedAttribute[0]['id'], \request()->input('attributes'));
             }
             $product->save();
-//            dd($selectedCategory[0]);
+//            dd(\request()->input('categories'));
 //            dd(\request()->input('categories', []));
 //            $product->categories()->sync(\request()->input('categories', []));
             return redirect()->route('products.index'
             )->with([
                 'product' => $product,
                 'selectedCategory' => $selectedCategory
-            ])->with('success', 'Product updated successfully!');
+            ])->with('success', 'Prodotto modificato con successo!');
         } catch (\Throwable $e) {
 
             return back()->withErrors('Errore! ' . $e->getMessage());
@@ -361,7 +352,7 @@ class ProductsController extends Controller
         return redirect()->route('products.index'
         )->with([
             'product' => $product
-        ])->with('success', 'Product deleted successfully!');
+        ])->with('success', 'Prodotto eliminato con successo!');
     }
 
     public function remove1( $id)
@@ -375,7 +366,7 @@ class ProductsController extends Controller
             'img_01' => null,
         ]);
 
-        return redirect()->route('products.index')->with('success', 'Image # 2 eliminata con successo!');
+        return redirect()->route('products.index')->with('success', 'Immagine # 2 eliminata con successo!');
     }
 
     public function remove2( $id)
@@ -389,7 +380,7 @@ class ProductsController extends Controller
             'img_02' => null,
         ]);
 
-        return redirect()->route('products.index')->with('success', 'Image # 2 eliminata con successo!');
+        return redirect()->route('products.index')->with('success', 'Immagine # 2 eliminata con successo!');
     }
 
     public function remove3( $id)
@@ -405,7 +396,7 @@ class ProductsController extends Controller
         ]);
 
 
-        return redirect()->route('products.index')->with('success', 'Image # 3 eliminata con successo!');
+        return redirect()->route('products.index')->with('success', 'Immagine # 3 eliminata con successo!');
     }
 
     public function removeAttachment( $id)
@@ -420,7 +411,7 @@ class ProductsController extends Controller
             'attachment' => null,
         ]);
 
-        return redirect()->route('products.index')->with('success', 'Image # 2 eliminata con successo!');
+        return redirect()->route('products.index')->with('success', 'Immagine # 2 eliminata con successo!');
     }
 
     public
@@ -436,13 +427,16 @@ class ProductsController extends Controller
         $product->slug = Str::slug($product->item_name);
         $product->item_code = htmlspecialchars($product->item_code . $randomId);
         $product->save();
-        $product->categories()->sync([$categoryProducts[0]['category_id'], $categoryProducts[1]['category_id']]);
-        $product->attributes()->sync([$attributeProducts[0]['attribute_id'], $attributeProducts[1]['attribute_id']]);
+        $product->categories()->sync([$categoryProducts[0]['category_id'], $categoryProducts[0]['category_id']]);
+        $product->attributes()->sync([$attributeProducts[0]['attribute_id'], $attributeProducts[0]['attribute_id']]);
+
+//        $product->categories()->sync([$categoryProducts[0]['category_id'], $categoryProducts[1]['category_id']]);
+//        $product->attributes()->sync([$attributeProducts[0]['attribute_id'], $attributeProducts[1]['attribute_id']]);
 
         return redirect()->route('products.index'
         )->with([
             'product' => $product
-        ])->with('success', 'Product duplicated successfully!');
+        ])->with('success', 'Prodotto duplicato con successo!');
     }
 
     public function searchProduct()
@@ -469,4 +463,5 @@ class ProductsController extends Controller
             return redirect()->route('products.index')->with('danger', 'Corrispondenza non trovata');
         }
     }
+
 }

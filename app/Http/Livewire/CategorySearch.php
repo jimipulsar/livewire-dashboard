@@ -13,42 +13,111 @@ class CategorySearch extends Component
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
+    protected $listeners = [
+        'filterByCategory' => 'filterByCategory'
+    ];
+
     public $category;
-    public $categorySearch;
+    public $categoryId;
+    public $ucFirst;
+    public $search;
     public $filters = [];
     public $perPage = 20;
-    public $sort = 'created_at|desc';
+
     public $sortDirection = 'desc';
-    public $sortColumnName = 'created_at';
     public $field;
+    public $min;
+    public $max;
 
     public function mount()
     {
+        $this->min = Product::min('price');
+        $this->max = Product::max('price');
+
     }
 
     /*
      * Reset pagination when doing a search
      */
-    public function updated()
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
     public function render()
     {
-        $categories = Category::with('products')->withCount('products');
+        $segment = Request::segment(count(Request::segments()));
+        $ucFirst = str_replace('', '', strtolower($segment));
+        $categoryId = \request()['categoryId'];
+        $categoryName = \request()['categoryName'];
+        $min_price = Product::min('price');
+        $max_price = Product::max('price');
 
-        $this->applySearchFilter($categories->orderBy($this->sortColumnName, $this->sortDirection));
+        if ($categoryId && $categoryName) {
 
-        $this->applyCategoryFilter($categories);
+//            $products = Product::query()->with('categories')
+//                ->leftJoin('category_product', 'category_product.product_id', '=', 'products.id')
+//                ->leftJoin('categories', 'categories.id', '=', 'category_product.category_id')
+//                ->select('products.*', 'categories.*', 'category_product.*')
+//                ->where([
+//                    ['category_product.category_id', '=', $categoryId],
+//                ]);
+            $products = Product::with('categories')->withCount('categories')
+                ->leftJoin('category_product', 'category_product.product_id', '=', 'products.id')
+                ->leftJoin('categories', 'categories.id', '=', 'category_product.category_id')
+                ->where([
+                    ['category_product.category_id', '=', $categoryId],
+                ]);;
+            $uniqueCategories = $this->getCategories();
 
-        $categories = $categories->orderBy($this->sortByColumn(), $this->sortDirection())
+            $this->applySearchFilterParameters($products);
+            $this->applyCategoryFilter($products);
+            $products = $products
+                ->where('published', '=', '1')
+                ->whereBetween('price', [$this->min, $this->max])
+                ->paginate($this->perPage);
+//            dd($products);
+            return view('livewire.category-search', [
+                'products' => $products,
+                'uniqueCategories' => $uniqueCategories,
+                'min_price' => $min_price,
+                'max_price' => $max_price,
+                'ucFirst' => $ucFirst
+            ]);
+        }
+        $products = Product::with('categories')->withCount('categories');
+        $uniqueCategories = $this->getCategories();
+
+        $this->applySearchFilter($products);
+
+        $this->applyCategoryFilter($products);
+        $products = $products
+            ->where('published', '=', '1')
+            ->whereBetween('price', [$this->min, $this->max])
             ->paginate($this->perPage);
-
+//        dd($products);
         return view('livewire.category-search', [
-            'categories' => $categories
-
+            'products' => $products,
+            'uniqueCategories' => $uniqueCategories,
+            'min_price' => $min_price,
+            'max_price' => $max_price,
+            'ucFirst' => $ucFirst
         ]);
+    }
+
+
+    public function filterByCategory($category)
+    {
+        if (in_array($category, $this->filters)) {
+            $ix = array_search($category, $this->filters);
+
+            unset($this->filters[$ix]);
+        } else {
+            $this->filters[] = $category;
+
+            //Reset pagination, otherwise filter won't work
+            $this->resetPage();
+        }
     }
 
     public function sortByColumn()
@@ -69,30 +138,50 @@ class CategorySearch extends Component
         return $sort[1] ?? 'asc';
     }
 
-    private function applySearchFilter($categories)
+    private function applySearchFilter($products)
     {
-        if ($this->categorySearch) {
-            return $categories->whereRaw("name LIKE \"%$this->categorySearch%\"");
+        if ($this->search) {
+            return $products->whereRaw("item_name LIKE \"%$this->search%\"")
+                ->orWhereRaw("item_code LIKE \"%$this->search%\"");
 
         }
 
         return null;
     }
 
-    private function applyCategoryFilter($categories)
+    private function applySearchFilterParameters($products)
     {
-        if ($this->filters) {
+        if ($this->search) {
+            return $products
+                ->whereRaw("category_id LIKE \"%$this->categoryId%\"");
 
-            foreach ($this->filters as $filter) {
-                $categories->whereHas('products', function ($query) use ($filter) {
-                    $query->where('products.id', $filter);
-
-                });
-            }
 
         }
 
         return null;
+    }
+
+    private function applyCategoryFilter($products)
+    {
+        if ($this->filters) {
+
+            foreach ($this->filters as $filter) {
+                $products->whereHas('categories', function ($query) use ($filter) {
+                    $query->where('categories.id', $filter);
+                });
+            }
+        }
+
+        return null;
+    }
+
+    private function getCategories()
+    {
+        return Category::withCount('products')
+            ->having('products_count', '>', 0)
+            ->where('name', '=', \request()['categoryName'])
+            ->orderBy('products_count', 'DESC')
+            ->get();
     }
 
     public function sortBy($columnName)
@@ -109,6 +198,22 @@ class CategorySearch extends Component
     public function swapSortDirection()
     {
         return $this->sortDirection === 'asc' ? 'desc' : 'asc';
+    }
+
+
+    public function loadMore20()
+    {
+        $this->perPage = 20;
+    }
+
+    public function loadMore50()
+    {
+        $this->perPage = 50;
+    }
+
+    public function loadMore100()
+    {
+        $this->perPage = 100;
     }
 
 

@@ -38,7 +38,7 @@ class ImportExcelController extends Controller
             $destinationPath = public_path('storage/temp/');
             $movePath = $excelFile->move($destinationPath, $name);
             Excel::import(new ProductsImport(), $movePath);
-            return redirect()->route('dashboard')->with('success', 'Products importati con successo');
+            return redirect()->route('dashboard')->with('success', 'Prodotti importati con successo');
 
         } else {
             return redirect()->route('index');

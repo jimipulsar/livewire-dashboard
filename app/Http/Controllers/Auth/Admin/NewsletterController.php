@@ -57,17 +57,17 @@ class NewsletterController extends Controller
         $user = User::find(1);
 
         $details = [
-            'greeting' => 'You have received a new newsletter subscription from Livewire Ecommerce Platform',
-            'body' => 'Click on the button below to view members',
-            'thanks' => 'Thank you!',
-            'subject' => 'New Newsletter Subscription',
-            'actionText' => 'RESTRICTED AREA.',
-            'actionURL' => url(env('APP_URL') . env('APP_ADMIN_URL') ),
+            'greeting' => 'Hai ricevuto una nuova iscrizione alla newsletter da Livewire Ecommerce Platform',
+            'body' => 'Clicca sul pulsante qui di seguito per visualizzare gli iscritti',
+            'thanks' => 'Grazie!',
+            'subject' => 'Nuova iscrizione Newsletter',
+            'actionText' => 'AREA RISERVATA',
+            'actionURL' => url(env('APP_URL') . '/'  . env('APP_ADMIN_URL') ),
             'email_subscription' =>   $newsletterId->emailSubscription,
         ];
         Notification::send($user, new NewsletterPlacedNotification($details));
 
-        return redirect()->back()->with('success', 'You have successfully subscribed to the newsletter!');
+        return redirect()->back()->with('success', 'Hai effettuato l\'iscrizione alla Newsletter con successo!');
     }
 
     public function unsubscribe( $id)
@@ -84,7 +84,7 @@ class NewsletterController extends Controller
             Newsletter::findOrFail($id)->delete();
 
             return redirect()->back()
-                ->with('success', 'Iscritto deleted successfully');
+                ->with('success', 'Iscritto eliminato con successo');
         } else {
             abort(404);
         }

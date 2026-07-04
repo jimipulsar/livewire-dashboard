@@ -20,8 +20,8 @@ class AdminProduct extends Component
     public $searchTerm;
     public $filters = [];
     public $perPage = 9;
-    public $sort = 'created_at|desc';
-    public $sortColumnName = 'created_at';
+    public $sort = 'updated_at|desc';
+    public $sortColumnName = 'updated_at';
     public $sortDirection = 'desc';
     public $field;
     public $min;

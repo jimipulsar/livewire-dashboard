@@ -21,10 +21,9 @@
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/responsive.css">
     <link rel="stylesheet" href="/assets/vendor/animate.css/animate.min.css">
-
 </head>
 <body>
-
+<x-auto-translate></x-auto-translate>
 <x-alert-admin></x-alert-admin>
 <x-success-admin></x-success-admin>
 <main>

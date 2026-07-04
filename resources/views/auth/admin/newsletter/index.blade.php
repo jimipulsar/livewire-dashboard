@@ -17,7 +17,7 @@
                             Data Registrazione
                         </th>
                         <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Actions
+                            Azioni
                         </th>
                     </tr>
                     </thead>
@@ -44,17 +44,16 @@
                                         <i class="fas fa-trash-alt"></i></button>
                                     <!-- Modal -->
                                     <div
-                                        class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
-                                        x-show="showModal"
-                                    >
+                                        class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-opacity-50"
+                                        style="backdrop-filter: blur(10px); background-color: #0000002e;"
+                                        x-show="showModal" x-cloak
+                                        x-transition:enter="motion-safe:ease-out duration-300"
+                                        x-transition:enter-start="opacity-0 scale-90"
+                                        x-transition:enter-end="opacity-100 scale-100">
                                         <!-- Modal inner -->
                                         <div
-                                            class="max-w-6xl px-6 py-6 mx-auto text-left rounded"
-                                            @click.away="showModal = false"
-                                            x-transition:enter="motion-safe:ease-out duration-300"
-                                            x-transition:enter-start="opacity-0 scale-90"
-                                            x-transition:enter-end="opacity-100 scale-100"
-                                        >
+                                            class="max-w-2xl px-6 py-6 mx-auto text-left rounded"
+                                            @click.away="showModal = false">
                                             <!-- Title / Close-->
                                             <div class="flex items-center justify-between">
                                                 <h5 class="mr-3 text-black max-w-none">Title</h5>
@@ -104,7 +103,7 @@
                                                 </div>
                                                 <div class="bg-gray-50 px-4 pb-7 sm:px-6 sm:flex sm:flex-row-reverse">
                                                     <form
-                                                        action="{{ route('subscribers.destroy' ,[ $subscribe->id]) }}"
+                                                        action="{{ route('subscribers.destroy' ,[  $subscribe->id]) }}"
                                                         method="post">
 
                                                         @csrf
@@ -138,7 +137,8 @@
                                     <div class="flex ">
                                         <!-- Heroicon name: solid/cash -->
                                         <p class="text-gray-500  font-size-24 truncate group-hover:text-gray-900">
-                                            No entries made </p>
+                                            Nessuna iscrizione effettuata </p>
+
                                     </div>
                                 </td>
                             </tr>
@@ -146,15 +146,19 @@
                             </tbody>
                         </table>
                     @endforelse
+
                     </tbody>
+
                 </table>
+
+
             </div>
+
         </div>
-        @if(isset($query))
-            {{ $subscribers->appends($query)->onEachSide(1)->links() }}
-        @else
-            {{ $subscribers->onEachSide(1)->links('vendor.livewire.tailwind') }}
-        @endif
+
+        {{ $subscribers->links('vendor.pagination.tailwind') }}
+
+
     </div>
 
 @endsection

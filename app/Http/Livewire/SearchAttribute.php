@@ -23,7 +23,7 @@ class SearchAttribute extends Component
     /*
      * Reset pagination when doing a searchTerm
      */
-    public function updated()
+    public function updatingSearch()
     {
         $this->resetPage();
     }

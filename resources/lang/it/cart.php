@@ -9,7 +9,7 @@ return [
     'totalVat' => 'Totale IVA INCLUSA',
     'product' => 'Prodotto',
     'quantity' => 'Quantità',
-    'price' => 'Price',
+    'price' => 'Prezzo',
     'total' => 'Totale',
     'shipping' => 'Spedizione',
     'coupon' => 'Coupon'

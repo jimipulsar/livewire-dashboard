@@ -96,7 +96,7 @@ class CouponController extends Controller
             'value' => $request->input('value'),
             'percent_off' => $request->input('percent_off'),
         ]);
-        return redirect()->route('coupon.index')->with('success', 'Coupon updated successfully');
+        return redirect()->route('coupon.index')->with('success', 'Coupon modificato con successo');
     }
 
     /**
@@ -111,7 +111,7 @@ class CouponController extends Controller
 //            Coupon::find($id)->delete();
 //
 //            return redirect()->route('coupon.index')
-//                ->with('success', 'Coupon deleted successfully');
+//                ->with('success', 'Coupon eliminato con successo');
 //        } else {
 //            abort(404);
 //        }

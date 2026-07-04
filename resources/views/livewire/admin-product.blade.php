@@ -14,9 +14,10 @@
                                       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                         </div>
-                        <input wire:model.live="searchTerm" type="search" id="default-search"
+                        <input wire:model="searchTerm" type="search" id="default-search"
                                class="block p-4 pl-10 w-full text-sm text-gray-900 bg-white-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                               placeholder="Search Product, SKU code..." required>
+                               placeholder="Cerca Prodotto, SKU code..." required>
+                        {{--                        <button type="submit" class="btn px-6  py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out  absolute right-2.5 bottom-2.5">Cerca</button>--}}
                     </div>
                 </form>
             </div>
@@ -37,17 +38,17 @@
             </span>
         </div>
         <div
-            class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
             <table class="min-w-full">
                 <thead>
                 <tr>
                     <th style="width:100px"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Image
+                        Immagine
                     </th>
                     <th style="width:200px; cursor:pointer" wire:click.prevent="sortBy('item_name')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Item Name
+                        Nome Articolo
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                              stroke="{{ $sortColumnName === 'item_name' && $sortDirection === 'asc' ? 'black' : 'currentColor' }}"
                              class="w-3 h-3 inline-block">
@@ -78,11 +79,11 @@
                         </svg>
                     </th>
                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Category
+                        Categoria
                     </th>
                     <th style="width:180px; cursor:pointer" wire:click="sortBy('stock_qty')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Quantity
+                        Quantità
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                              stroke="{{ $sortColumnName === 'stock_qty' && $sortDirection === 'asc' ? 'black' : 'currentColor' }}"
                              class="w-3 h-3 inline-block">
@@ -98,7 +99,7 @@
                     </th>
                     <th style="width:180px;cursor:pointer" wire:click.prevent="sortBy('stock_qty')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Availability
+                        Disponibilità
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                              stroke="{{ $sortColumnName === 'stock_qty' && $sortDirection === 'asc' ? 'black' : 'currentColor' }}"
                              class="w-3 h-3 inline-block">
@@ -112,9 +113,25 @@
                                   d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
                         </svg>
                     </th>
+                    <th style="width:180px;cursor:pointer" wire:click.prevent="sortBy('purchasable')"
+                        class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        Acquistabile
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="{{ $sortColumnName === 'purchasable' && $sortDirection === 'asc' ? 'black' : 'currentColor' }}"
+                             class="w-3 h-3 inline-block">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                             stroke="{{ $sortColumnName === 'purchasable' && $sortDirection === 'desc' ? 'black' : 'currentColor' }}"
+                             class="w-3 h-3 inline-block">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
+                        </svg>
+                    </th>
                     <th wire:click.prevent="sortBy('price')" style="width:150px;cursor:pointer"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Price
+                        Prezzo
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                              stroke="{{ $sortColumnName === 'price' && $sortDirection === 'asc' ? 'black' : 'currentColor' }}"
                              class="w-3 h-3 inline-block">
@@ -130,7 +147,7 @@
                     </th>
                     <th style="width:300px"
                         class="pr-20 px-6 py-3 border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
+                        Azioni
                     </th>
                 </tr>
                 </thead>
@@ -162,47 +179,58 @@
                         @endif
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <div
-                                class="leading-5 text-gray-900 ">{{ $product->item_name }}</div>
+                                    class="leading-5 text-gray-900 ">{{ $product->item_name }}</div>
 
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <div
-                                class="leading-5 text-gray-900 ">{{ $product->item_code }}</div>
+                                    class="leading-5 text-gray-900 ">{{ $product->item_code }}</div>
 
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm">
-                            @foreach($product->categories as $key => $category)
-
-                                @if($category->parent_id == null)
-                                    {{ ucfirst($category->name) }}
-                                    /
-                                @endif      @if($category->parent_id != null)
-                                    {{ ucfirst($category->name)  }}
+                            @for ($i = 0; $i < count($product->categories); $i++)
+                                @if ($i == count($product->categories) - 1)
+                                    {{ ucFirst($product->categories[$i]->name) }}
+                                @else
+                                    {{ ucFirst($product->categories[$i]->name) }} ->
                                 @endif
-
-                            @endforeach
-
+                            @endfor
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <div
-                                class="leading-5 text-gray-900 ">{{ $product->stock_qty }}</div>
+                                    class="leading-5 text-gray-900 ">{{ $product->stock_qty }}</div>
 
                         </td>
                         @if($product->stock_qty >= 1)
                             <td class="px-6 py-4 text-center whitespace-nowrap border-b border-gray-200 text-sm text-gray-500">
                                       <span
-                                          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ">
-                                        In Stock
+                                              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ">
+                                        In magazzino
                                       </span>
                             </td>
                         @else
                             <td class="px-6 py-4 text-center whitespace-nowrap border-b border-gray-200 text-sm text-grey-500">
                                         <span
-                                            class="inline-flex px-2.5 py-0.5 items-center rounded-full text-xs font-medium bg-warning text-red-800  ">
+                                                class="inline-flex px-2.5 py-0.5 items-center rounded-full text-xs font-medium bg-warning text-red-800  ">
                                         Non disponibile
                                       </span>
                             </td>
                         @endif
+                            @if($product->purchasable >= 1)
+                                <td class="px-6 py-4 text-center whitespace-nowrap border-b border-gray-200 text-sm text-gray-500">
+                                      <span
+                                          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ">
+                                        Acquistabile
+                                      </span>
+                                </td>
+                            @else
+                                <td class="px-6 py-4 text-center whitespace-nowrap border-b border-gray-200 text-sm text-grey-500">
+                                        <span
+                                            class="inline-flex px-2.5 py-0.5 items-center rounded-full text-xs font-medium bg-warning text-red-800  ">
+                                        Non disponibile
+                                      </span>
+                                </td>
+                            @endif
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             € {{ priceView($product->price) }}
                         </td>
@@ -210,19 +238,19 @@
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-end justify-content-end right">
 
                             <a class="px-4 py-2.5 ml-2 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
-                               href="{{ route('products.duplicate',$product->id) }}"
+                               href="{{ route('products.duplicate',[ $product->id]) }}"
                                data-toggle="tooltip" data-placement="bottom" title="Duplica" id="btLeft"><i
-                                    class="far fa-copy"></i></a>
+                                        class="far fa-copy"></i></a>
 
                             <a data-toggle="tooltip" data-placement="bottom"
                                class="px-4 py-2.5 ml-2 bg-yellow-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-yellow-700 hover:shadow-lg focus:bg-yellow-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-800 active:shadow-lg transition duration-150 ease-in-out"
                                title="Modifica"
-                               href="{{ route('products.edit',$product->id) }}"
+                               href="{{ route('products.edit',[ $product->id]) }}"
                                id="btLeft"><i
-                                    class="fas fa-edit" title="Modifica"></i></a>
+                                        class="fas fa-edit" title="Modifica"></i></a>
                             <div
-                                x-data="{ 'showModal': false }" class=""
-                                @keydown.escape="showModal = false" id="btLeft">
+                                    x-data="{ 'showModal': false }"
+                                    @keydown.escape="showModal = false" id="btLeft" >
                                 <button type="button" @click="showModal = true" title="Elimina"
                                         class="px-4 py-2.5 ml-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lgfocus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0active:bg-red-800 active:shadow-lgtransition duration-150 ease-in-out mr-4">
                                     <i class="fas fa-trash-alt"></i></button>
@@ -230,17 +258,15 @@
 
                                 <!-- Modal -->
                                 <div
-                                    class="fixed  inset-0 z-30 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
-                                    x-show="showModal"
-                                >
+                                    class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-opacity-50" style="backdrop-filter: blur(10px); background-color: #0000002e;"
+                                    x-show="showModal" x-cloak
+                                    x-transition:enter="motion-safe:ease-out duration-300"
+                                    x-transition:enter-start="opacity-0 scale-90"
+                                    x-transition:enter-end="opacity-100 scale-100" >
                                     <!-- Modal inner -->
                                     <div
-                                        class="max-w-6xl px-6 py-6 mx-auto text-left rounded"
-                                        @click.away="showModal = false"
-                                        x-transition:enter="motion-safe:ease-out duration-300"
-                                        x-transition:enter-start="opacity-0 scale-90"
-                                        x-transition:enter-end="opacity-100 scale-100"
-                                    >
+                                        class="max-w-2xl px-6 py-6 mx-auto text-left rounded"
+                                        @click.away="showModal = false">
                                         <!-- Title / Close-->
                                         <div class="flex items-center justify-between">
                                             <h5 class="mr-3 text-black max-w-none">Title</h5>
@@ -258,11 +284,11 @@
 
                                         <!-- content -->
                                         <div
-                                            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                                             <div class="bg-white px-4 pt-5 pb-4 py-5 sm:p-6 sm:pb-4">
                                                 <div class="md:flex sm:items-start py-3">
                                                     <div
-                                                        class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                                            class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
                                                         <svg @click="toggleModal" class="h-6 w-6 text-red-600"
                                                              xmlns="http://www.w3.org/2000/svg" fill="none"
                                                              viewBox="0 0 24 24"
@@ -286,16 +312,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="px-4 pb-7 sm:px-6 sm:flex sm:flex-row-reverse">
-                                                <div class="flex items-center justify-between">
-                                                    <button type="button" class="z-50 cursor-pointer"
-                                                            @click="showModal = false">
-                                                        <h5 class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500  sm:ml-3 sm:w-auto  mt-3">  {{__('product.no')}}</h5>
-                                                    </button>
-                                                </div>
+                                            <div class="bg-gray-50 px-4 pb-7 sm:px-6 sm:flex sm:flex-row-reverse">
                                                 <form
-                                                    action="{{ route('products.destroy' , $product->id) }}"
-                                                    method="POST" enctype="multipart/form-data">
+                                                        action="{{ route('products.destroy' ,[ $product->id]) }}"
+                                                        method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" data-toggle="modal"
@@ -304,7 +324,14 @@
                                                         {{__('product.yesProduct')}}
                                                     </button>
                                                 </form>
+                                                <div class="flex items-center justify-between">
 
+
+                                                    <button type="button" class="z-50 cursor-pointer"
+                                                            @click="showModal = false">
+                                                        <h5 class="w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500  sm:ml-3 sm:w-auto  mt-3">  {{__('product.no')}}</h5>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -327,3 +354,14 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("livewire:load", function (event) {
+        window.livewire.hook('beforeDomUpdate', () => {
+            // Add your custom JavaScript here.
+        });
+
+        window.livewire.hook('afterDomUpdate', () => {
+            // Add your custom JavaScript here.
+        });
+    });
+</script>

@@ -62,9 +62,11 @@ class AdminController extends Controller
 
 //    get amount transaction paid of current month
         $transactions = DB::table('transactions')
-            ->whereMonth('created_at','=',Carbon::today()->month)
+            ->whereMonth('created_at', '=', Carbon::today()->month)
             ->get();
+
         $currentMonthTotal = $transactions->sum('amount_paid');
+
 
         $columnChartModel =
             (new PieChartModel())
@@ -72,16 +74,54 @@ class AdminController extends Controller
                 ->addSlice('Orders', $countOrders, '#fc8181')
                 ->addSlice('Products', $products, '#90cdf4');
 
-        $lineChartModel =
-            (new ColumnChartModel())
-                ->setTitle('Profit month')
-                ->addColumn('October', 132, '#fc8181', [
-                    'tooltip' => '€' . price(132)
-                ])->addColumn('November', $totalNovember, '#f6ad55', [
-                    'tooltip' => '€' . price($totalNovember)
-                ])->addColumn('Current Month', $currentMonthTotal, '#008f39', [
-                    'tooltip' => '€' . price($currentMonthTotal),
-                ]);
+// LINE CHART MODEL
+//        $lineChartModel = new ColumnChartModel;
+//        $lineChartModel->setTitle('Entrate mensili');
+//
+//        $unique = Transaction::select(
+//            DB::raw('year(created_at) as year'),
+//            DB::raw('DATE_FORMAT(created_at, "%M") as month'),
+//            DB::raw('sum(amount_paid) as amount_paid'),
+//        )
+//            ->where(DB::raw('date(created_at)'), '>=', "2010-01-01")
+//            ->groupBy('year')
+//            ->groupBy('month')
+//            ->get()
+//            ->toArray();
+//
+//        foreach ($unique as $item) {
+//            $lineChartModel
+//                ->addColumn($item['month'], price($item['amount_paid']), '#fc8181',
+//                    ['tooltip' => '€' . price($item['amount_paid'])]);
+//        }
+//        $lineChartModel->addColumn('Mese corrente', price($currentMonthTotal) . ',00', '#008f39', [
+//            'tooltip' => '€' . price($currentMonthTotal),
+//        ]);
+
+// AREA CHART MODEL
+        $lineChartModel = new AreaChartModel();
+        $lineChartModel->setTitle('Entrate mensili');
+
+        $unique = Transaction::select(
+            DB::raw('year(created_at) as year'),
+            DB::raw('DATE_FORMAT(created_at, "%M") as month'),
+            DB::raw('sum(amount_paid) as amount_paid'),
+        )
+            ->where(DB::raw('date(created_at)'), '>=', "2010-01-01")
+            ->groupBy('year')
+            ->groupBy('month')
+            ->get()
+            ->toArray();
+
+        foreach ($unique as $item) {
+            $lineChartModel
+                ->addPoint($item['month'] . '-' . $item['year'],  price($item['amount_paid']),
+                    ['€' . price($item['amount_paid'])], '#fc8181');
+        }
+
+        $lineChartModel->addPoint('Mese corrente', price($currentMonthTotal),
+            '#90cdf4')->setColor('#90cdf4');
+
 
         return view('auth.admin.dashboard', [
             'customers' => $customers,

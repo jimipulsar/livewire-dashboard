@@ -21,7 +21,7 @@
                         <th class="py-3 px-5 bg-blue-900 font-medium uppercase text-sm text-gray-100 text-center">Data
                             partenza
                         </th>
-                        <th class="py-3 px-5 bg-blue-900 font-medium uppercase text-sm text-gray-100 text-center">Status
+                        <th class="py-3 px-5 bg-blue-900 font-medium uppercase text-sm text-gray-100 text-center">Stato
                         </th>
                     </tr>
                     </thead>
@@ -47,7 +47,7 @@
                                 <td class="py-4 px-6 border-b text-gray-500 text-center">
                                       <span
                                           class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ">
-                                        Completed
+                                        Completato
                                       </span>
                                 </td>
                             @endif
@@ -56,7 +56,7 @@
                                 <td class="py-4 px-6 border-b text-gray-500 text-center">
                                     <span
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ">
-                                        Ready for purchase
+                                        Pronto per l'acquisto
                                       </span>
                                 </td>
                             @endif
@@ -64,7 +64,7 @@
                                 <td class="py-4 px-6 border-b text-gray-500 text-center">
                                      <span
                                          class="inline-flex px-2.5 py-0.5 items-center rounded-full text-xs font-medium bg-yellow-300 text-warning-800 ">
-                                        Processing
+                                        In elaborazione
                                       </span>
                                 </td>
                             @endif
@@ -72,7 +72,7 @@
                                 <td class="py-4 px-6 border-b text-gray-500 text-center">
                                         <span
                                             class="inline-flex px-2.5 py-0.5 items-center rounded-full text-xs font-medium bg-red-800 text-white ">
-                                        Cancelled
+                                        Annullato
                                       </span>
                                 </td>
                             @endif
@@ -87,7 +87,7 @@
                                     <div class="flex ">
                                         <!-- Heroicon name: solid/cash -->
                                         <p class="text-gray-500  font-size-24 truncate group-hover:text-gray-900">
-                                            No shipments sent</p>
+                                            Nessuna spedizione inviata </p>
 
                                     </div>
                                 </td>
@@ -102,11 +102,7 @@
                 </table>
 
             </div>
-            @if(isset($query))
-                {{ $data->appends($query)->onEachSide(1)->links() }}
-            @else
-                {{ $data->onEachSide(1)->links('vendor.livewire.tailwind') }}
-            @endif
+            {{ $data->links('vendor.pagination.tailwind') }}
         </div>
     </div>
 

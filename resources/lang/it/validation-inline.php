@@ -38,7 +38,7 @@ return [
     'different'            => 'Deve essere diverso da :other.',
     'digits'               => 'Deve essere di :digits cifre.',
     'digits_between'       => 'Deve essere compreso tra :min e :max cifre.',
-    'dimensions'           => 'Image con dimensioni non valide.',
+    'dimensions'           => 'Immagine con dimensioni non valide.',
     'distinct'             => 'Questo valore esiste già.',
     'email'                => 'Deve essere un indirizzo email valido.',
     'ends_with'            => 'Deve terminare con uno dei seguenti valori: :values.',
