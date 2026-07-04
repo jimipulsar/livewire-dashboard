@@ -1,5 +1,9 @@
 /**
+<<<<<<< HEAD
  * TinyMCE version 7.9.3 (2026-05-19)
+=======
+ * TinyMCE version 7.6.0 (2024-12-11)
+>>>>>>> origin/main
  */
 
 (function () {

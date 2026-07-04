@@ -1169,6 +1169,7 @@ interface ToolbarGroupSpec {
     name?: string;
     label?: string;
     items: string[];
+<<<<<<< HEAD
 }
 interface ContextToolbarLaunchButtonApi extends BaseToolbarButtonSpec<BaseToolbarButtonInstanceApi> {
     type?: 'contexttoolbarbutton';
@@ -1176,6 +1177,11 @@ interface ContextToolbarLaunchButtonApi extends BaseToolbarButtonSpec<BaseToolba
 interface ContextToolbarSpec extends ContextBarSpec {
     type?: 'contexttoolbar';
     launch?: ContextToolbarLaunchButtonApi;
+=======
+}
+interface ContextToolbarSpec extends ContextBarSpec {
+    type?: 'contexttoolbar';
+>>>>>>> origin/main
     items: string | ToolbarGroupSpec[];
 }
 type PublicDialog_d_AlertBannerSpec = AlertBannerSpec;

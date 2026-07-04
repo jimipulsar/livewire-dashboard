@@ -27,7 +27,9 @@ And much more features.
     composer update && composer dump-autoload
     npm install --force && npn run dev
     php artisan storage:link
-    php artisan key:generate && php artisan serve
+    php artisan key:generate 
+    php artisan serve
+    npm run watch
 
 ### IMPORT DEFAULT DATABASE  [LIVEWIRE E-COMMERCE PLATFORM]
     Location Path Database --> database/store/livewire.sql

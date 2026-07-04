@@ -130,7 +130,7 @@ button::-moz-focus-inner {
   justify-content: space-between;
 }
 .tox .accessibility-issue__description > div {
-  padding-bottom: 4px;
+  padding-bottom: 16px;
 }
 .tox .accessibility-issue__description > div > div {
   align-items: center;
@@ -141,8 +141,13 @@ button::-moz-focus-inner {
   display: block;
 }
 .tox #accessibility-issue__contentID {
+<<<<<<< HEAD
   margin-top: 8px;
   margin-bottom: 8px;
+=======
+  margin-top: 16px;
+  margin-bottom: 16px;
+>>>>>>> origin/main
 }
 .tox #accessibility-issue__contentID span:first-child {
   font-weight: bold;
@@ -152,9 +157,12 @@ button::-moz-focus-inner {
 }
 .tox .accessibility-issue__repair {
   margin-top: 8px;
+<<<<<<< HEAD
 }
 .tox .accessibility-issue__repair .tox-form__group .tox-form__group--error {
   color: #c00;
+=======
+>>>>>>> origin/main
 }
 .tox .tox-dialog__body-content .accessibility-issue--info .accessibility-issue__description {
   background-color: #e9f2f8;
@@ -2414,10 +2422,23 @@ body.tox-dialog__disable-scroll {
   outline: 2px solid rgba(32, 122, 183, 0.25);
 }
 .tox .tox-toolbar-textfield {
+<<<<<<< HEAD
   max-width: 250px;
   min-height: unset;
   height: 34px;
   margin: 2px 0 3px 0;
+=======
+  margin-bottom: 3px;
+  margin-top: 2px;
+  max-width: 250px;
+  min-height: unset;
+  height: 34px;
+}
+.tox .tox-toolbar-textfield[disabled] {
+  background-color: #f2f2f2;
+  color: rgba(34, 47, 62, 0.85);
+  cursor: not-allowed;
+>>>>>>> origin/main
 }
 .tox .tox-naked-btn {
   background-color: transparent;

@@ -1,5 +1,9 @@
 /**
+<<<<<<< HEAD
  * TinyMCE version 7.9.3 (2026-05-19)
+=======
+ * TinyMCE version 7.6.0 (2024-12-11)
+>>>>>>> origin/main
  */
 
 (function () {
@@ -4476,6 +4480,7 @@
             isResizable
         };
     };
+<<<<<<< HEAD
     const body = (editable, isResizable) => {
         return {
             parent: constant(editable),
@@ -4483,6 +4488,303 @@
             dragContainer: constant(editable),
             origin: () => absolute(editable),
             isResizable
+=======
+    const opInsertColumnsAfter = (grid, extractDetail, comparator, genWrappers) => {
+      const details = extractDetail.details;
+      const target = details[details.length - 1];
+      const targetIndex = target.column + target.colspan;
+      const columns = uniqueColumns(details);
+      const newGrid = foldr(columns, (newG, col) => {
+        return insertColumnAt(newG, targetIndex, col.column, comparator, genWrappers.getOrInit);
+      }, grid);
+      return bundle(newGrid, details[0].row, targetIndex);
+    };
+    const opMakeColumnsHeader = (initialGrid, details, comparator, genWrappers) => {
+      const columns = uniqueColumns(details);
+      const columnIndexes = map$1(columns, detail => detail.column);
+      const newGrid = replaceColumns(initialGrid, columnIndexes, true, comparator, genWrappers.replaceOrInit);
+      return bundle(newGrid, details[0].row, details[0].column);
+    };
+    const opMakeCellsHeader = (initialGrid, details, comparator, genWrappers) => {
+      const newGrid = replaceCells(initialGrid, details, comparator, genWrappers.replaceOrInit);
+      return bundle(newGrid, details[0].row, details[0].column);
+    };
+    const opUnmakeColumnsHeader = (initialGrid, details, comparator, genWrappers) => {
+      const columns = uniqueColumns(details);
+      const columnIndexes = map$1(columns, detail => detail.column);
+      const newGrid = replaceColumns(initialGrid, columnIndexes, false, comparator, genWrappers.replaceOrInit);
+      return bundle(newGrid, details[0].row, details[0].column);
+    };
+    const opUnmakeCellsHeader = (initialGrid, details, comparator, genWrappers) => {
+      const newGrid = replaceCells(initialGrid, details, comparator, genWrappers.replaceOrInit);
+      return bundle(newGrid, details[0].row, details[0].column);
+    };
+    const makeRowsSection = (section, applyScope) => (initialGrid, details, comparator, genWrappers, tableSection) => {
+      const rows = uniqueRows(details);
+      const rowIndexes = map$1(rows, detail => detail.row);
+      const newGrid = replaceRows(initialGrid, rowIndexes, section, applyScope, comparator, genWrappers.replaceOrInit, tableSection);
+      return bundle(newGrid, details[0].row, details[0].column);
+    };
+    const opMakeRowsHeader = makeRowsSection('thead', true);
+    const opMakeRowsBody = makeRowsSection('tbody', false);
+    const opMakeRowsFooter = makeRowsSection('tfoot', false);
+    const opEraseColumns = (grid, extractDetail, _comparator, _genWrappers) => {
+      const columns = uniqueColumns(extractDetail.details);
+      const newGrid = deleteColumnsAt(grid, map$1(columns, column => column.column));
+      const maxColIndex = newGrid.length > 0 ? newGrid[0].cells.length - 1 : 0;
+      return bundle(newGrid, columns[0].row, Math.min(columns[0].column, maxColIndex));
+    };
+    const opEraseRows = (grid, details, _comparator, _genWrappers) => {
+      const rows = uniqueRows(details);
+      const newGrid = deleteRowsAt(grid, rows[0].row, rows[rows.length - 1].row);
+      const maxRowIndex = Math.max(extractGridDetails(newGrid).rows.length - 1, 0);
+      return bundle(newGrid, Math.min(details[0].row, maxRowIndex), details[0].column);
+    };
+    const opMergeCells = (grid, mergable, comparator, genWrappers) => {
+      const cells = mergable.cells;
+      merge(cells);
+      const newGrid = merge$2(grid, mergable.bounds, comparator, genWrappers.merge(cells));
+      return outcome(newGrid, Optional.from(cells[0]));
+    };
+    const opUnmergeCells = (grid, unmergable, comparator, genWrappers) => {
+      const unmerge$1 = (b, cell) => unmerge(b, cell, comparator, genWrappers.unmerge(cell));
+      const newGrid = foldr(unmergable, unmerge$1, grid);
+      return outcome(newGrid, Optional.from(unmergable[0]));
+    };
+    const opPasteCells = (grid, pasteDetails, comparator, _genWrappers) => {
+      const gridify = (table, generators) => {
+        const wh = Warehouse.fromTable(table);
+        return toGrid(wh, generators, true);
+      };
+      const gridB = gridify(pasteDetails.clipboard, pasteDetails.generators);
+      const startAddress = address(pasteDetails.row, pasteDetails.column);
+      const mergedGrid = merge$1(startAddress, grid, gridB, pasteDetails.generators, comparator);
+      return mergedGrid.fold(() => outcome(grid, Optional.some(pasteDetails.element)), newGrid => {
+        return bundle(newGrid, pasteDetails.row, pasteDetails.column);
+      });
+    };
+    const gridifyRows = (rows, generators, context) => {
+      const pasteDetails = fromPastedRows(rows, context.section);
+      const wh = Warehouse.generate(pasteDetails);
+      return toGrid(wh, generators, true);
+    };
+    const opPasteColsBefore = (grid, pasteDetails, comparator, _genWrappers) => {
+      const rows = extractGridDetails(grid).rows;
+      const index = pasteDetails.cells[0].column;
+      const context = rows[pasteDetails.cells[0].row];
+      const gridB = gridifyRows(pasteDetails.clipboard, pasteDetails.generators, context);
+      const mergedGrid = insertCols(index, grid, gridB, pasteDetails.generators, comparator);
+      return bundle(mergedGrid, pasteDetails.cells[0].row, pasteDetails.cells[0].column);
+    };
+    const opPasteColsAfter = (grid, pasteDetails, comparator, _genWrappers) => {
+      const rows = extractGridDetails(grid).rows;
+      const index = pasteDetails.cells[pasteDetails.cells.length - 1].column + pasteDetails.cells[pasteDetails.cells.length - 1].colspan;
+      const context = rows[pasteDetails.cells[0].row];
+      const gridB = gridifyRows(pasteDetails.clipboard, pasteDetails.generators, context);
+      const mergedGrid = insertCols(index, grid, gridB, pasteDetails.generators, comparator);
+      return bundle(mergedGrid, pasteDetails.cells[0].row, index);
+    };
+    const opPasteRowsBefore = (grid, pasteDetails, comparator, _genWrappers) => {
+      const rows = extractGridDetails(grid).rows;
+      const index = pasteDetails.cells[0].row;
+      const context = rows[index];
+      const gridB = gridifyRows(pasteDetails.clipboard, pasteDetails.generators, context);
+      const mergedGrid = insertRows(index, grid, gridB, pasteDetails.generators, comparator);
+      return bundle(mergedGrid, pasteDetails.cells[0].row, pasteDetails.cells[0].column);
+    };
+    const opPasteRowsAfter = (grid, pasteDetails, comparator, _genWrappers) => {
+      const rows = extractGridDetails(grid).rows;
+      const index = pasteDetails.cells[pasteDetails.cells.length - 1].row + pasteDetails.cells[pasteDetails.cells.length - 1].rowspan;
+      const context = rows[pasteDetails.cells[0].row];
+      const gridB = gridifyRows(pasteDetails.clipboard, pasteDetails.generators, context);
+      const mergedGrid = insertRows(index, grid, gridB, pasteDetails.generators, comparator);
+      return bundle(mergedGrid, index, pasteDetails.cells[0].column);
+    };
+    const opGetColumnsType = (table, target) => {
+      const house = Warehouse.fromTable(table);
+      const details = onCells(house, target);
+      return details.bind(selectedCells => {
+        const lastSelectedCell = selectedCells[selectedCells.length - 1];
+        const minColRange = selectedCells[0].column;
+        const maxColRange = lastSelectedCell.column + lastSelectedCell.colspan;
+        const selectedColumnCells = flatten(map$1(house.all, row => filter$2(row.cells, cell => cell.column >= minColRange && cell.column < maxColRange)));
+        return findCommonCellType(selectedColumnCells);
+      }).getOr('');
+    };
+    const opGetCellsType = (table, target) => {
+      const house = Warehouse.fromTable(table);
+      const details = onCells(house, target);
+      return details.bind(findCommonCellType).getOr('');
+    };
+    const opGetRowsType = (table, target) => {
+      const house = Warehouse.fromTable(table);
+      const details = onCells(house, target);
+      return details.bind(selectedCells => {
+        const lastSelectedCell = selectedCells[selectedCells.length - 1];
+        const minRowRange = selectedCells[0].row;
+        const maxRowRange = lastSelectedCell.row + lastSelectedCell.rowspan;
+        const selectedRows = house.all.slice(minRowRange, maxRowRange);
+        return findCommonRowType(selectedRows);
+      }).getOr('');
+    };
+    const resize = (table, list, details, behaviours) => adjustWidthTo(table, list, details, behaviours.sizing);
+    const adjustAndRedistributeWidths = (table, list, details, behaviours) => adjustAndRedistributeWidths$1(table, list, details, behaviours.sizing, behaviours.resize);
+    const firstColumnIsLocked = (_warehouse, details) => exists(details, detail => detail.column === 0 && detail.isLocked);
+    const lastColumnIsLocked = (warehouse, details) => exists(details, detail => detail.column + detail.colspan >= warehouse.grid.columns && detail.isLocked);
+    const getColumnsWidth = (warehouse, details) => {
+      const columns$1 = columns(warehouse);
+      const uniqueCols = uniqueColumns(details);
+      return foldl(uniqueCols, (acc, detail) => {
+        const column = columns$1[detail.column];
+        const colWidth = column.map(getOuter$2).getOr(0);
+        return acc + colWidth;
+      }, 0);
+    };
+    const insertColumnsExtractor = before => (warehouse, target) => onCells(warehouse, target).filter(details => {
+      const checkLocked = before ? firstColumnIsLocked : lastColumnIsLocked;
+      return !checkLocked(warehouse, details);
+    }).map(details => ({
+      details,
+      pixelDelta: getColumnsWidth(warehouse, details)
+    }));
+    const eraseColumnsExtractor = (warehouse, target) => onUnlockedCells(warehouse, target).map(details => ({
+      details,
+      pixelDelta: -getColumnsWidth(warehouse, details)
+    }));
+    const pasteColumnsExtractor = before => (warehouse, target) => onPasteByEditor(warehouse, target).filter(details => {
+      const checkLocked = before ? firstColumnIsLocked : lastColumnIsLocked;
+      return !checkLocked(warehouse, details.cells);
+    });
+    const headerCellGenerator = Generators.transform('th');
+    const bodyCellGenerator = Generators.transform('td');
+    const insertRowsBefore = run(opInsertRowsBefore, onCells, noop, noop, Generators.modification);
+    const insertRowsAfter = run(opInsertRowsAfter, onCells, noop, noop, Generators.modification);
+    const insertColumnsBefore = run(opInsertColumnsBefore, insertColumnsExtractor(true), adjustAndRedistributeWidths, noop, Generators.modification);
+    const insertColumnsAfter = run(opInsertColumnsAfter, insertColumnsExtractor(false), adjustAndRedistributeWidths, noop, Generators.modification);
+    const eraseColumns = run(opEraseColumns, eraseColumnsExtractor, adjustAndRedistributeWidths, prune, Generators.modification);
+    const eraseRows = run(opEraseRows, onCells, noop, prune, Generators.modification);
+    const makeColumnsHeader = run(opMakeColumnsHeader, onUnlockedCells, noop, noop, headerCellGenerator);
+    const unmakeColumnsHeader = run(opUnmakeColumnsHeader, onUnlockedCells, noop, noop, bodyCellGenerator);
+    const makeRowsHeader = run(opMakeRowsHeader, onCells, noop, noop, headerCellGenerator);
+    const makeRowsBody = run(opMakeRowsBody, onCells, noop, noop, bodyCellGenerator);
+    const makeRowsFooter = run(opMakeRowsFooter, onCells, noop, noop, bodyCellGenerator);
+    const makeCellsHeader = run(opMakeCellsHeader, onUnlockedCells, noop, noop, headerCellGenerator);
+    const unmakeCellsHeader = run(opUnmakeCellsHeader, onUnlockedCells, noop, noop, bodyCellGenerator);
+    const mergeCells = run(opMergeCells, onUnlockedMergable, resize, noop, Generators.merging);
+    const unmergeCells = run(opUnmergeCells, onUnlockedUnmergable, resize, noop, Generators.merging);
+    const pasteCells = run(opPasteCells, onPaste, resize, noop, Generators.modification);
+    const pasteColsBefore = run(opPasteColsBefore, pasteColumnsExtractor(true), noop, noop, Generators.modification);
+    const pasteColsAfter = run(opPasteColsAfter, pasteColumnsExtractor(false), noop, noop, Generators.modification);
+    const pasteRowsBefore = run(opPasteRowsBefore, onPasteByEditor, noop, noop, Generators.modification);
+    const pasteRowsAfter = run(opPasteRowsAfter, onPasteByEditor, noop, noop, Generators.modification);
+    const getColumnsType = opGetColumnsType;
+    const getCellsType = opGetCellsType;
+    const getRowsType = opGetRowsType;
+
+    const fireNewRow = (editor, row) => editor.dispatch('NewRow', { node: row });
+    const fireNewCell = (editor, cell) => editor.dispatch('NewCell', { node: cell });
+    const fireTableModified = (editor, table, data) => {
+      editor.dispatch('TableModified', {
+        ...data,
+        table
+      });
+    };
+    const fireTableSelectionChange = (editor, cells, start, finish, otherCells) => {
+      editor.dispatch('TableSelectionChange', {
+        cells,
+        start,
+        finish,
+        otherCells
+      });
+    };
+    const fireTableSelectionClear = editor => {
+      editor.dispatch('TableSelectionClear');
+    };
+    const fireObjectResizeStart = (editor, target, width, height, origin) => {
+      editor.dispatch('ObjectResizeStart', {
+        target,
+        width,
+        height,
+        origin
+      });
+    };
+    const fireObjectResized = (editor, target, width, height, origin) => {
+      editor.dispatch('ObjectResized', {
+        target,
+        width,
+        height,
+        origin
+      });
+    };
+    const styleModified = {
+      structure: false,
+      style: true
+    };
+    const structureModified = {
+      structure: true,
+      style: false
+    };
+    const styleAndStructureModified = {
+      structure: true,
+      style: true
+    };
+
+    const get$5 = (editor, table) => {
+      if (isTablePercentagesForced(editor)) {
+        return TableSize.percentageSize(table);
+      } else if (isTablePixelsForced(editor)) {
+        return TableSize.pixelSize(table);
+      } else {
+        return TableSize.getTableSize(table);
+      }
+    };
+
+    const TableActions = (editor, resizeHandler, cellSelectionHandler) => {
+      const isTableBody = editor => name(getBody(editor)) === 'table';
+      const lastRowGuard = table => !isTableBody(editor) || getGridSize(table).rows > 1;
+      const lastColumnGuard = table => !isTableBody(editor) || getGridSize(table).columns > 1;
+      const cloneFormats = getTableCloneElements(editor);
+      const colMutationOp = isResizeTableColumnResizing(editor) ? noop : halve;
+      const getTableSectionType = table => {
+        switch (getTableHeaderType(editor)) {
+        case 'section':
+          return TableSection.section();
+        case 'sectionCells':
+          return TableSection.sectionCells();
+        case 'cells':
+          return TableSection.cells();
+        default:
+          return TableSection.getTableSectionType(table, 'section');
+        }
+      };
+      const setSelectionFromAction = (table, result) => result.cursor.fold(() => {
+        const cells = cells$1(table);
+        return head(cells).filter(inBody).map(firstCell => {
+          cellSelectionHandler.clearSelectedCells(table.dom);
+          const rng = editor.dom.createRng();
+          rng.selectNode(firstCell.dom);
+          editor.selection.setRng(rng);
+          set$2(firstCell, 'data-mce-selected', '1');
+          return rng;
+        });
+      }, cell => {
+        const des = freefallRtl(cell);
+        const rng = editor.dom.createRng();
+        rng.setStart(des.element.dom, des.offset);
+        rng.setEnd(des.element.dom, des.offset);
+        editor.selection.setRng(rng);
+        cellSelectionHandler.clearSelectedCells(table.dom);
+        return Optional.some(rng);
+      });
+      const execute = (operation, guard, mutate, effect) => (table, target, noEvents = false) => {
+        removeDataStyle(table);
+        const doc = SugarElement.fromDom(editor.getDoc());
+        const generators = cellOperations(mutate, doc, cloneFormats);
+        const behaviours = {
+          sizing: get$5(editor, table),
+          resize: isResizeTableColumnResizing(editor) ? resizeTable() : preserveTable(),
+          section: getTableSectionType(table)
+>>>>>>> origin/main
         };
     };
     const ResizeWire = {
@@ -7026,6 +7328,7 @@
                 });
             });
         }
+<<<<<<< HEAD
     };
     const retrieve$1 = (container, selector) => {
         const sels = descendants(container, selector);
@@ -7070,6 +7373,59 @@
                 return expandTo(finish, firstSelectedSelector);
             });
         });
+=======
+      });
+      editor.on('ObjectResized', e => {
+        const targetElm = e.target;
+        if (isTable(targetElm)) {
+          const table = SugarElement.fromDom(targetElm);
+          const origin = e.origin;
+          if (isCornerResize(origin)) {
+            afterCornerResize(table, origin, e.width, e.height);
+          }
+          removeDataStyle(table);
+          fireTableModified(editor, table.dom, styleModified);
+        }
+      });
+      const showResizeBars = () => {
+        tableResize.on(resize => {
+          resize.on();
+          resize.showBars();
+        });
+      };
+      const hideResizeBars = () => {
+        tableResize.on(resize => {
+          resize.off();
+          resize.hideBars();
+        });
+      };
+      editor.on('DisabledStateChange', e => {
+        e.state ? hideResizeBars() : showResizeBars();
+      });
+      editor.on('SwitchMode', () => {
+        editor.mode.isReadOnly() ? hideResizeBars() : showResizeBars();
+      });
+      editor.on('dragstart dragend', e => {
+        e.type === 'dragstart' ? hideResizeBars() : showResizeBars();
+      });
+      editor.on('remove', () => {
+        destroy();
+      });
+      const refresh = table => {
+        tableResize.on(resize => resize.refreshBars(SugarElement.fromDom(table)));
+      };
+      const hide = () => {
+        tableResize.on(resize => resize.hideBars());
+      };
+      const show = () => {
+        tableResize.on(resize => resize.showBars());
+      };
+      return {
+        refresh,
+        hide,
+        show
+      };
+>>>>>>> origin/main
     };
 
     // Explicitly calling CellSelection.retrieve so that we can see the API signature.
