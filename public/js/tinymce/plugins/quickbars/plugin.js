@@ -1,9 +1,5 @@
 /**
-<<<<<<< HEAD
  * TinyMCE version 7.9.3 (2026-05-19)
-=======
- * TinyMCE version 7.6.0 (2024-12-11)
->>>>>>> origin/main
  */
 
 (function () {
@@ -11,7 +7,6 @@
 
     var global$1 = tinymce.util.Tools.resolve('tinymce.PluginManager');
 
-<<<<<<< HEAD
     /* eslint-disable @typescript-eslint/no-wrapper-object-types */
     const hasProto = (v, constructor, predicate) => {
         var _a;
@@ -350,45 +345,10 @@
             };
             reader.readAsDataURL(blob);
         });
-=======
-    const random = () => window.crypto.getRandomValues(new Uint32Array(1))[0] / 4294967295;
-
-    let unique = 0;
-    const generate = prefix => {
-      const date = new Date();
-      const time = date.getTime();
-      const random$1 = Math.floor(random() * 1000000000);
-      unique++;
-      return prefix + '_' + random$1 + unique + String(time);
-    };
-
-    const insertTable = (editor, columns, rows) => {
-      editor.execCommand('mceInsertTable', false, {
-        rows,
-        columns
-      });
-    };
-    const insertBlob = (editor, base64, blob) => {
-      const blobCache = editor.editorUpload.blobCache;
-      const blobInfo = blobCache.create(generate('mceu'), blob, base64);
-      blobCache.add(blobInfo);
-      editor.insertContent(editor.dom.createHTML('img', { src: blobInfo.blobUri() }));
-    };
-
-    const blobToBase64 = blob => {
-      return new Promise(resolve => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          resolve(reader.result.split(',')[1]);
-        };
-        reader.readAsDataURL(blob);
-      });
->>>>>>> origin/main
     };
 
     var global = tinymce.util.Tools.resolve('tinymce.util.Delay');
 
-<<<<<<< HEAD
     const pickFile = (editor) => new Promise((resolve) => {
         let resolved = false;
         const fileInput = document.createElement('input');
@@ -482,138 +442,11 @@
             processor: toolbarProcessor(defaultImageToolbar),
             default: defaultImageToolbar
         });
-=======
-    const pickFile = editor => new Promise(resolve => {
-      let resolved = false;
-      const fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = 'image/*';
-      fileInput.style.position = 'fixed';
-      fileInput.style.left = '0';
-      fileInput.style.top = '0';
-      fileInput.style.opacity = '0.001';
-      document.body.appendChild(fileInput);
-      const resolveFileInput = value => {
-        var _a;
-        if (!resolved) {
-          (_a = fileInput.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(fileInput);
-          resolved = true;
-          resolve(value);
-        }
-      };
-      const changeHandler = e => {
-        resolveFileInput(Array.prototype.slice.call(e.target.files));
-      };
-      fileInput.addEventListener('input', changeHandler);
-      fileInput.addEventListener('change', changeHandler);
-      const cancelHandler = e => {
-        const cleanup = () => {
-          resolveFileInput([]);
-        };
-        if (!resolved) {
-          if (e.type === 'focusin') {
-            global.setEditorTimeout(editor, cleanup, 1000);
-          } else {
-            cleanup();
-          }
-        }
-        editor.off('focusin remove', cancelHandler);
-      };
-      editor.on('focusin remove', cancelHandler);
-      fileInput.click();
-    });
-
-    const register$1 = editor => {
-      editor.on('PreInit', () => {
-        if (!editor.queryCommandSupported('QuickbarInsertImage')) {
-          editor.addCommand('QuickbarInsertImage', () => {
-            pickFile(editor).then(files => {
-              if (files.length > 0) {
-                const blob = files[0];
-                blobToBase64(blob).then(base64 => {
-                  insertBlob(editor, base64, blob);
-                });
-              }
-            });
-          });
-        }
-      });
-    };
-
-    const hasProto = (v, constructor, predicate) => {
-      var _a;
-      if (predicate(v, constructor.prototype)) {
-        return true;
-      } else {
-        return ((_a = v.constructor) === null || _a === void 0 ? void 0 : _a.name) === constructor.name;
-      }
-    };
-    const typeOf = x => {
-      const t = typeof x;
-      if (x === null) {
-        return 'null';
-      } else if (t === 'object' && Array.isArray(x)) {
-        return 'array';
-      } else if (t === 'object' && hasProto(x, String, (o, proto) => proto.isPrototypeOf(o))) {
-        return 'string';
-      } else {
-        return t;
-      }
-    };
-    const isType = type => value => typeOf(value) === type;
-    const isSimpleType = type => value => typeof value === type;
-    const isString = isType('string');
-    const isBoolean = isSimpleType('boolean');
-    const isNullable = a => a === null || a === undefined;
-    const isNonNullable = a => !isNullable(a);
-    const isFunction = isSimpleType('function');
-
-    const option = name => editor => editor.options.get(name);
-    const register = editor => {
-      const registerOption = editor.options.register;
-      const toolbarProcessor = defaultValue => value => {
-        const valid = isBoolean(value) || isString(value);
-        if (valid) {
-          if (isBoolean(value)) {
-            return {
-              value: value ? defaultValue : '',
-              valid
-            };
-          } else {
-            return {
-              value: value.trim(),
-              valid
-            };
-          }
-        } else {
-          return {
-            valid: false,
-            message: 'Must be a boolean or string.'
-          };
-        }
-      };
-      const defaultSelectionToolbar = 'bold italic | quicklink h2 h3 blockquote';
-      registerOption('quickbars_selection_toolbar', {
-        processor: toolbarProcessor(defaultSelectionToolbar),
-        default: defaultSelectionToolbar
-      });
-      const defaultInsertToolbar = 'quickimage quicktable';
-      registerOption('quickbars_insert_toolbar', {
-        processor: toolbarProcessor(defaultInsertToolbar),
-        default: defaultInsertToolbar
-      });
-      const defaultImageToolbar = 'alignleft aligncenter alignright';
-      registerOption('quickbars_image_toolbar', {
-        processor: toolbarProcessor(defaultImageToolbar),
-        default: defaultImageToolbar
-      });
->>>>>>> origin/main
     };
     const getTextSelectionToolbarItems = option('quickbars_selection_toolbar');
     const getInsertToolbarItems = option('quickbars_insert_toolbar');
     const getImageToolbarItems = option('quickbars_image_toolbar');
 
-<<<<<<< HEAD
     const setupButtons = (editor) => {
         editor.ui.registry.addButton('quickimage', {
             icon: 'image',
@@ -627,145 +460,6 @@
                 insertTable(editor, 2, 2);
             }
         });
-=======
-    const setupButtons = editor => {
-      editor.ui.registry.addButton('quickimage', {
-        icon: 'image',
-        tooltip: 'Insert image',
-        onAction: () => editor.execCommand('QuickbarInsertImage')
-      });
-      editor.ui.registry.addButton('quicktable', {
-        icon: 'table',
-        tooltip: 'Insert table',
-        onAction: () => {
-          insertTable(editor, 2, 2);
-        }
-      });
-    };
-
-    const constant = value => {
-      return () => {
-        return value;
-      };
-    };
-    const never = constant(false);
-
-    class Optional {
-      constructor(tag, value) {
-        this.tag = tag;
-        this.value = value;
-      }
-      static some(value) {
-        return new Optional(true, value);
-      }
-      static none() {
-        return Optional.singletonNone;
-      }
-      fold(onNone, onSome) {
-        if (this.tag) {
-          return onSome(this.value);
-        } else {
-          return onNone();
-        }
-      }
-      isSome() {
-        return this.tag;
-      }
-      isNone() {
-        return !this.tag;
-      }
-      map(mapper) {
-        if (this.tag) {
-          return Optional.some(mapper(this.value));
-        } else {
-          return Optional.none();
-        }
-      }
-      bind(binder) {
-        if (this.tag) {
-          return binder(this.value);
-        } else {
-          return Optional.none();
-        }
-      }
-      exists(predicate) {
-        return this.tag && predicate(this.value);
-      }
-      forall(predicate) {
-        return !this.tag || predicate(this.value);
-      }
-      filter(predicate) {
-        if (!this.tag || predicate(this.value)) {
-          return this;
-        } else {
-          return Optional.none();
-        }
-      }
-      getOr(replacement) {
-        return this.tag ? this.value : replacement;
-      }
-      or(replacement) {
-        return this.tag ? this : replacement;
-      }
-      getOrThunk(thunk) {
-        return this.tag ? this.value : thunk();
-      }
-      orThunk(thunk) {
-        return this.tag ? this : thunk();
-      }
-      getOrDie(message) {
-        if (!this.tag) {
-          throw new Error(message !== null && message !== void 0 ? message : 'Called getOrDie on None');
-        } else {
-          return this.value;
-        }
-      }
-      static from(value) {
-        return isNonNullable(value) ? Optional.some(value) : Optional.none();
-      }
-      getOrNull() {
-        return this.tag ? this.value : null;
-      }
-      getOrUndefined() {
-        return this.value;
-      }
-      each(worker) {
-        if (this.tag) {
-          worker(this.value);
-        }
-      }
-      toArray() {
-        return this.tag ? [this.value] : [];
-      }
-      toString() {
-        return this.tag ? `some(${ this.value })` : 'none()';
-      }
-    }
-    Optional.singletonNone = new Optional(false);
-
-    typeof window !== 'undefined' ? window : Function('return this;')();
-
-    const ELEMENT = 1;
-
-    const name = element => {
-      const r = element.dom.nodeName;
-      return r.toLowerCase();
-    };
-
-    const has$1 = (element, key) => {
-      const dom = element.dom;
-      return dom && dom.hasAttribute ? dom.hasAttribute(key) : false;
-    };
-
-    var ClosestOrAncestor = (is, ancestor, scope, a, isRoot) => {
-      if (is(scope, a)) {
-        return Optional.some(scope);
-      } else if (isFunction(isRoot) && isRoot(scope)) {
-        return Optional.none();
-      } else {
-        return ancestor(scope, a, isRoot);
-      }
->>>>>>> origin/main
     };
 
     const fromHtml = (html, scope) => {
@@ -941,7 +635,6 @@
     };
 
     var Plugin = () => {
-<<<<<<< HEAD
         global$1.add('quickbars', (editor) => {
             register(editor);
             register$1(editor);
@@ -949,15 +642,6 @@
             addToEditor$1(editor);
             addToEditor(editor);
         });
-=======
-      global$1.add('quickbars', editor => {
-        register(editor);
-        register$1(editor);
-        setupButtons(editor);
-        addToEditor$1(editor);
-        addToEditor(editor);
-      });
->>>>>>> origin/main
     };
 
     Plugin();

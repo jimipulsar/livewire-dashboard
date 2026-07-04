@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* This file is bundled with the code from the following third party libraries */
 
 /**
@@ -8,8 +7,6 @@
  *
  * Ported for PrismJS by Albert Vallverdu [@byverdu]
  */
-=======
->>>>>>> origin/main
 @keyframes tox-rotation {
   0% {
     transform: rotate(0deg);
@@ -686,11 +683,7 @@ table[style*="border-width: 0px"] caption,
   all: initial;
   display: inline-block;
   position: relative;
-<<<<<<< HEAD
   width: min(100%, 600px);
-=======
-  width: 600px;
->>>>>>> origin/main
   height: 80px;
   --tox-uploadcare-placeholder--content-cursor: auto !important;
   --tox-uploadcare-placeholder--content-color: rgba(34, 47, 62, 0.7);
@@ -704,10 +697,7 @@ table[style*="border-width: 0px"] caption,
   --tox-uploadcare-placeholder--content-justify-content: center;
   --tox-uploadcare-placeholder--content-gap: 8px;
   --tox-uploadcare-placeholder--icon-fill: rgba(34, 47, 62, 0.7);
-<<<<<<< HEAD
   --tox-uploadcare-placeholder--icon-min-width: 24px;
-=======
->>>>>>> origin/main
   --tox-uc-loading-spinner-wrapper-display-none: none;
   --tox-uc-loading-spinner-wrapper-display: flex;
   --tox-uc-loading-spinner-wrapper-position: absolute;
@@ -868,11 +858,8 @@ table[style*="border-width: 0px"] caption,
 [data-ephox-foam-a11y-violation][data-ephox-foam-a11y-current-violation] {
   outline-width: 4px;
   transition: outline-width 0.1s ease-in-out, background-color 0.1s ease-in-out;
-<<<<<<< HEAD
   box-shadow: 0 0 0 99999px #222f3e80;
   z-index: 1;
-=======
->>>>>>> origin/main
 }
 [data-ephox-foam-a11y-violation][data-ephox-foam-a11y-severity-info] {
   outline-color: #006ce7;
@@ -895,9 +882,6 @@ table[style*="border-width: 0px"] caption,
   outline-color: #c00;
   background-color: #fae6e6;
 }
-<<<<<<< HEAD
 [data-ephox-foam-a11y-violation][data-ephox-foam-a11y-current-violation]:is(td, th, tr) {
   position: static;
 }
-=======
->>>>>>> origin/main

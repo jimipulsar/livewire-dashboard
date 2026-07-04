@@ -1,9 +1,5 @@
 /**
-<<<<<<< HEAD
  * TinyMCE version 7.9.3 (2026-05-19)
-=======
- * TinyMCE version 7.6.0 (2024-12-11)
->>>>>>> origin/main
  */
 
 (function () {
@@ -1207,19 +1203,11 @@
     const blank = (r) => (s) => s.replace(r, '');
     /** removes all leading and trailing spaces */
     const trim$1 = blank(/^\s+|\s+$/g);
-<<<<<<< HEAD
     const isNotEmpty = (s) => s.length > 0;
     const isEmpty = (s) => !isNotEmpty(s);
     const toFloat = (value) => {
         const num = parseFloat(value);
         return isNaN(num) ? Optional.none() : Optional.some(num);
-=======
-    const isNotEmpty = s => s.length > 0;
-    const isEmpty = s => !isNotEmpty(s);
-    const toFloat = value => {
-      const num = parseFloat(value);
-      return isNaN(num) ? Optional.none() : Optional.some(num);
->>>>>>> origin/main
     };
 
     // Run a function fn after rate ms. If another invocation occurs
@@ -4217,7 +4205,6 @@
         'right',
         'inset'
     ];
-<<<<<<< HEAD
     const nu$6 = (xOffset, yOffset, classes, insetModifier = 1) => {
         const insetXOffset = xOffset * insetModifier;
         const insetYOffset = yOffset * insetModifier;
@@ -4248,51 +4235,9 @@
             insetEast: () => make(-insetXOffset, -insetYOffset / 2, ['valignCentre', 'right', 'inset']),
             insetWest: () => make(insetXOffset, -insetYOffset / 2, ['valignCentre', 'left', 'inset'])
         };
-=======
-    const onLoad$1 = (component, disableConfig, disableState) => {
-      const f = disableConfig.disabled() ? disable : enable;
-      f(component, disableConfig);
-    };
-    const hasNative = (component, config) => config.useNative === true && contains$2(nativeDisabled, name$3(component.element));
-    const nativeIsDisabled = component => has$1(component.element, 'disabled');
-    const nativeDisable = component => {
-      set$9(component.element, 'disabled', 'disabled');
-    };
-    const nativeEnable = component => {
-      remove$8(component.element, 'disabled');
-    };
-    const ariaIsDisabled = component => get$g(component.element, 'aria-disabled') === 'true';
-    const ariaDisable = component => {
-      set$9(component.element, 'aria-disabled', 'true');
-    };
-    const ariaEnable = component => {
-      set$9(component.element, 'aria-disabled', 'false');
-    };
-    const disable = (component, disableConfig, _disableState) => {
-      disableConfig.disableClass.each(disableClass => {
-        add$2(component.element, disableClass);
-      });
-      const f = hasNative(component, disableConfig) ? nativeDisable : ariaDisable;
-      f(component);
-      disableConfig.onDisabled(component);
-    };
-    const enable = (component, disableConfig, _disableState) => {
-      disableConfig.disableClass.each(disableClass => {
-        remove$3(component.element, disableClass);
-      });
-      const f = hasNative(component, disableConfig) ? nativeEnable : ariaEnable;
-      f(component);
-      disableConfig.onEnabled(component);
-    };
-    const isDisabled$1 = (component, disableConfig) => hasNative(component, disableConfig) ? nativeIsDisabled(component) : ariaIsDisabled(component);
-    const set$4 = (component, disableConfig, disableState, disabled) => {
-      const f = disabled ? disable : enable;
-      f(component, disableConfig);
->>>>>>> origin/main
     };
     const fallback = () => nu$6(0, 0, {});
 
-<<<<<<< HEAD
     const nu$5 = (x, y, bubble, direction, placement, boundsRestriction, labelPrefix, alwaysFit = false) => ({
         x,
         y,
@@ -4313,21 +4258,6 @@
         { north: [] },
         { east: [] },
         { west: [] }
-=======
-    var DisableApis = /*#__PURE__*/Object.freeze({
-        __proto__: null,
-        enable: enable,
-        disable: disable,
-        isDisabled: isDisabled$1,
-        onLoad: onLoad$1,
-        set: set$4
-    });
-
-    const exhibit$5 = (base, disableConfig) => nu$8({ classes: disableConfig.disabled() ? disableConfig.disableClass.toArray() : [] });
-    const events$d = (disableConfig, disableState) => derive$2([
-      abort(execute$5(), (component, _simulatedEvent) => isDisabled$1(component, disableConfig)),
-      loadEvent(disableConfig, disableState, onLoad$1)
->>>>>>> origin/main
     ]);
     const cata$1 = (subject, southeast, southwest, northeast, northwest, south, north, east, west) => subject.fold(southeast, southwest, northeast, northwest, south, north, east, west);
     const cataVertical = (subject, south, middle, north) => subject.fold(south, south, north, north, south, north, middle, middle);
@@ -5468,15 +5398,9 @@
         initSize()
     ];
     const focusIn$4 = (component, gridConfig, _gridState) => {
-<<<<<<< HEAD
         descendant(component.element, gridConfig.selector).each((first) => {
             gridConfig.focusManager.set(component, first);
         });
-=======
-      descendant(component.element, gridConfig.selector).each(first => {
-        gridConfig.focusManager.set(component, first);
-      });
->>>>>>> origin/main
     };
     const findCurrent$1 = (component, gridConfig) => gridConfig.focusManager.get(component).bind((elem) => closest$3(elem, gridConfig.selector));
     const execute$3 = (component, simulatedEvent, gridConfig, _gridState) => findCurrent$1(component, gridConfig)
@@ -5503,11 +5427,7 @@
         rule(inSet(ESCAPE), doEscape$1),
         rule(inSet(SPACE), stopEventForFirefox)
     ]);
-<<<<<<< HEAD
     var FlatgridType = typical(schema$y, flatgrid$1, getKeydownRules$4, getKeyupRules$4, () => Optional.some(focusIn$4));
-=======
-    var FlatgridType = typical(schema$u, flatgrid$1, getKeydownRules$4, getKeyupRules$4, () => Optional.some(focusIn$4));
->>>>>>> origin/main
 
     const f = (container, selector, current, delta, getNewIndex) => {
         const isDisabledButton = (candidate) => name$3(candidate) === 'button' && get$g(candidate, 'disabled') === 'disabled';
@@ -5541,7 +5461,6 @@
         defaulted('allowHorizontal', true),
         defaulted('cycles', true)
     ];
-<<<<<<< HEAD
     // TODO: Remove dupe.
     // TODO: Probably use this for not just execution.
     const findCurrent = (component, flowConfig) => flowConfig.focusManager.get(component).bind((elem) => closest$3(elem, flowConfig.selector));
@@ -5550,14 +5469,6 @@
         flowConfig.getInitial(component).orThunk(() => descendant(component.element, flowConfig.selector)).each((first) => {
             flowConfig.focusManager.set(component, first);
         });
-=======
-    const findCurrent = (component, flowConfig) => flowConfig.focusManager.get(component).bind(elem => closest$1(elem, flowConfig.selector));
-    const execute$2 = (component, simulatedEvent, flowConfig) => findCurrent(component, flowConfig).bind(focused => flowConfig.execute(component, simulatedEvent, focused));
-    const focusIn$3 = (component, flowConfig, _state) => {
-      flowConfig.getInitial(component).orThunk(() => descendant(component.element, flowConfig.selector)).each(first => {
-        flowConfig.focusManager.set(component, first);
-      });
->>>>>>> origin/main
     };
     const moveLeft$2 = (element, focused, info) => (info.cycles ? horizontal : horizontalWithoutCycles)(element, info.selector, focused, -1);
     const moveRight$2 = (element, focused, info) => (info.cycles ? horizontal : horizontalWithoutCycles)(element, info.selector, focused, +1);
@@ -5579,11 +5490,7 @@
         rule(inSet(SPACE), stopEventForFirefox),
         rule(inSet(ESCAPE), doEscape)
     ]);
-<<<<<<< HEAD
     var FlowType = typical(schema$x, NoState.init, getKeydownRules$3, getKeyupRules$3, () => Optional.some(focusIn$3));
-=======
-    var FlowType = typical(schema$t, NoState.init, getKeydownRules$3, getKeyupRules$3, () => Optional.some(focusIn$3));
->>>>>>> origin/main
 
     const toCell = (matrix, rowIndex, columnIndex) => Optional.from(matrix[rowIndex]).bind((row) => Optional.from(row[columnIndex]).map((cell) => ({
         rowIndex,
@@ -5635,7 +5542,6 @@
         defaulted('execute', defaultExecute)
     ];
     const focusIn$2 = (component, matrixConfig, _state) => {
-<<<<<<< HEAD
         const focused = matrixConfig.previousSelector(component).orThunk(() => {
             const selectors = matrixConfig.selectors;
             return descendant(component.element, selectors.cell);
@@ -5658,28 +5564,6 @@
                     return move(matrix, rowIndex, colIndex).map((next) => next.cell);
                 });
             });
-=======
-      const focused = matrixConfig.previousSelector(component).orThunk(() => {
-        const selectors = matrixConfig.selectors;
-        return descendant(component.element, selectors.cell);
-      });
-      focused.each(cell => {
-        matrixConfig.focusManager.set(component, cell);
-      });
-    };
-    const execute$1 = (component, simulatedEvent, matrixConfig) => search(component.element).bind(focused => matrixConfig.execute(component, simulatedEvent, focused));
-    const toMatrix = (rows, matrixConfig) => map$2(rows, row => descendants(row, matrixConfig.selectors.cell));
-    const doMove = (ifCycle, ifMove) => (element, focused, matrixConfig) => {
-      const move = matrixConfig.cycles ? ifCycle : ifMove;
-      return closest$1(focused, matrixConfig.selectors.row).bind(inRow => {
-        const cellsInRow = descendants(inRow, matrixConfig.selectors.cell);
-        return findIndex(cellsInRow, focused).bind(colIndex => {
-          const allRows = descendants(element, matrixConfig.selectors.row);
-          return findIndex(allRows, inRow).bind(rowIndex => {
-            const matrix = toMatrix(allRows, matrixConfig);
-            return move(matrix, rowIndex, colIndex).map(next => next.cell);
-          });
->>>>>>> origin/main
         });
     };
     const moveLeft = doMove(cycleLeft, moveLeft$1);
@@ -5693,35 +5577,22 @@
         rule(inSet(DOWN), south(moveSouth)),
         rule(inSet(SPACE.concat(ENTER)), execute$1)
     ]);
-<<<<<<< HEAD
     const getKeyupRules$2 = constant$1([
         rule(inSet(SPACE), stopEventForFirefox)
     ]);
     var MatrixType = typical(schema$w, NoState.init, getKeydownRules$2, getKeyupRules$2, () => Optional.some(focusIn$2));
-=======
-    const getKeyupRules$2 = constant$1([rule(inSet(SPACE), stopEventForFirefox)]);
-    var MatrixType = typical(schema$s, NoState.init, getKeydownRules$2, getKeyupRules$2, () => Optional.some(focusIn$2));
->>>>>>> origin/main
 
     const schema$v = [
         required$1('selector'),
         defaulted('execute', defaultExecute),
         defaulted('moveOnTab', false)
     ];
-<<<<<<< HEAD
     const execute = (component, simulatedEvent, menuConfig) => menuConfig.focusManager.get(component).bind((focused) => menuConfig.execute(component, simulatedEvent, focused));
     const focusIn$1 = (component, menuConfig, _state) => {
         // Maybe keep selection if it was there before
         descendant(component.element, menuConfig.selector).each((first) => {
             menuConfig.focusManager.set(component, first);
         });
-=======
-    const execute = (component, simulatedEvent, menuConfig) => menuConfig.focusManager.get(component).bind(focused => menuConfig.execute(component, simulatedEvent, focused));
-    const focusIn$1 = (component, menuConfig, _state) => {
-      descendant(component.element, menuConfig.selector).each(first => {
-        menuConfig.focusManager.set(component, first);
-      });
->>>>>>> origin/main
     };
     const moveUp = (element, focused, info) => horizontal(element, info.selector, focused, -1);
     const moveDown = (element, focused, info) => horizontal(element, info.selector, focused, +1);
@@ -5735,15 +5606,10 @@
         rule(inSet(ENTER), execute),
         rule(inSet(SPACE), execute)
     ]);
-<<<<<<< HEAD
     const getKeyupRules$1 = constant$1([
         rule(inSet(SPACE), stopEventForFirefox)
     ]);
     var MenuType = typical(schema$v, NoState.init, getKeydownRules$1, getKeyupRules$1, () => Optional.some(focusIn$1));
-=======
-    const getKeyupRules$1 = constant$1([rule(inSet(SPACE), stopEventForFirefox)]);
-    var MenuType = typical(schema$r, NoState.init, getKeydownRules$1, getKeyupRules$1, () => Optional.some(focusIn$1));
->>>>>>> origin/main
 
     const schema$u = [
         onKeyboardHandler('onSpace'),
@@ -16256,7 +16122,6 @@
     const useHelpAccessibility = option$2('help_accessibility');
     const getDefaultFontStack = option$2('default_font_stack');
     const getSkin = option$2('skin');
-<<<<<<< HEAD
     const isSkinDisabled = (editor) => editor.options.get('skin') === false;
     const isMenubarEnabled = (editor) => editor.options.get('menubar') !== false;
     const getSkinUrl = (editor) => {
@@ -16272,20 +16137,6 @@
                 const skin = editor.options.get('skin');
                 return global$8.baseURL + '/skins/ui/' + skin;
             }
-=======
-    const isSkinDisabled = editor => editor.options.get('skin') === false;
-    const isMenubarEnabled = editor => editor.options.get('menubar') !== false;
-    const getSkinUrl = editor => {
-      const skinUrl = editor.options.get('skin_url');
-      if (isSkinDisabled(editor)) {
-        return skinUrl;
-      } else {
-        if (skinUrl) {
-          return editor.documentBaseURI.toAbsolute(skinUrl);
-        } else {
-          const skin = editor.options.get('skin');
-          return global$7.baseURL + '/skins/ui/' + skin;
->>>>>>> origin/main
         }
     };
     const getSkinUrlOption = (editor) => Optional.from(editor.options.get('skin_url'));
@@ -18313,7 +18164,6 @@
     const containerValignBottomClass = 'tox-collection__item-container--valign-bottom';
     const classForPreset = (presets) => get$h(presetClasses, presets).getOr(navClass);
 
-<<<<<<< HEAD
     const forMenu = (presets) => {
         if (presets === 'color') {
             return 'tox-swatches';
@@ -18329,114 +18179,6 @@
         hasIcons: 'tox-menu--has-icons',
         menu: forMenu(presets),
         tieredMenu: 'tox-tiered-menu'
-=======
-    const forMenu = presets => {
-      if (presets === 'color') {
-        return 'tox-swatches';
-      } else {
-        return 'tox-menu';
-      }
-    };
-    const classes = presets => ({
-      backgroundMenu: 'tox-background-menu',
-      selectedMenu: 'tox-selected-menu',
-      selectedItem: 'tox-collection__item--active',
-      hasIcons: 'tox-menu--has-icons',
-      menu: forMenu(presets),
-      tieredMenu: 'tox-tiered-menu'
-    });
-
-    const markers = presets => {
-      const menuClasses = classes(presets);
-      return {
-        backgroundMenu: menuClasses.backgroundMenu,
-        selectedMenu: menuClasses.selectedMenu,
-        menu: menuClasses.menu,
-        selectedItem: menuClasses.selectedItem,
-        item: classForPreset(presets)
-      };
-    };
-    const dom$1 = (hasIcons, columns, presets) => {
-      const menuClasses = classes(presets);
-      return {
-        tag: 'div',
-        classes: flatten([
-          [
-            menuClasses.menu,
-            `tox-menu-${ columns }-column`
-          ],
-          hasIcons ? [menuClasses.hasIcons] : []
-        ])
-      };
-    };
-    const components = [Menu.parts.items({})];
-    const part = (hasIcons, columns, presets) => {
-      const menuClasses = classes(presets);
-      const d = {
-        tag: 'div',
-        classes: flatten([[menuClasses.tieredMenu]])
-      };
-      return {
-        dom: d,
-        markers: markers(presets)
-      };
-    };
-
-    const schema$l = constant$1([
-      defaultedString('type', 'text'),
-      option$3('data'),
-      defaulted('inputAttributes', {}),
-      defaulted('inputStyles', {}),
-      defaulted('tag', 'input'),
-      defaulted('inputClasses', []),
-      onHandler('onSetValue'),
-      defaultedFunction('fromInputValue', identity),
-      defaultedFunction('toInputValue', identity),
-      defaulted('styles', {}),
-      defaulted('eventOrder', {}),
-      field('inputBehaviours', [
-        Representing,
-        Focusing
-      ]),
-      defaulted('selectOnFocus', true)
-    ]);
-    const focusBehaviours = detail => derive$1([Focusing.config({
-        onFocus: !detail.selectOnFocus ? noop : component => {
-          const input = component.element;
-          const value = get$7(input);
-          if (detail.type !== 'range') {
-            input.dom.setSelectionRange(0, value.length);
-          }
-        }
-      })]);
-    const behaviours = detail => ({
-      ...focusBehaviours(detail),
-      ...augment(detail.inputBehaviours, [Representing.config({
-          store: {
-            mode: 'manual',
-            ...detail.data.map(data => ({ initialValue: data })).getOr({}),
-            getValue: input => {
-              return detail.fromInputValue(get$7(input.element));
-            },
-            setValue: (input, data) => {
-              const current = get$7(input.element);
-              if (current !== data) {
-                set$5(input.element, detail.toInputValue(data));
-              }
-            }
-          },
-          onSetValue: detail.onSetValue
-        })])
-    });
-    const dom = detail => ({
-      tag: detail.tag,
-      attributes: {
-        type: detail.type,
-        ...detail.inputAttributes
-      },
-      styles: detail.inputStyles,
-      classes: detail.inputClasses
->>>>>>> origin/main
     });
 
     const markers = (presets) => {
@@ -19529,7 +19271,6 @@
     ];
 
     const contextButtonFields = baseToolbarButtonFields.concat([
-<<<<<<< HEAD
         defaultedType('contextformbutton'),
         defaultedString('align', 'end'),
         primary,
@@ -19548,27 +19289,12 @@
     ]);
     const launchToggleButtonFields = baseToolbarToggleButtonFields.concat([
         defaultedType('contextformtogglebutton')
-=======
-      defaultedType('contextformbutton'),
-      defaultedString('align', 'end'),
-      primary,
-      onAction,
-      customField('original', identity)
-    ]);
-    const contextToggleButtonFields = baseToolbarToggleButtonFields.concat([
-      defaultedType('contextformbutton'),
-      defaultedString('align', 'end'),
-      primary,
-      onAction,
-      customField('original', identity)
->>>>>>> origin/main
     ]);
     const toggleOrNormal = choose$1('type', {
         contextformbutton: contextButtonFields,
         contextformtogglebutton: contextToggleButtonFields
     });
     const baseContextFormFields = [
-<<<<<<< HEAD
         optionalLabel,
         requiredArrayOf('commands', toggleOrNormal),
         optionOf('launch', choose$1('type', {
@@ -19605,53 +19331,11 @@
         contextsizeinputform: contextSizeInputFormFields
     });
     const createContextForm = (spec) => asRaw('ContextForm', contextFormSchema, spec);
-=======
-      optionalLabel,
-      requiredArrayOf('commands', toggleOrNormal),
-      optionOf('launch', choose$1('type', {
-        contextformbutton: launchButtonFields,
-        contextformtogglebutton: launchToggleButtonFields
-      })),
-      defaultedFunction('onInput', noop),
-      defaultedFunction('onSetup', noop)
-    ];
-    const contextFormFields = [
-      ...contextBarFields,
-      ...baseContextFormFields,
-      requiredStringEnum('type', ['contextform']),
-      defaultedFunction('initValue', constant$1('')),
-      optionString('placeholder')
-    ];
-    const contextSliderFormFields = [
-      ...contextBarFields,
-      ...baseContextFormFields,
-      requiredStringEnum('type', ['contextsliderform']),
-      defaultedFunction('initValue', constant$1(0)),
-      defaultedFunction('min', constant$1(0)),
-      defaultedFunction('max', constant$1(100))
-    ];
-    const contextSizeInputFormFields = [
-      ...contextBarFields,
-      ...baseContextFormFields,
-      requiredStringEnum('type', ['contextsizeinputform']),
-      defaultedFunction('initValue', constant$1({
-        width: '',
-        height: ''
-      }))
-    ];
-    const contextFormSchema = choose$1('type', {
-      contextform: contextFormFields,
-      contextsliderform: contextSliderFormFields,
-      contextsizeinputform: contextSizeInputFormFields
-    });
-    const createContextForm = spec => asRaw('ContextForm', contextFormSchema, spec);
->>>>>>> origin/main
 
     const launchButtonFields = baseToolbarButtonFields.concat([
         defaultedType('contexttoolbarbutton')
     ]);
     const contextToolbarSchema = objOf([
-<<<<<<< HEAD
         defaultedType('contexttoolbar'),
         optionObjOf('launch', launchButtonFields),
         requiredOf('items', oneOf([
@@ -19674,28 +19358,6 @@
         items: isString(contextToolbar.items) ? contextToolbar.items : map$2(contextToolbar.items, toolbarGroupBackToSpec)
     });
     const createContextToolbar = (spec) => asRaw('ContextToolbar', contextToolbarSchema, spec);
-=======
-      defaultedType('contexttoolbar'),
-      requiredOf('items', oneOf([
-        string,
-        arrOfObj([
-          optionString('name'),
-          optionString('label'),
-          requiredArrayOf('items', string)
-        ])
-      ]))
-    ].concat(contextBarFields));
-    const toolbarGroupBackToSpec = toolbarGroup => ({
-      name: toolbarGroup.name.getOrUndefined(),
-      label: toolbarGroup.label.getOrUndefined(),
-      items: toolbarGroup.items
-    });
-    const contextToolbarToSpec = contextToolbar => ({
-      ...contextToolbar,
-      items: isString(contextToolbar.items) ? contextToolbar.items : map$2(contextToolbar.items, toolbarGroupBackToSpec)
-    });
-    const createContextToolbar = spec => asRaw('ContextToolbar', contextToolbarSchema, spec);
->>>>>>> origin/main
 
     const cardImageFields = [
         type,
@@ -19953,7 +19615,6 @@
             f(api);
         };
     };
-<<<<<<< HEAD
     // These handlers are used for providing common onAttached and onDetached handlers.
     // Essentially, the `editorOffCell` is used store the onDestroy function returned
     // by onSetup. The reason onControlAttached doesn't create the cell itself, is because
@@ -19962,17 +19623,6 @@
     const onControlAttached = (info, editorOffCell) => runOnAttached((comp) => {
         if (isFunction(info.onBeforeSetup)) {
             info.onBeforeSetup(comp);
-=======
-    const onControlAttached = (info, editorOffCell) => runOnAttached(comp => {
-      if (isFunction(info.onBeforeSetup)) {
-        info.onBeforeSetup(comp);
-      }
-      const run = runWithApi(info, comp);
-      run(api => {
-        const onDestroy = info.onSetup(api);
-        if (isFunction(onDestroy)) {
-          editorOffCell.set(onDestroy);
->>>>>>> origin/main
         }
         const run = runWithApi(info, comp);
         run((api) => {
@@ -19993,7 +19643,6 @@
     const messageSetEnabled = 'setEnabled';
     const messageInit = 'init';
     const messageSwitchMode = 'switchmode';
-<<<<<<< HEAD
     const modeContextMessages = [messageSwitchMode, messageInit];
     const broadcastEvents = (uiRefs, messageType) => {
         const outerContainer = uiRefs.mainUi.outerContainer;
@@ -20047,62 +19696,6 @@
                     Disabling.set(comp, shouldDisable);
                 }
             }
-=======
-    const modeContextMessages = [
-      messageSwitchMode,
-      messageInit
-    ];
-    const broadcastEvents = (uiRefs, messageType) => {
-      const outerContainer = uiRefs.mainUi.outerContainer;
-      const motherships = [
-        uiRefs.mainUi.mothership,
-        ...uiRefs.uiMotherships
-      ];
-      if (messageType === messageSetDisabled) {
-        each$1(motherships, m => {
-          m.broadcastOn([dismissPopups()], { target: outerContainer.element });
-        });
-      }
-      each$1(motherships, m => {
-        m.broadcastOn([UiStateChannel], messageType);
-      });
-    };
-    const setupEventsForUi = (editor, uiRefs) => {
-      editor.on('init SwitchMode', event => {
-        broadcastEvents(uiRefs, event.type);
-      });
-      editor.on('DisabledStateChange', event => {
-        if (!event.isDefaultPrevented()) {
-          const messageType = event.state ? messageSetDisabled : messageInit;
-          broadcastEvents(uiRefs, messageType);
-          if (!event.state) {
-            editor.nodeChanged();
-          }
-        }
-      });
-      editor.on('NodeChange', e => {
-        const messageType = editor.ui.isEnabled() ? e.type : messageSetDisabled;
-        broadcastEvents(uiRefs, messageType);
-      });
-      if (isReadOnly(editor)) {
-        editor.mode.set('readonly');
-      }
-    };
-    const toggleOnReceive = getContext => Receiving.config({
-      channels: {
-        [UiStateChannel]: {
-          onReceive: (comp, messageType) => {
-            if (messageType === messageSetDisabled || messageType === messageSetEnabled) {
-              Disabling.set(comp, messageType === messageSetDisabled);
-              return;
-            }
-            const {contextType, shouldDisable} = getContext();
-            if (contextType === 'mode' && !contains$2(modeContextMessages, messageType)) {
-              return;
-            }
-            Disabling.set(comp, shouldDisable);
-          }
->>>>>>> origin/main
         }
     });
 
@@ -20858,12 +20451,6 @@
     };
     const fireContextFormSlideBack = (editor) => {
         editor.dispatch('ContextFormSlideBack');
-    };
-    const fireContextToolbarClose = editor => {
-      editor.dispatch('ContextToolbarClose');
-    };
-    const fireContextFormSlideBack = editor => {
-      editor.dispatch('ContextFormSlideBack');
     };
 
     const composeUnbinders = (f, g) => () => {
@@ -24342,7 +23929,6 @@
             selectAttributes: {
                 size: spec.size
             },
-<<<<<<< HEAD
             options: translatedOptions,
             factory: HtmlSelect,
             selectBehaviours: derive$1([
@@ -24356,150 +23942,6 @@
                     })
                 ])
             ])
-=======
-            onEnabled: comp => {
-              FormField.getField(comp).each(Disabling.enable);
-            }
-          }),
-          toggleOnReceive(() => providersBackstage.checkUiComponentContext(spec.context))
-        ])
-      });
-    };
-
-    const schema$h = constant$1([
-      defaulted('field1Name', 'field1'),
-      defaulted('field2Name', 'field2'),
-      onStrictHandler('onLockedChange'),
-      markers$1(['lockClass']),
-      defaulted('locked', false),
-      SketchBehaviours.field('coupledFieldBehaviours', [
-        Composing,
-        Representing
-      ]),
-      defaultedFunction('onInput', noop)
-    ]);
-    const getField = (comp, detail, partName) => getPart(comp, detail, partName).bind(Composing.getCurrent);
-    const coupledPart = (selfName, otherName) => required({
-      factory: FormField,
-      name: selfName,
-      overrides: detail => {
-        return {
-          fieldBehaviours: derive$1([config('coupled-input-behaviour', [run$1(input(), me => {
-                getField(me, detail, otherName).each(other => {
-                  getPart(me, detail, 'lock').each(lock => {
-                    if (Toggling.isOn(lock)) {
-                      detail.onLockedChange(me, other, lock);
-                    }
-                    detail.onInput(me);
-                  });
-                });
-              })])])
-        };
-      }
-    });
-    const parts$c = constant$1([
-      coupledPart('field1', 'field2'),
-      coupledPart('field2', 'field1'),
-      required({
-        factory: Button,
-        schema: [required$1('dom')],
-        name: 'lock',
-        overrides: detail => {
-          return {
-            buttonBehaviours: derive$1([Toggling.config({
-                selected: detail.locked,
-                toggleClass: detail.markers.lockClass,
-                aria: { mode: 'pressed' }
-              })])
-          };
-        }
-      })
-    ]);
-
-    const factory$g = (detail, components, _spec, _externals) => ({
-      uid: detail.uid,
-      dom: detail.dom,
-      components,
-      behaviours: SketchBehaviours.augment(detail.coupledFieldBehaviours, [
-        Composing.config({ find: Optional.some }),
-        Representing.config({
-          store: {
-            mode: 'manual',
-            getValue: comp => {
-              const parts = getPartsOrDie(comp, detail, [
-                'field1',
-                'field2'
-              ]);
-              return {
-                [detail.field1Name]: Representing.getValue(parts.field1()),
-                [detail.field2Name]: Representing.getValue(parts.field2())
-              };
-            },
-            setValue: (comp, value) => {
-              const parts = getPartsOrDie(comp, detail, [
-                'field1',
-                'field2'
-              ]);
-              if (hasNonNullableKey(value, detail.field1Name)) {
-                Representing.setValue(parts.field1(), value[detail.field1Name]);
-              }
-              if (hasNonNullableKey(value, detail.field2Name)) {
-                Representing.setValue(parts.field2(), value[detail.field2Name]);
-              }
-            }
-          }
-        })
-      ]),
-      apis: {
-        getField1: component => getPart(component, detail, 'field1'),
-        getField2: component => getPart(component, detail, 'field2'),
-        getLock: component => getPart(component, detail, 'lock')
-      }
-    });
-    const FormCoupledInputs = composite({
-      name: 'FormCoupledInputs',
-      configFields: schema$h(),
-      partFields: parts$c(),
-      factory: factory$g,
-      apis: {
-        getField1: (apis, component) => apis.getField1(component),
-        getField2: (apis, component) => apis.getField2(component),
-        getLock: (apis, component) => apis.getLock(component)
-      }
-    });
-
-    const formatSize = size => {
-      const unitDec = {
-        '': 0,
-        'px': 0,
-        'pt': 1,
-        'mm': 1,
-        'pc': 2,
-        'ex': 2,
-        'em': 2,
-        'ch': 2,
-        'rem': 2,
-        'cm': 3,
-        'in': 4,
-        '%': 4
-      };
-      const maxDecimal = unit => unit in unitDec ? unitDec[unit] : 1;
-      let numText = size.value.toFixed(maxDecimal(size.unit));
-      if (numText.indexOf('.') !== -1) {
-        numText = numText.replace(/\.?0*$/, '');
-      }
-      return numText + size.unit;
-    };
-    const parseSize = sizeText => {
-      const numPattern = /^\s*(\d+(?:\.\d+)?)\s*(|cm|mm|in|px|pt|pc|em|ex|ch|rem|vw|vh|vmin|vmax|%)\s*$/;
-      const match = numPattern.exec(sizeText);
-      if (match !== null) {
-        const value = parseFloat(match[1]);
-        const unit = match[2];
-        return Result.value({
-          value,
-          unit
->>>>>>> origin/main
         });
         const chevron = spec.size > 1 ? Optional.none() :
             Optional.some(render$4('chevron-down', { tag: 'div', classes: ['tox-selectfield__icon-js'] }, providersBackstage.icons));
@@ -24599,7 +24041,6 @@
         return lift2(cValue, oValue, (cSize, oSize) => convertUnit(cSize, oSize.unit).map((val) => oSize.value / val).map((r) => ratioSizeConversion(r, oSize.unit)).getOr(noSizeConversion)).getOr(noSizeConversion);
     };
 
-<<<<<<< HEAD
     const renderSizeInput = (spec, providersBackstage) => {
         let converter = noSizeConversion;
         const ratioEvent = generate$6('ratio-event');
@@ -24609,110 +24050,6 @@
         const label = spec.label.getOr('Constrain proportions');
         const translatedLabel = providersBackstage.translate(label);
         const pLock = FormCoupledInputs.parts.lock({
-=======
-    const renderSizeInput$1 = (spec, providersBackstage) => {
-      let converter = noSizeConversion;
-      const ratioEvent = generate$6('ratio-event');
-      const makeIcon = iconName => render$3(iconName, {
-        tag: 'span',
-        classes: [
-          'tox-icon',
-          'tox-lock-icon__' + iconName
-        ]
-      }, providersBackstage.icons);
-      const disabled = () => !spec.enabled || spec.context.exists(context => providersBackstage.checkUiComponentContext(context).shouldDisable);
-      const toggleOnReceive$1 = spec.context.map(context => toggleOnReceive(() => providersBackstage.checkUiComponentContext(context)));
-      const label = spec.label.getOr('Constrain proportions');
-      const translatedLabel = providersBackstage.translate(label);
-      const pLock = FormCoupledInputs.parts.lock({
-        dom: {
-          tag: 'button',
-          classes: [
-            'tox-lock',
-            'tox-button',
-            'tox-button--naked',
-            'tox-button--icon'
-          ],
-          attributes: {
-            'aria-label': translatedLabel,
-            'data-mce-name': label
-          }
-        },
-        components: [
-          makeIcon('lock'),
-          makeIcon('unlock')
-        ],
-        buttonBehaviours: derive$1([
-          Disabling.config({ disabled }),
-          ...toggleOnReceive$1.toArray(),
-          Tabstopping.config({}),
-          Tooltipping.config(providersBackstage.tooltips.getConfig({ tooltipText: translatedLabel }))
-        ])
-      });
-      const formGroup = components => ({
-        dom: {
-          tag: 'div',
-          classes: [spec.inDialog ? 'tox-form__group' : 'tox-context-form__group']
-        },
-        components
-      });
-      const getFieldPart = isField1 => FormField.parts.field({
-        factory: Input,
-        inputClasses: spec.inDialog ? ['tox-textfield'] : [
-          'tox-textfield',
-          'tox-toolbar-textfield',
-          'tox-textfield-size'
-        ],
-        data: isField1 ? spec.width : spec.height,
-        inputBehaviours: derive$1([
-          Disabling.config({ disabled }),
-          ...toggleOnReceive$1.toArray(),
-          Tabstopping.config({}),
-          config('size-input-events', [
-            run$1(focusin(), (component, _simulatedEvent) => {
-              emitWith(component, ratioEvent, { isField1 });
-            }),
-            run$1(change(), (component, _simulatedEvent) => {
-              spec.name.each(name => emitWith(component, formChangeEvent, { name }));
-            })
-          ]),
-          ...spec.onEnter.map(onEnter => Keying.config({
-            mode: 'special',
-            onEnter
-          })).toArray()
-        ]),
-        selectOnFocus: false
-      });
-      const getLabel = label => ({
-        dom: {
-          tag: 'label',
-          classes: ['tox-label']
-        },
-        components: [text$2(providersBackstage.translate(label))]
-      });
-      const widthField = FormCoupledInputs.parts.field1(formGroup([
-        FormField.parts.label(getLabel('Width')),
-        getFieldPart(true)
-      ]));
-      const heightField = FormCoupledInputs.parts.field2(formGroup([
-        FormField.parts.label(getLabel('Height')),
-        getFieldPart(false)
-      ]));
-      const editorOffCell = Cell(noop);
-      const controlLifecycleHandlers = lift2(spec.onSetup, spec.getApi, (onSetup, getApi) => [
-        onControlAttached({
-          onSetup,
-          getApi
-        }, editorOffCell),
-        onControlDetached({ getApi }, editorOffCell)
-      ]).getOr([]);
-      return FormCoupledInputs.sketch({
-        dom: {
-          tag: 'div',
-          classes: [spec.inDialog ? 'tox-form__group' : 'tox-context-form__group']
-        },
-        components: [{
->>>>>>> origin/main
             dom: {
                 tag: 'button',
                 classes: ['tox-lock', 'tox-button', 'tox-button--naked', 'tox-button--icon'],
@@ -24722,7 +24059,6 @@
                 }
             },
             components: [
-<<<<<<< HEAD
                 makeIcon('lock'),
                 makeIcon('unlock')
             ],
@@ -24833,75 +24169,6 @@
                 ])
             ])
         });
-=======
-              widthField,
-              heightField,
-              formGroup([
-                getLabel(nbsp),
-                pLock
-              ])
-            ]
-          }],
-        field1Name: 'width',
-        field2Name: 'height',
-        locked: true,
-        markers: { lockClass: 'tox-locked' },
-        onLockedChange: (current, other, _lock) => {
-          parseSize(Representing.getValue(current)).each(size => {
-            converter(size).each(newSize => {
-              Representing.setValue(other, formatSize(newSize));
-            });
-          });
-        },
-        onInput: current => emit(current, formInputEvent),
-        coupledFieldBehaviours: derive$1([
-          Disabling.config({
-            disabled,
-            onDisabled: comp => {
-              FormCoupledInputs.getField1(comp).bind(FormField.getField).each(Disabling.disable);
-              FormCoupledInputs.getField2(comp).bind(FormField.getField).each(Disabling.disable);
-              FormCoupledInputs.getLock(comp).each(Disabling.disable);
-            },
-            onEnabled: comp => {
-              FormCoupledInputs.getField1(comp).bind(FormField.getField).each(Disabling.enable);
-              FormCoupledInputs.getField2(comp).bind(FormField.getField).each(Disabling.enable);
-              FormCoupledInputs.getLock(comp).each(Disabling.enable);
-            }
-          }),
-          toggleOnReceive(() => providersBackstage.checkUiComponentContext('mode:design')),
-          config('size-input-events', [
-            run$1(ratioEvent, (component, simulatedEvent) => {
-              const isField1 = simulatedEvent.event.isField1;
-              const optCurrent = isField1 ? FormCoupledInputs.getField1(component) : FormCoupledInputs.getField2(component);
-              const optOther = isField1 ? FormCoupledInputs.getField2(component) : FormCoupledInputs.getField1(component);
-              const value1 = optCurrent.map(Representing.getValue).getOr('');
-              const value2 = optOther.map(Representing.getValue).getOr('');
-              converter = makeRatioConverter(value1, value2);
-            }),
-            run$1(formInputEvent, component => {
-              spec.onInput.each(onInput => onInput(component));
-            }),
-            ...controlLifecycleHandlers
-          ])
-        ])
-      });
->>>>>>> origin/main
-    };
-
-    const renderSizeInput = (spec, providersBackstage) => {
-      return renderSizeInput$1({
-        inDialog: true,
-        label: spec.label,
-        enabled: spec.enabled,
-        context: Optional.some(spec.context),
-        name: Optional.some(spec.name),
-        width: '',
-        height: '',
-        onEnter: Optional.none(),
-        onInput: Optional.none(),
-        onSetup: Optional.none(),
-        getApi: Optional.none()
-      }, providersBackstage);
     };
 
     const renderSlider = (spec, providerBackstage, initialData) => {
@@ -25229,15 +24496,11 @@
         ],
     });
     const renderCustomStateIcon = (container, components, backstage) => {
-<<<<<<< HEAD
         container.customStateIcon.each((icon) => components.push(renderIcon(icon, backstage.shared.providers.icons, container.customStateIconTooltip.fold(() => [], (tooltip) => [
             Tooltipping.config(backstage.shared.providers.tooltips.getConfig({
                 tooltipText: tooltip
             }))
         ]), ['tox-icon-custom-state'])));
-=======
-      container.customStateIcon.each(icon => components.push(renderIcon(icon, backstage.shared.providers.icons, container.customStateIconTooltip.fold(() => [], tooltip => [Tooltipping.config(backstage.shared.providers.tooltips.getConfig({ tooltipText: tooltip }))]), ['tox-icon-custom-state'])));
->>>>>>> origin/main
     };
     const leafLabelEventsId = generate$6('leaf-label-event-id');
     const renderLeafLabel = ({ leaf, onLeafAction, visible, treeId, selectedId, backstage }) => {
@@ -26876,7 +26139,6 @@
         getUrlPicker: (filetype) => getUrlPicker(editor, filetype)
     });
 
-<<<<<<< HEAD
     const init = (lazySinks, editor, lazyAnchorbar, lazyBottomAnchorBar) => {
         const contextMenuState = Cell(false);
         const toolbar = HeaderBackstage(editor);
@@ -26946,74 +26208,6 @@
             popup: popupBackstage,
             dialog: dialogBackstage
         };
-=======
-    const init$5 = (lazySinks, editor, lazyAnchorbar, lazyBottomAnchorBar) => {
-      const contextMenuState = Cell(false);
-      const toolbar = HeaderBackstage(editor);
-      const providers = {
-        icons: () => editor.ui.registry.getAll().icons,
-        menuItems: () => editor.ui.registry.getAll().menuItems,
-        translate: global$5.translate,
-        isDisabled: () => !editor.ui.isEnabled(),
-        getOption: editor.options.get,
-        tooltips: TooltipsBackstage(lazySinks.dialog),
-        checkUiComponentContext: specContext => {
-          if (isDisabled(editor)) {
-            return {
-              contextType: 'disabled',
-              shouldDisable: true
-            };
-          }
-          const [key, value = ''] = specContext.split(':');
-          const contexts = editor.ui.registry.getAll().contexts;
-          const enabledInContext = get$h(contexts, key).fold(() => get$h(contexts, 'mode').map(pred => pred('design')).getOr(false), pred => value.charAt(0) === '!' ? !pred(value.slice(1)) : pred(value));
-          return {
-            contextType: key,
-            shouldDisable: !enabledInContext
-          };
-        }
-      };
-      const urlinput = UrlInputBackstage(editor);
-      const styles = init$6(editor);
-      const colorinput = ColorInputBackstage(editor);
-      const dialogSettings = DialogBackstage(editor);
-      const isContextMenuOpen = () => contextMenuState.get();
-      const setContextMenuState = state => contextMenuState.set(state);
-      const commonBackstage = {
-        shared: {
-          providers,
-          anchors: getAnchors(editor, lazyAnchorbar, lazyBottomAnchorBar, toolbar.isPositionedAtTop),
-          header: toolbar
-        },
-        urlinput,
-        styles,
-        colorinput,
-        dialog: dialogSettings,
-        isContextMenuOpen,
-        setContextMenuState
-      };
-      const getCompByName = _name => Optional.none();
-      const popupBackstage = {
-        ...commonBackstage,
-        shared: {
-          ...commonBackstage.shared,
-          interpreter: s => interpretWithoutForm(s, {}, popupBackstage, getCompByName),
-          getSink: lazySinks.popup
-        }
-      };
-      const dialogBackstage = {
-        ...commonBackstage,
-        shared: {
-          ...commonBackstage.shared,
-          interpreter: s => interpretWithoutForm(s, {}, dialogBackstage, getCompByName),
-          getSink: lazySinks.dialog
-        }
-      };
-      return {
-        popup: popupBackstage,
-        dialog: dialogBackstage
-      };
->>>>>>> origin/main
     };
 
     const setup$b = (editor, mothership, uiMotherships) => {
@@ -27827,7 +27021,6 @@
         ]),
         components: []
     });
-<<<<<<< HEAD
     const isFocusEvent = (event) => event.type === 'focusin';
     const isPasteBinTarget = (event) => {
         if (isFocusEvent(event)) {
@@ -27836,92 +27029,6 @@
                 .map(SugarElement.fromDom)
                 .filter(isElement$1)
                 .exists((targetElm) => has(targetElm, 'mce-pastebin'));
-=======
-
-    const renderToolbarGroupCommon = toolbarGroup => {
-      const attributes = toolbarGroup.label.isNone() ? toolbarGroup.title.fold(() => ({}), title => ({ attributes: { title } })) : toolbarGroup.label.fold(() => ({}), label => ({ attributes: { 'aria-label': label } }));
-      return {
-        dom: {
-          tag: 'div',
-          classes: ['tox-toolbar__group'].concat(toolbarGroup.label.isSome() ? ['tox-toolbar__group_with_label'] : []),
-          ...attributes
-        },
-        components: [
-          ...toolbarGroup.label.map(label => {
-            return {
-              dom: {
-                tag: 'span',
-                classes: [
-                  'tox-label',
-                  'tox-label--context-toolbar'
-                ]
-              },
-              components: [text$2(label)]
-            };
-          }).toArray(),
-          ToolbarGroup.parts.items({})
-        ],
-        items: toolbarGroup.items,
-        markers: { itemSelector: '*:not(.tox-split-button) > .tox-tbtn:not([disabled]), ' + '.tox-split-button:not([disabled]), ' + '.tox-toolbar-nav-js:not([disabled]), ' + '.tox-number-input:not([disabled])' },
-        tgroupBehaviours: derive$1([
-          Tabstopping.config({}),
-          Focusing.config({})
-        ])
-      };
-    };
-    const renderToolbarGroup = toolbarGroup => ToolbarGroup.sketch(renderToolbarGroupCommon(toolbarGroup));
-    const getToolbarBehaviours = (toolbarSpec, modeName) => {
-      const onAttached = runOnAttached(component => {
-        const groups = map$2(toolbarSpec.initGroups, renderToolbarGroup);
-        Toolbar.setGroups(component, groups);
-      });
-      return derive$1([
-        DisablingConfigs.toolbarButton(() => toolbarSpec.providers.checkUiComponentContext('any').shouldDisable),
-        toggleOnReceive(() => toolbarSpec.providers.checkUiComponentContext('any')),
-        Keying.config({
-          mode: modeName,
-          onEscape: toolbarSpec.onEscape,
-          selector: '.tox-toolbar__group'
-        }),
-        config('toolbar-events', [onAttached])
-      ]);
-    };
-    const renderMoreToolbarCommon = toolbarSpec => {
-      const modeName = toolbarSpec.cyclicKeying ? 'cyclic' : 'acyclic';
-      return {
-        uid: toolbarSpec.uid,
-        dom: {
-          tag: 'div',
-          classes: ['tox-toolbar-overlord']
-        },
-        parts: {
-          'overflow-group': renderToolbarGroupCommon({
-            title: Optional.none(),
-            label: Optional.none(),
-            items: []
-          }),
-          'overflow-button': renderIconButtonSpec({
-            context: 'any',
-            name: 'more',
-            icon: Optional.some('more-drawer'),
-            enabled: true,
-            tooltip: Optional.some('Reveal or hide additional toolbar items'),
-            primary: false,
-            buttonType: Optional.none(),
-            borderless: false
-          }, Optional.none(), toolbarSpec.providers, [], 'overflow-button')
-        },
-        splitToolbarBehaviours: getToolbarBehaviours(toolbarSpec, modeName)
-      };
-    };
-    const renderFloatingMoreToolbar = toolbarSpec => {
-      const baseSpec = renderMoreToolbarCommon(toolbarSpec);
-      const overflowXOffset = 4;
-      const primary = SplitFloatingToolbar.parts.primary({
-        dom: {
-          tag: 'div',
-          classes: ['tox-toolbar__primary']
->>>>>>> origin/main
         }
         else {
             return false;
@@ -28908,7 +28015,6 @@
     };
     const fireSkinLoadError = (editor, err) => () => fireSkinLoadError$1(editor, { message: err });
 
-<<<<<<< HEAD
     const getSkinResourceIdentifier = (editor) => {
         const skin = getSkin(editor);
         // Use falsy check to cover false, undefined/null and empty string
@@ -28918,15 +28024,6 @@
         else {
             return Optional.from(skin);
         }
-=======
-    const getSkinResourceIdentifier = editor => {
-      const skin = getSkin(editor);
-      if (!skin) {
-        return Optional.none();
-      } else {
-        return Optional.from(skin);
-      }
->>>>>>> origin/main
     };
     const loadStylesheet = (editor, stylesheetUrl, styleSheetLoader) => {
         // Ensure the stylesheet is cleaned up when the editor is destroyed
@@ -28939,7 +28036,6 @@
         return styleSheetLoader.loadRawCss(key, css);
     };
     const skinIdentifierToResourceKey = (identifier, filename) => 'ui/' + identifier + '/' + filename;
-<<<<<<< HEAD
     const getResourceValue = (resourceKey) => Optional.from(tinymce.Resource.get(resourceKey)).filter(isString);
     const determineCSSDecision = (editor, filenameBase, skinUrl = '') => {
         const resourceKey = getSkinResourceIdentifier(editor)
@@ -29014,87 +28110,9 @@
                 return Promise.resolve();
             default:
                 return Promise.resolve();
-=======
-    const getResourceValue = resourceKey => Optional.from(tinymce.Resource.get(resourceKey)).filter(isString);
-    const determineCSSDecision = (editor, filenameBase, skinUrl = '') => {
-      const resourceKey = getSkinResourceIdentifier(editor).map(identifier => skinIdentifierToResourceKey(identifier, `${ filenameBase }.css`));
-      const resourceValue = resourceKey.bind(getResourceValue);
-      return lift2(resourceKey, resourceValue, (key, css) => {
-        return {
-          _kind: 'load-raw',
-          key,
-          css
-        };
-      }).getOrThunk(() => {
-        const suffix = editor.editorManager.suffix;
-        const skinUiCssUrl = skinUrl + `/${ filenameBase }${ suffix }.css`;
-        return {
-          _kind: 'load-stylesheet',
-          url: skinUiCssUrl
-        };
-      });
-    };
-    const loadUiSkins = (editor, skinUrl) => {
-      const loader = editor.ui.styleSheetLoader;
-      const decision = determineCSSDecision(editor, 'skin', skinUrl);
-      switch (decision._kind) {
-      case 'load-raw':
-        const {key, css} = decision;
-        loadRawCss(editor, key, css, loader);
-        return Promise.resolve();
-      case 'load-stylesheet':
-        const {url} = decision;
-        return loadStylesheet(editor, url, loader);
-      default:
-        return Promise.resolve();
-      }
-    };
-    const loadShadowDomUiSkins = (editor, skinUrl) => {
-      const isInShadowRoot$1 = isInShadowRoot(SugarElement.fromDom(editor.getElement()));
-      if (!isInShadowRoot$1) {
-        return Promise.resolve();
-      } else {
-        const loader = global$8.DOM.styleSheetLoader;
-        const decision = determineCSSDecision(editor, 'skin.shadowdom', skinUrl);
-        switch (decision._kind) {
-        case 'load-raw':
-          const {key, css} = decision;
-          loadRawCss(editor, key, css, loader);
-          return Promise.resolve();
-        case 'load-stylesheet':
-          const {url} = decision;
-          return loadStylesheet(editor, url, loader);
-        default:
-          return Promise.resolve();
->>>>>>> origin/main
         }
-    };
-    const loadUiContentCSS = (editor, isInline, skinUrl) => {
-      const filenameBase = isInline ? 'content.inline' : 'content';
-      const decision = determineCSSDecision(editor, filenameBase, skinUrl);
-      switch (decision._kind) {
-      case 'load-raw':
-        const {key, css} = decision;
-        if (isInline) {
-          loadRawCss(editor, key, css, editor.ui.styleSheetLoader);
-        } else {
-          editor.on('PostRender', () => {
-            loadRawCss(editor, key, css, editor.dom.styleSheetLoader);
-          });
-        }
-        return Promise.resolve();
-      case 'load-stylesheet':
-        const {url} = decision;
-        if (skinUrl) {
-          editor.contentCSS.push(url);
-        }
-        return Promise.resolve();
-      default:
-        return Promise.resolve();
-      }
     };
     const loadUrlSkin = async (isInline, editor) => {
-<<<<<<< HEAD
         const skinUrl = getSkinUrl(editor);
         await loadUiContentCSS(editor, isInline, skinUrl);
         // In Modern Inline, this is explicitly called in editor.on('focus', ...) as well as in render().
@@ -29105,16 +28123,6 @@
                 loadShadowDomUiSkins(editor, skinUrl)
             ]).then();
         }
-=======
-      const skinUrl = getSkinUrl(editor);
-      await loadUiContentCSS(editor, isInline, skinUrl);
-      if (!isSkinDisabled(editor) && isString(skinUrl)) {
-        return Promise.all([
-          loadUiSkins(editor, skinUrl),
-          loadShadowDomUiSkins(editor, skinUrl)
-        ]).then();
-      }
->>>>>>> origin/main
     };
     const loadSkin = (isInline, editor) => {
         return loadUrlSkin(isInline, editor).then(fireSkinLoaded(editor), fireSkinLoadError(editor, 'Skin could not be loaded'));
@@ -29920,7 +28928,6 @@
     var global$1 = tinymce.util.Tools.resolve('tinymce.util.VK');
 
     const createBespokeNumberInput = (editor, backstage, spec, btnName) => {
-<<<<<<< HEAD
         let currentComp = Optional.none();
         const getValueFromCurrentComp = (comp) => comp.map((alloyComp) => Representing.getValue(alloyComp)).getOr('');
         const onSetup = onSetupEvent(editor, 'NodeChange SwitchMode DisabledStateChange', (api) => {
@@ -29946,59 +28953,6 @@
                     oldEnd.each((oldEnd) => comp.element.dom.selectionEnd = oldEnd);
                 }
             });
-=======
-      let currentComp = Optional.none();
-      const getValueFromCurrentComp = comp => comp.map(alloyComp => Representing.getValue(alloyComp)).getOr('');
-      const onSetup = onSetupEvent(editor, 'NodeChange SwitchMode DisabledStateChange', api => {
-        const comp = api.getComponent();
-        currentComp = Optional.some(comp);
-        spec.updateInputValue(comp);
-        Disabling.set(comp, !editor.selection.isEditable() || isDisabled(editor));
-      });
-      const getApi = comp => ({ getComponent: constant$1(comp) });
-      const editorOffCell = Cell(noop);
-      const customEvents = generate$6('custom-number-input-events');
-      const changeValue = (f, fromInput, focusBack) => {
-        const text = getValueFromCurrentComp(currentComp);
-        const newValue = spec.getNewValue(text, f);
-        const lenghtDelta = text.length - `${ newValue }`.length;
-        const oldStart = currentComp.map(comp => comp.element.dom.selectionStart - lenghtDelta);
-        const oldEnd = currentComp.map(comp => comp.element.dom.selectionEnd - lenghtDelta);
-        spec.onAction(newValue, focusBack);
-        currentComp.each(comp => {
-          Representing.setValue(comp, newValue);
-          if (fromInput) {
-            oldStart.each(oldStart => comp.element.dom.selectionStart = oldStart);
-            oldEnd.each(oldEnd => comp.element.dom.selectionEnd = oldEnd);
-          }
-        });
-      };
-      const decrease = (fromInput, focusBack) => changeValue((n, s) => n - s, fromInput, focusBack);
-      const increase = (fromInput, focusBack) => changeValue((n, s) => n + s, fromInput, focusBack);
-      const goToParent = comp => parentElement(comp.element).fold(Optional.none, parent => {
-        focus$3(parent);
-        return Optional.some(true);
-      });
-      const focusInput = comp => {
-        if (hasFocus(comp.element)) {
-          firstChild(comp.element).each(input => focus$3(input));
-          return Optional.some(true);
-        } else {
-          return Optional.none();
-        }
-      };
-      const makeStepperButton = (action, title, tooltip, classes) => {
-        const editorOffCellStepButton = Cell(noop);
-        const translatedTooltip = backstage.shared.providers.translate(tooltip);
-        const altExecuting = generate$6('altExecuting');
-        const onSetup = onSetupEvent(editor, 'NodeChange SwitchMode DisabledStateChange', api => {
-          Disabling.set(api.getComponent(), !editor.selection.isEditable() || isDisabled(editor));
-        });
-        const onClick = comp => {
-          if (!Disabling.isDisabled(comp)) {
-            action(true);
-          }
->>>>>>> origin/main
         };
         const decrease = (fromInput, focusBack) => changeValue((n, s) => n - s, fromInput, focusBack);
         const increase = (fromInput, focusBack) => changeValue((n, s) => n + s, fromInput, focusBack);
@@ -30376,382 +29330,6 @@
             onSetup: onSetupEditableToggle(editor, () => menuItems.getStyleItems().length > 0),
             getSubmenuItems: () => menuItems.items.validateItems(menuItems.getStyleItems())
         });
-<<<<<<< HEAD
-=======
-      };
-      const action = component => {
-        const onOpenSync = switchToMenu;
-        togglePopup(detail, identity, component, externals, onOpenSync, HighlightOnOpen.HighlightMenuAndItem).get(noop);
-      };
-      const openMenu = comp => {
-        action(comp);
-        return Optional.some(true);
-      };
-      const executeOnButton = comp => {
-        const button = getPartOrDie(comp, detail, 'button');
-        emitExecute(button);
-        return Optional.some(true);
-      };
-      const buttonEvents = {
-        ...derive$2([runOnAttached((component, _simulatedEvent) => {
-            const ariaDescriptor = getPart(component, detail, 'aria-descriptor');
-            ariaDescriptor.each(descriptor => {
-              const descriptorId = generate$6('aria');
-              set$9(descriptor.element, 'id', descriptorId);
-              set$9(component.element, 'aria-describedby', descriptorId);
-            });
-          })]),
-        ...events$9(Optional.some(action))
-      };
-      const apis = {
-        repositionMenus: comp => {
-          if (Toggling.isOn(comp)) {
-            repositionMenus(comp);
-          }
-        }
-      };
-      return {
-        uid: detail.uid,
-        dom: detail.dom,
-        components,
-        apis,
-        eventOrder: {
-          ...detail.eventOrder,
-          [execute$5()]: [
-            'disabling',
-            'toggling',
-            'alloy.base.behaviour'
-          ]
-        },
-        events: buttonEvents,
-        behaviours: augment(detail.splitDropdownBehaviours, [
-          Coupling.config({
-            others: {
-              sandbox: hotspot => {
-                const arrow = getPartOrDie(hotspot, detail, 'arrow');
-                const extras = {
-                  onOpen: () => {
-                    Toggling.on(arrow);
-                    Toggling.on(hotspot);
-                  },
-                  onClose: () => {
-                    Toggling.off(arrow);
-                    Toggling.off(hotspot);
-                  }
-                };
-                return makeSandbox$1(detail, hotspot, extras);
-              }
-            }
-          }),
-          Keying.config({
-            mode: 'special',
-            onSpace: executeOnButton,
-            onEnter: executeOnButton,
-            onDown: openMenu
-          }),
-          Focusing.config({}),
-          Toggling.config({
-            toggleOnExecute: false,
-            aria: { mode: 'expanded' }
-          })
-        ]),
-        domModification: {
-          attributes: {
-            'role': detail.role.getOr('button'),
-            'aria-haspopup': true
-          }
-        }
-      };
-    };
-    const SplitDropdown = composite({
-      name: 'SplitDropdown',
-      configFields: schema$7(),
-      partFields: parts$3(),
-      factory: factory$5,
-      apis: { repositionMenus: (apis, comp) => apis.repositionMenus(comp) }
-    });
-
-    const getButtonApi = component => ({
-      isEnabled: () => !Disabling.isDisabled(component),
-      setEnabled: state => Disabling.set(component, !state),
-      setText: text => emitWith(component, updateMenuText, { text }),
-      setIcon: icon => emitWith(component, updateMenuIcon, { icon })
-    });
-    const getToggleApi = component => ({
-      setActive: state => {
-        Toggling.set(component, state);
-      },
-      isActive: () => Toggling.isOn(component),
-      isEnabled: () => !Disabling.isDisabled(component),
-      setEnabled: state => Disabling.set(component, !state),
-      setText: text => emitWith(component, updateMenuText, { text }),
-      setIcon: icon => emitWith(component, updateMenuIcon, { icon })
-    });
-    const getTooltipAttributes = (tooltip, providersBackstage) => tooltip.map(tooltip => ({ 'aria-label': providersBackstage.translate(tooltip) })).getOr({});
-    const focusButtonEvent = generate$6('focus-button');
-    const renderCommonStructure = (optIcon, optText, tooltip, behaviours, providersBackstage, context, btnName) => {
-      const optMemDisplayText = optText.map(text => record(renderLabel$1(text, 'tox-tbtn', providersBackstage)));
-      const optMemDisplayIcon = optIcon.map(icon => record(renderReplaceableIconFromPack(icon, providersBackstage.icons)));
-      return {
-        dom: {
-          tag: 'button',
-          classes: ['tox-tbtn'].concat(optText.isSome() ? ['tox-tbtn--select'] : []),
-          attributes: {
-            ...getTooltipAttributes(tooltip, providersBackstage),
-            ...isNonNullable(btnName) ? { 'data-mce-name': btnName } : {}
-          }
-        },
-        components: componentRenderPipeline([
-          optMemDisplayIcon.map(mem => mem.asSpec()),
-          optMemDisplayText.map(mem => mem.asSpec())
-        ]),
-        eventOrder: {
-          [mousedown()]: [
-            'focusing',
-            'alloy.base.behaviour',
-            commonButtonDisplayEvent
-          ],
-          [attachedToDom()]: [
-            commonButtonDisplayEvent,
-            'toolbar-group-button-events'
-          ],
-          [detachedFromDom()]: [
-            commonButtonDisplayEvent,
-            'toolbar-group-button-events',
-            'tooltipping'
-          ]
-        },
-        buttonBehaviours: derive$1([
-          DisablingConfigs.toolbarButton(() => providersBackstage.checkUiComponentContext(context).shouldDisable),
-          toggleOnReceive(() => providersBackstage.checkUiComponentContext(context)),
-          config(commonButtonDisplayEvent, [
-            runOnAttached((comp, _se) => forceInitialSize(comp)),
-            run$1(updateMenuText, (comp, se) => {
-              optMemDisplayText.bind(mem => mem.getOpt(comp)).each(displayText => {
-                Replacing.set(displayText, [text$2(providersBackstage.translate(se.event.text))]);
-              });
-            }),
-            run$1(updateMenuIcon, (comp, se) => {
-              optMemDisplayIcon.bind(mem => mem.getOpt(comp)).each(displayIcon => {
-                Replacing.set(displayIcon, [renderReplaceableIconFromPack(se.event.icon, providersBackstage.icons)]);
-              });
-            }),
-            run$1(mousedown(), (button, se) => {
-              se.event.prevent();
-              emit(button, focusButtonEvent);
-            })
-          ])
-        ].concat(behaviours.getOr([])))
-      };
-    };
-    const renderFloatingToolbarButton = (spec, backstage, identifyButtons, attributes, btnName) => {
-      const sharedBackstage = backstage.shared;
-      const editorOffCell = Cell(noop);
-      const specialisation = {
-        toolbarButtonBehaviours: [],
-        getApi: getButtonApi,
-        onSetup: spec.onSetup
-      };
-      const behaviours = [
-        config('toolbar-group-button-events', [
-          onControlAttached(specialisation, editorOffCell),
-          onControlDetached(specialisation, editorOffCell)
-        ]),
-        ...spec.tooltip.map(t => Tooltipping.config(backstage.shared.providers.tooltips.getConfig({ tooltipText: backstage.shared.providers.translate(t) }))).toArray()
-      ];
-      return FloatingToolbarButton.sketch({
-        lazySink: sharedBackstage.getSink,
-        fetch: () => Future.nu(resolve => {
-          resolve(map$2(identifyButtons(spec.items), renderToolbarGroup));
-        }),
-        markers: { toggledClass: 'tox-tbtn--enabled' },
-        parts: {
-          button: renderCommonStructure(spec.icon, spec.text, spec.tooltip, Optional.some(behaviours), sharedBackstage.providers, spec.context, btnName),
-          toolbar: {
-            dom: {
-              tag: 'div',
-              classes: ['tox-toolbar__overflow'],
-              attributes
-            }
-          }
-        }
-      });
-    };
-    const renderCommonToolbarButton = (spec, specialisation, providersBackstage, btnName) => {
-      var _d;
-      const editorOffCell = Cell(noop);
-      const structure = renderCommonStructure(spec.icon, spec.text, spec.tooltip, Optional.none(), providersBackstage, spec.context, btnName);
-      return Button.sketch({
-        dom: structure.dom,
-        components: structure.components,
-        eventOrder: toolbarButtonEventOrder,
-        buttonBehaviours: {
-          ...derive$1([
-            config('toolbar-button-events', [
-              onToolbarButtonExecute({
-                onAction: spec.onAction,
-                getApi: specialisation.getApi
-              }),
-              onControlAttached(specialisation, editorOffCell),
-              onControlDetached(specialisation, editorOffCell)
-            ]),
-            ...spec.tooltip.map(t => Tooltipping.config(providersBackstage.tooltips.getConfig({ tooltipText: providersBackstage.translate(t) + spec.shortcut.map(shortcut => ` (${ convertText(shortcut) })`).getOr('') }))).toArray(),
-            DisablingConfigs.toolbarButton(() => !spec.enabled || providersBackstage.checkUiComponentContext(spec.context).shouldDisable),
-            toggleOnReceive(() => providersBackstage.checkUiComponentContext(spec.context))
-          ].concat(specialisation.toolbarButtonBehaviours)),
-          [commonButtonDisplayEvent]: (_d = structure.buttonBehaviours) === null || _d === void 0 ? void 0 : _d[commonButtonDisplayEvent]
-        }
-      });
-    };
-    const renderToolbarButton = (spec, providersBackstage, btnName) => renderToolbarButtonWith(spec, providersBackstage, [], btnName);
-    const renderToolbarButtonWith = (spec, providersBackstage, bonusEvents, btnName) => renderCommonToolbarButton(spec, {
-      toolbarButtonBehaviours: bonusEvents.length > 0 ? [config('toolbarButtonWith', bonusEvents)] : [],
-      getApi: getButtonApi,
-      onSetup: spec.onSetup
-    }, providersBackstage, btnName);
-    const renderToolbarToggleButton = (spec, providersBackstage, btnName) => renderToolbarToggleButtonWith(spec, providersBackstage, [], btnName);
-    const renderToolbarToggleButtonWith = (spec, providersBackstage, bonusEvents, btnName) => renderCommonToolbarButton(spec, {
-      toolbarButtonBehaviours: [
-        Replacing.config({}),
-        Toggling.config({
-          toggleClass: 'tox-tbtn--enabled',
-          aria: { mode: 'pressed' },
-          toggleOnExecute: false
-        })
-      ].concat(bonusEvents.length > 0 ? [config('toolbarToggleButtonWith', bonusEvents)] : []),
-      getApi: getToggleApi,
-      onSetup: spec.onSetup
-    }, providersBackstage, btnName);
-    const fetchChoices = (getApi, spec, providersBackstage) => comp => Future.nu(callback => spec.fetch(callback)).map(items => Optional.from(createTieredDataFrom(deepMerge(createPartialChoiceMenu(generate$6('menu-value'), items, value => {
-      spec.onItemAction(getApi(comp), value);
-    }, spec.columns, spec.presets, ItemResponse$1.CLOSE_ON_EXECUTE, spec.select.getOr(never), providersBackstage), {
-      movement: deriveMenuMovement(spec.columns, spec.presets),
-      menuBehaviours: SimpleBehaviours.unnamedEvents(spec.columns !== 'auto' ? [] : [runOnAttached((comp, _se) => {
-          detectSize(comp, 4, classForPreset(spec.presets)).each(({numRows, numColumns}) => {
-            Keying.setGridSize(comp, numRows, numColumns);
-          });
-        })])
-    }))));
-    const renderSplitButton = (spec, sharedBackstage, btnName) => {
-      const tooltipString = Cell(spec.tooltip.getOr(''));
-      const getApi = comp => ({
-        isEnabled: () => !Disabling.isDisabled(comp),
-        setEnabled: state => Disabling.set(comp, !state),
-        setIconFill: (id, value) => {
-          descendant(comp.element, `svg path[class="${ id }"], rect[class="${ id }"]`).each(underlinePath => {
-            set$9(underlinePath, 'fill', value);
-          });
-        },
-        setActive: state => {
-          set$9(comp.element, 'aria-pressed', state);
-          descendant(comp.element, 'span').each(button => {
-            comp.getSystem().getByDom(button).each(buttonComp => Toggling.set(buttonComp, state));
-          });
-        },
-        isActive: () => descendant(comp.element, 'span').exists(button => comp.getSystem().getByDom(button).exists(Toggling.isOn)),
-        setText: text => descendant(comp.element, 'span').each(button => comp.getSystem().getByDom(button).each(buttonComp => emitWith(buttonComp, updateMenuText, { text }))),
-        setIcon: icon => descendant(comp.element, 'span').each(button => comp.getSystem().getByDom(button).each(buttonComp => emitWith(buttonComp, updateMenuIcon, { icon }))),
-        setTooltip: tooltip => {
-          const translatedTooltip = sharedBackstage.providers.translate(tooltip);
-          set$9(comp.element, 'aria-label', translatedTooltip);
-          tooltipString.set(tooltip);
-        }
-      });
-      const editorOffCell = Cell(noop);
-      const specialisation = {
-        getApi,
-        onSetup: spec.onSetup
-      };
-      return SplitDropdown.sketch({
-        dom: {
-          tag: 'div',
-          classes: ['tox-split-button'],
-          attributes: {
-            'aria-pressed': false,
-            ...getTooltipAttributes(spec.tooltip, sharedBackstage.providers),
-            ...isNonNullable(btnName) ? { 'data-mce-name': btnName } : {}
-          }
-        },
-        onExecute: button => {
-          const api = getApi(button);
-          if (api.isEnabled()) {
-            spec.onAction(api);
-          }
-        },
-        onItemExecute: (_a, _b, _c) => {
-        },
-        splitDropdownBehaviours: derive$1([
-          config('split-dropdown-events', [
-            runOnAttached((comp, _se) => forceInitialSize(comp)),
-            run$1(focusButtonEvent, Focusing.focus),
-            onControlAttached(specialisation, editorOffCell),
-            onControlDetached(specialisation, editorOffCell)
-          ]),
-          DisablingConfigs.splitButton(() => sharedBackstage.providers.isDisabled() || sharedBackstage.providers.checkUiComponentContext(spec.context).shouldDisable),
-          toggleOnReceive(() => sharedBackstage.providers.checkUiComponentContext(spec.context)),
-          Unselecting.config({}),
-          ...spec.tooltip.map(tooltip => {
-            return Tooltipping.config({
-              ...sharedBackstage.providers.tooltips.getConfig({
-                tooltipText: sharedBackstage.providers.translate(tooltip),
-                onShow: comp => {
-                  if (tooltipString.get() !== tooltip) {
-                    const translatedTooltip = sharedBackstage.providers.translate(tooltipString.get());
-                    Tooltipping.setComponents(comp, sharedBackstage.providers.tooltips.getComponents({ tooltipText: translatedTooltip }));
-                  }
-                }
-              })
-            });
-          }).toArray()
-        ]),
-        eventOrder: {
-          [attachedToDom()]: [
-            'alloy.base.behaviour',
-            'split-dropdown-events',
-            'tooltipping'
-          ],
-          [detachedFromDom()]: [
-            'split-dropdown-events',
-            'tooltipping'
-          ]
-        },
-        toggleClass: 'tox-tbtn--enabled',
-        lazySink: sharedBackstage.getSink,
-        fetch: fetchChoices(getApi, spec, sharedBackstage.providers),
-        parts: { menu: part(false, spec.columns, spec.presets) },
-        components: [
-          SplitDropdown.parts.button(renderCommonStructure(spec.icon, spec.text, Optional.none(), Optional.some([
-            Toggling.config({
-              toggleClass: 'tox-tbtn--enabled',
-              toggleOnExecute: false
-            }),
-            DisablingConfigs.toolbarButton(never),
-            toggleOnReceive(constant$1({
-              contextType: 'any',
-              shouldDisable: false
-            }))
-          ]), sharedBackstage.providers, spec.context)),
-          SplitDropdown.parts.arrow({
-            dom: {
-              tag: 'button',
-              classes: [
-                'tox-tbtn',
-                'tox-split-button__chevron'
-              ],
-              innerHtml: get$3('chevron-down', sharedBackstage.providers.icons)
-            },
-            buttonBehaviours: derive$1([
-              DisablingConfigs.splitButton(never),
-              toggleOnReceive(constant$1({
-                contextType: 'any',
-                shouldDisable: false
-              }))
-            ])
-          }),
-          SplitDropdown.parts['aria-descriptor']({ text: sharedBackstage.providers.translate('To open the popup, press Shift+Enter') })
-        ]
-      });
->>>>>>> origin/main
     };
 
     const defaultToolbar = [
@@ -30805,56 +29383,8 @@
         })
     };
     const extractFrom = (spec, backstage, editor, btnName) => get$h(types, spec.type).fold(() => {
-<<<<<<< HEAD
         // eslint-disable-next-line no-console
         console.error('skipping button defined by', spec);
-=======
-      console.error('skipping button defined by', spec);
-      return Optional.none();
-    }, render => Optional.some(render(spec, backstage, editor, btnName)));
-    const bespokeButtons = {
-      styles: createStylesButton,
-      fontsize: createFontSizeButton,
-      fontsizeinput: createFontSizeInputButton,
-      fontfamily: createFontFamilyButton,
-      blocks: createBlocksButton,
-      align: createAlignButton
-    };
-    const removeUnusedDefaults = buttons => {
-      const filteredItemGroups = map$2(defaultToolbar, group => {
-        const items = filter$2(group.items, subItem => has$2(buttons, subItem) || has$2(bespokeButtons, subItem));
-        return {
-          name: group.name,
-          items
-        };
-      });
-      return filter$2(filteredItemGroups, group => group.items.length > 0);
-    };
-    const convertStringToolbar = strToolbar => {
-      const groupsStrings = strToolbar.split('|');
-      return map$2(groupsStrings, g => ({ items: g.trim().split(' ') }));
-    };
-    const isToolbarGroupSettingArray = toolbar => isArrayOf(toolbar, t => (has$2(t, 'name') || has$2(t, 'label')) && has$2(t, 'items'));
-    const createToolbar = toolbarConfig => {
-      const toolbar = toolbarConfig.toolbar;
-      const buttons = toolbarConfig.buttons;
-      if (toolbar === false) {
-        return [];
-      } else if (toolbar === undefined || toolbar === true) {
-        return removeUnusedDefaults(buttons);
-      } else if (isString(toolbar)) {
-        return convertStringToolbar(toolbar);
-      } else if (isToolbarGroupSettingArray(toolbar)) {
-        return toolbar;
-      } else {
-        console.error('Toolbar type should be string, string[], boolean or ToolbarGroup[]');
-        return [];
-      }
-    };
-    const lookupButton = (editor, buttons, toolbarItem, allowToolbarGroups, backstage, prefixes) => get$h(buttons, toolbarItem.toLowerCase()).orThunk(() => prefixes.bind(ps => findMap(ps, prefix => get$h(buttons, prefix + toolbarItem.toLowerCase())))).fold(() => get$h(bespokeButtons, toolbarItem.toLowerCase()).map(r => r(editor, backstage)), spec => {
-      if (spec.type === 'grouptoolbarbutton' && !allowToolbarGroups) {
-        console.warn(`Ignoring the '${ toolbarItem }' toolbar button. Group toolbar buttons are only supported when using floating toolbar mode and cannot be nested.`);
->>>>>>> origin/main
         return Optional.none();
     }, (render) => Optional.some(render(spec, backstage, editor, btnName)));
     const bespokeButtons = {
@@ -30942,17 +29472,7 @@
                 items
             };
         });
-<<<<<<< HEAD
         return filter$2(groups, (group) => group.items.length > 0);
-=======
-        return {
-          title: Optional.from(editor.translate(group.name)),
-          label: someIf(group.label !== undefined, editor.translate(group.label)),
-          items
-        };
-      });
-      return filter$2(groups, group => group.items.length > 0);
->>>>>>> origin/main
     };
 
     // Set toolbar(s) depending on if multiple toolbars is configured or not
@@ -31679,7 +30199,6 @@
     const showContextToolbarEvent = 'contexttoolbar-show';
     const hideContextToolbarEvent = 'contexttoolbar-hide';
 
-<<<<<<< HEAD
     const getFormApi = (input, valueState, focusfallbackElement) => {
         return ({
             setInputEnabled: (state) => {
@@ -32095,370 +30614,6 @@
             case 'contextsliderform': return buildInitGroup(curry(renderContextFormSliderInput, ctx), ctx, providers);
             case 'contextsizeinputform': return buildInitGroup(curry(renderContextFormSizeInput, ctx), ctx, providers);
         }
-=======
-    const contextFormInputSelector = '.tox-toolbar-slider__input,.tox-toolbar-textfield';
-    const focusIn = contextbar => {
-      InlineView.getContent(contextbar).each(comp => {
-        descendant(comp.element, contextFormInputSelector).fold(() => Keying.focusIn(comp), focus$3);
-      });
-    };
-    const focusParent = comp => search(comp.element).each(focus => {
-      ancestor(focus, '[tabindex="-1"]').each(parent => {
-        focus$3(parent);
-      });
-    });
-
-    const forwardSlideEvent = generate$6('forward-slide');
-    const backSlideEvent = generate$6('backward-slide');
-    const changeSlideEvent = generate$6('change-slide-event');
-    const resizingClass = 'tox-pop--resizing';
-    const renderContextToolbar = spec => {
-      const stack = Cell([]);
-      return InlineView.sketch({
-        dom: {
-          tag: 'div',
-          classes: ['tox-pop']
-        },
-        fireDismissalEventInstead: { event: 'doNotDismissYet' },
-        onShow: comp => {
-          stack.set([]);
-          InlineView.getContent(comp).each(c => {
-            remove$7(c.element, 'visibility');
-          });
-          remove$3(comp.element, resizingClass);
-          remove$7(comp.element, 'width');
-        },
-        onHide: () => {
-          spec.onHide();
-        },
-        inlineBehaviours: derive$1([
-          config('context-toolbar-events', [
-            runOnSource(transitionend(), (comp, se) => {
-              if (se.event.raw.propertyName === 'width') {
-                remove$3(comp.element, resizingClass);
-                remove$7(comp.element, 'width');
-              }
-            }),
-            run$1(changeSlideEvent, (comp, se) => {
-              const elem = comp.element;
-              remove$7(elem, 'width');
-              const currentWidth = get$d(elem);
-              remove$7(elem, 'left');
-              remove$7(elem, 'right');
-              remove$7(elem, 'max-width');
-              InlineView.setContent(comp, se.event.contents);
-              add$2(elem, resizingClass);
-              const newWidth = get$d(elem);
-              set$8(elem, 'transition', 'none');
-              InlineView.reposition(comp);
-              remove$7(elem, 'transition');
-              set$8(elem, 'width', currentWidth + 'px');
-              se.event.focus.fold(() => focusIn(comp), f => {
-                focus$3(f);
-                if (search(elem).isNone()) {
-                  focusIn(comp);
-                }
-              });
-              setTimeout(() => {
-                set$8(comp.element, 'width', newWidth + 'px');
-              }, 0);
-            }),
-            run$1(forwardSlideEvent, (comp, se) => {
-              InlineView.getContent(comp).each(oldContents => {
-                stack.set(stack.get().concat([{
-                    bar: oldContents,
-                    focus: active$1(getRootNode(comp.element))
-                  }]));
-              });
-              emitWith(comp, changeSlideEvent, {
-                contents: se.event.forwardContents,
-                focus: Optional.none()
-              });
-            }),
-            run$1(backSlideEvent, (comp, _se) => {
-              spec.onBack();
-              last$1(stack.get()).each(last => {
-                stack.set(stack.get().slice(0, stack.get().length - 1));
-                emitWith(comp, changeSlideEvent, {
-                  contents: premade(last.bar),
-                  focus: last.focus
-                });
-              });
-            })
-          ]),
-          Keying.config({
-            mode: 'special',
-            onEscape: comp => last$1(stack.get()).fold(() => spec.onEscape(), _ => {
-              emit(comp, backSlideEvent);
-              return Optional.some(true);
-            })
-          })
-        ]),
-        lazySink: () => Result.value(spec.sink)
-      });
-    };
-
-    const getFormApi = input => {
-      const valueState = value$4();
-      return {
-        setInputEnabled: state => {
-          if (!state) {
-            focusParent(input);
-          }
-          Disabling.set(input, !state);
-        },
-        isInputEnabled: () => !Disabling.isDisabled(input),
-        hide: () => {
-          if (!valueState.isSet()) {
-            valueState.set(Representing.getValue(input));
-          }
-          emit(input, sandboxClose());
-        },
-        back: () => {
-          if (!valueState.isSet()) {
-            valueState.set(Representing.getValue(input));
-          }
-          emit(input, backSlideEvent);
-        },
-        getValue: () => {
-          return valueState.get().getOrThunk(() => Representing.getValue(input));
-        },
-        setValue: value => {
-          if (valueState.isSet()) {
-            valueState.set(value);
-          } else {
-            Representing.setValue(input, value);
-          }
-        }
-      };
-    };
-
-    const runOnExecute = (memInput, original) => run$1(internalToolbarButtonExecute, (comp, se) => {
-      const input = memInput.get(comp);
-      const formApi = getFormApi(input);
-      original.onAction(formApi, se.event.buttonApi);
-    });
-    const renderContextButton = (memInput, button, providers) => {
-      const {primary, ...rest} = button.original;
-      const bridged = getOrDie(createToolbarButton({
-        ...rest,
-        type: 'button',
-        onAction: noop
-      }));
-      return renderToolbarButtonWith(bridged, providers, [runOnExecute(memInput, button)]);
-    };
-    const renderContextToggleButton = (memInput, button, providers) => {
-      const {primary, ...rest} = button.original;
-      const bridged = getOrDie(createToggleButton({
-        ...rest,
-        type: 'togglebutton',
-        onAction: noop
-      }));
-      return renderToolbarToggleButtonWith(bridged, providers, [runOnExecute(memInput, button)]);
-    };
-    const isToggleButton = button => button.type === 'contextformtogglebutton';
-    const generateOne = (memInput, button, providersBackstage) => {
-      if (isToggleButton(button)) {
-        return renderContextToggleButton(memInput, button, providersBackstage);
-      } else {
-        return renderContextButton(memInput, button, providersBackstage);
-      }
-    };
-    const generate = (memInput, buttons, providersBackstage) => {
-      const mementos = map$2(buttons, button => record(generateOne(memInput, button, providersBackstage)));
-      const asSpecs = () => map$2(mementos, mem => mem.asSpec());
-      const findPrimary = compInSystem => findMap(buttons, (button, i) => {
-        if (button.primary) {
-          return Optional.from(mementos[i]).bind(mem => mem.getOpt(compInSystem)).filter(not(Disabling.isDisabled));
-        } else {
-          return Optional.none();
-        }
-      });
-      return {
-        asSpecs,
-        findPrimary
-      };
-    };
-
-    const renderContextFormSizeInput = (ctx, providersBackstage, onEnter) => {
-      const {width, height} = ctx.initValue();
-      return renderSizeInput$1({
-        inDialog: false,
-        label: ctx.label,
-        enabled: true,
-        context: Optional.none(),
-        name: Optional.none(),
-        width,
-        height,
-        onEnter: Optional.some(onEnter),
-        onInput: Optional.some(input => ctx.onInput(getFormApi(input))),
-        onSetup: Optional.some(ctx.onSetup),
-        getApi: Optional.some(getFormApi)
-      }, providersBackstage);
-    };
-
-    const createContextFormFieldFromParts = (pLabel, pField, providers) => FormField.sketch({
-      dom: {
-        tag: 'div',
-        classes: ['tox-context-form__group']
-      },
-      components: [
-        ...pLabel.toArray(),
-        pField
-      ],
-      fieldBehaviours: derive$1([Disabling.config({
-          disabled: () => providers.checkUiComponentContext('mode:design').shouldDisable,
-          onDisabled: comp => {
-            focusParent(comp);
-            FormField.getField(comp).each(Disabling.disable);
-          },
-          onEnabled: comp => {
-            FormField.getField(comp).each(Disabling.enable);
-          }
-        })])
-    });
-
-    const renderContextFormSliderInput = (ctx, providers, onEnter) => {
-      const editorOffCell = Cell(noop);
-      const pLabel = ctx.label.map(label => FormField.parts.label({
-        dom: {
-          tag: 'label',
-          classes: ['tox-label']
-        },
-        components: [text$2(providers.translate(label))]
-      }));
-      const pField = FormField.parts.field({
-        factory: Input,
-        type: 'range',
-        inputClasses: ['tox-toolbar-slider__input'],
-        inputAttributes: {
-          min: String(ctx.min()),
-          max: String(ctx.max())
-        },
-        data: ctx.initValue().toString(),
-        fromInputValue: value => toFloat(value).getOr(ctx.min()),
-        toInputValue: value => String(value),
-        inputBehaviours: derive$1([
-          Disabling.config({ disabled: () => providers.checkUiComponentContext('mode:design').shouldDisable }),
-          toggleOnReceive(() => providers.checkUiComponentContext('mode:design')),
-          Keying.config({
-            mode: 'special',
-            onEnter,
-            onLeft: (comp, se) => {
-              se.cut();
-              return Optional.none();
-            },
-            onRight: (comp, se) => {
-              se.cut();
-              return Optional.none();
-            }
-          }),
-          config('slider-events', [
-            onControlAttached({
-              onSetup: ctx.onSetup,
-              getApi: getFormApi,
-              onBeforeSetup: Keying.focusIn
-            }, editorOffCell),
-            onControlDetached({ getApi: getFormApi }, editorOffCell),
-            run$1(input(), comp => {
-              ctx.onInput(getFormApi(comp));
-            })
-          ])
-        ])
-      });
-      return createContextFormFieldFromParts(pLabel, pField, providers);
-    };
-
-    const renderContextFormTextInput = (ctx, providers, onEnter) => {
-      const editorOffCell = Cell(noop);
-      const pLabel = ctx.label.map(label => FormField.parts.label({
-        dom: {
-          tag: 'label',
-          classes: ['tox-label']
-        },
-        components: [text$2(providers.translate(label))]
-      }));
-      const placeholder = ctx.placeholder.map(p => ({ placeholder: providers.translate(p) })).getOr({});
-      const inputAttributes = { ...placeholder };
-      const pField = FormField.parts.field({
-        factory: Input,
-        inputClasses: [
-          'tox-toolbar-textfield',
-          'tox-toolbar-nav-js'
-        ],
-        inputAttributes,
-        data: ctx.initValue(),
-        selectOnFocus: true,
-        inputBehaviours: derive$1([
-          Disabling.config({ disabled: () => providers.checkUiComponentContext('mode:design').shouldDisable }),
-          toggleOnReceive(() => providers.checkUiComponentContext('mode:design')),
-          Keying.config({
-            mode: 'special',
-            onEnter,
-            onLeft: (comp, se) => {
-              se.cut();
-              return Optional.none();
-            },
-            onRight: (comp, se) => {
-              se.cut();
-              return Optional.none();
-            }
-          }),
-          config('input-events', [
-            onControlAttached({
-              onSetup: ctx.onSetup,
-              getApi: getFormApi,
-              onBeforeSetup: Keying.focusIn
-            }, editorOffCell),
-            onControlDetached({ getApi: getFormApi }, editorOffCell),
-            run$1(input(), comp => {
-              ctx.onInput(getFormApi(comp));
-            })
-          ])
-        ])
-      });
-      return createContextFormFieldFromParts(pLabel, pField, providers);
-    };
-
-    const buildInitGroup = (f, ctx, providers) => {
-      const onEnter = input => {
-        return startCommands.findPrimary(input).orThunk(() => endCommands.findPrimary(input)).map(primary => {
-          emitExecute(primary);
-          return true;
-        });
-      };
-      const memInput = record(f(providers, onEnter));
-      const commandParts = partition$3(ctx.commands, command => command.align === 'start');
-      const startCommands = generate(memInput, commandParts.pass, providers);
-      const endCommands = generate(memInput, commandParts.fail, providers);
-      return filter$2([
-        {
-          title: Optional.none(),
-          label: Optional.none(),
-          items: startCommands.asSpecs()
-        },
-        {
-          title: Optional.none(),
-          label: Optional.none(),
-          items: [memInput.asSpec()]
-        },
-        {
-          title: Optional.none(),
-          label: Optional.none(),
-          items: endCommands.asSpecs()
-        }
-      ], group => group.items.length > 0);
-    };
-    const buildInitGroups = (ctx, providers) => {
-      switch (ctx.type) {
-      case 'contextform':
-        return buildInitGroup(curry(renderContextFormTextInput, ctx), ctx, providers);
-      case 'contextsliderform':
-        return buildInitGroup(curry(renderContextFormSliderInput, ctx), ctx, providers);
-      case 'contextsizeinputform':
-        return buildInitGroup(curry(renderContextFormSizeInput, ctx), ctx, providers);
-      }
->>>>>>> origin/main
     };
     const renderContextForm = (toolbarType, ctx, providers) => renderToolbar({
         type: toolbarType,
@@ -32839,7 +30994,6 @@
                 registerToolbar(key, toolbarApi);
             }
         });
-<<<<<<< HEAD
         return {
             forms,
             inNodeScope,
@@ -32847,47 +31001,11 @@
             lookupTable,
             formNavigators
         };
-=======
-        if (contextForm.scope === 'editor') {
-          inEditorScope.push(contextForm);
-        } else {
-          inNodeScope.push(contextForm);
-        }
-        lookupTable[key] = contextForm;
-      };
-      const registerToolbar = (key, toolbarSpec) => {
-        createContextToolbar(toolbarSpec).each(contextToolbar => {
-          if (toolbarSpec.scope === 'editor') {
-            inEditorScope.push(contextToolbar);
-          } else {
-            inNodeScope.push(contextToolbar);
-          }
-          lookupTable[key] = contextToolbar;
-        });
-      };
-      const keys$1 = keys(contextToolbars);
-      each$1(keys$1, key => {
-        const toolbarApi = contextToolbars[key];
-        if (toolbarApi.type === 'contextform' || toolbarApi.type === 'contextsliderform' || toolbarApi.type === 'contextsizeinputform') {
-          registerForm(key, toolbarApi);
-        } else if (toolbarApi.type === 'contexttoolbar') {
-          registerToolbar(key, toolbarApi);
-        }
-      });
-      return {
-        forms,
-        inNodeScope,
-        inEditorScope,
-        lookupTable,
-        formNavigators
-      };
->>>>>>> origin/main
     };
 
     const transitionClass = 'tox-pop--transition';
     const isToolbarActionKey = (keyCode) => keyCode === global$1.ENTER || keyCode === global$1.SPACEBAR;
     const register$a = (editor, registryContextToolbars, sink, extras) => {
-<<<<<<< HEAD
         const backstage = extras.backstage;
         const sharedBackstage = backstage.shared;
         const isTouch = detect$1().deviceType.isTouch;
@@ -32906,179 +31024,6 @@
             },
             onBack: () => {
                 fireContextFormSlideBack(editor);
-=======
-      const backstage = extras.backstage;
-      const sharedBackstage = backstage.shared;
-      const isTouch = detect$1().deviceType.isTouch;
-      const lastElement = value$4();
-      const lastTrigger = value$4();
-      const lastContextPosition = value$4();
-      const contextbar = build$1(renderContextToolbar({
-        sink,
-        onEscape: () => {
-          editor.focus();
-          fireContextToolbarClose(editor);
-          return Optional.some(true);
-        },
-        onHide: () => {
-          fireContextToolbarClose(editor);
-        },
-        onBack: () => {
-          fireContextFormSlideBack(editor);
-        }
-      }));
-      const getBounds = () => {
-        const position = lastContextPosition.get().getOr('node');
-        const margin = shouldUseInsetLayouts(position) ? 1 : 0;
-        return getContextToolbarBounds(editor, sharedBackstage, position, margin);
-      };
-      const canLaunchToolbar = () => {
-        return !editor.removed && !(isTouch() && backstage.isContextMenuOpen());
-      };
-      const isSameLaunchElement = elem => is$1(lift2(elem, lastElement.get(), eq), true);
-      const shouldContextToolbarHide = () => {
-        if (!canLaunchToolbar()) {
-          return true;
-        } else {
-          const contextToolbarBounds = getBounds();
-          const anchorBounds = is$1(lastContextPosition.get(), 'node') ? getAnchorElementBounds(editor, lastElement.get()) : getSelectionBounds(editor);
-          return contextToolbarBounds.height <= 0 || !isVerticalOverlap(anchorBounds, contextToolbarBounds, 0.01);
-        }
-      };
-      const close = () => {
-        lastElement.clear();
-        lastTrigger.clear();
-        lastContextPosition.clear();
-        InlineView.hide(contextbar);
-      };
-      const hideOrRepositionIfNecessary = () => {
-        if (InlineView.isOpen(contextbar)) {
-          const contextBarEle = contextbar.element;
-          remove$7(contextBarEle, 'display');
-          if (shouldContextToolbarHide()) {
-            set$8(contextBarEle, 'display', 'none');
-          } else {
-            lastTrigger.set(0);
-            InlineView.reposition(contextbar);
-          }
-        }
-      };
-      const wrapInPopDialog = toolbarSpec => ({
-        dom: {
-          tag: 'div',
-          classes: ['tox-pop__dialog']
-        },
-        components: [toolbarSpec],
-        behaviours: derive$1([
-          Keying.config({ mode: 'acyclic' }),
-          config('pop-dialog-wrap-events', [
-            runOnAttached(comp => {
-              editor.shortcuts.add('ctrl+F9', 'focus statusbar', () => Keying.focusIn(comp));
-            }),
-            runOnDetached(_comp => {
-              editor.shortcuts.remove('ctrl+F9');
-            })
-          ])
-        ])
-      });
-      const getScopes = cached(() => categorise(registryContextToolbars, toolbarApi => {
-        const alloySpec = buildToolbar([toolbarApi]);
-        emitWith(contextbar, forwardSlideEvent, { forwardContents: wrapInPopDialog(alloySpec) });
-      }));
-      const buildContextToolbarGroups = (allButtons, ctx) => {
-        return identifyButtons(editor, {
-          buttons: allButtons,
-          toolbar: ctx.items,
-          allowToolbarGroups: false
-        }, extras.backstage, Optional.some(['form:']));
-      };
-      const buildContextFormGroups = (ctx, providers) => ContextForm.buildInitGroups(ctx, providers);
-      const buildToolbar = toolbars => {
-        const {buttons} = editor.ui.registry.getAll();
-        const scopes = getScopes();
-        const allButtons = {
-          ...buttons,
-          ...scopes.formNavigators
-        };
-        const toolbarType = getToolbarMode(editor) === ToolbarMode$1.scrolling ? ToolbarMode$1.scrolling : ToolbarMode$1.default;
-        const initGroups = flatten(map$2(toolbars, ctx => ctx.type === 'contexttoolbar' ? buildContextToolbarGroups(allButtons, contextToolbarToSpec(ctx)) : buildContextFormGroups(ctx, sharedBackstage.providers)));
-        return renderToolbar({
-          type: toolbarType,
-          uid: generate$6('context-toolbar'),
-          initGroups,
-          onEscape: Optional.none,
-          cyclicKeying: true,
-          providers: sharedBackstage.providers
-        });
-      };
-      const getAnchor = (position, element) => {
-        const anchorage = position === 'node' ? sharedBackstage.anchors.node(element) : sharedBackstage.anchors.cursor();
-        const anchorLayout = getAnchorLayout(editor, position, isTouch(), {
-          lastElement: lastElement.get,
-          isReposition: () => is$1(lastTrigger.get(), 0),
-          getMode: () => Positioning.getMode(sink)
-        });
-        return deepMerge(anchorage, anchorLayout);
-      };
-      const launchContext = (toolbarApi, elem) => {
-        launchContextToolbar.cancel();
-        if (!canLaunchToolbar()) {
-          return;
-        }
-        const toolbarSpec = buildToolbar(toolbarApi);
-        const position = toolbarApi[0].position;
-        const anchor = getAnchor(position, elem);
-        lastContextPosition.set(position);
-        lastTrigger.set(1);
-        const contextBarEle = contextbar.element;
-        remove$7(contextBarEle, 'display');
-        if (!isSameLaunchElement(elem)) {
-          remove$3(contextBarEle, transitionClass);
-          Positioning.reset(sink, contextbar);
-        }
-        InlineView.showWithinBounds(contextbar, wrapInPopDialog(toolbarSpec), {
-          anchor,
-          transition: {
-            classes: [transitionClass],
-            mode: 'placement'
-          }
-        }, () => Optional.some(getBounds()));
-        elem.fold(lastElement.clear, lastElement.set);
-        if (shouldContextToolbarHide()) {
-          set$8(contextBarEle, 'display', 'none');
-        }
-      };
-      let isDragging = false;
-      const launchContextToolbar = last(() => {
-        if (!editor.hasFocus() || editor.removed || isDragging) {
-          return;
-        }
-        if (has(contextbar.element, transitionClass)) {
-          launchContextToolbar.throttle();
-        } else {
-          const scopes = getScopes();
-          lookup$1(scopes, editor).fold(close, info => {
-            launchContext(info.toolbars, Optional.some(info.elem));
-          });
-        }
-      }, 17);
-      editor.on('init', () => {
-        editor.on('remove', close);
-        editor.on('ScrollContent ScrollWindow ObjectResized ResizeEditor longpress', hideOrRepositionIfNecessary);
-        editor.on('click keyup focus SetContent', launchContextToolbar.throttle);
-        editor.on(hideContextToolbarEvent, close);
-        editor.on(showContextToolbarEvent, e => {
-          const scopes = getScopes();
-          get$h(scopes.lookupTable, e.toolbarKey).each(ctx => {
-            launchContext([ctx], someIf(e.target !== editor, e.target));
-            focusIn(contextbar);
-          });
-        });
-        editor.on('focusout', _e => {
-          global$9.setEditorTimeout(editor, () => {
-            if (search(sink.element).isNone() && search(contextbar.element).isNone()) {
-              close();
->>>>>>> origin/main
             }
         });
         const contextbar = build$1(contextToolbarResult.sketch);
@@ -33149,7 +31094,6 @@
                 ])
             ])
         });
-<<<<<<< HEAD
         const navigate = (toolbarApi) => {
             // ASSUMPTION: This should only ever show one context toolbar since it's used for context forms hence [toolbarApi]
             const alloySpec = buildToolbar([toolbarApi]);
@@ -33315,17 +31259,6 @@
                     instantReposition();
                 }
             });
-=======
-        editor.on('DisabledStateChange', e => {
-          if (e.state) {
-            close();
-          }
-        });
-        editor.on('ExecCommand', ({command}) => {
-          if (command.toLowerCase() === 'toggleview') {
-            close();
-          }
->>>>>>> origin/main
         });
     };
 

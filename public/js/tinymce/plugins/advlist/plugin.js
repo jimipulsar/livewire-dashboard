@@ -1,9 +1,5 @@
 /**
-<<<<<<< HEAD
  * TinyMCE version 7.9.3 (2026-05-19)
-=======
- * TinyMCE version 7.6.0 (2024-12-11)
->>>>>>> origin/main
  */
 
 (function () {
@@ -340,147 +336,9 @@
         return r;
     };
 
-<<<<<<< HEAD
     var global = tinymce.util.Tools.resolve('tinymce.util.Tools');
 
     const isCustomList = (list) => /\btox\-/.test(list.className);
-=======
-    class Optional {
-      constructor(tag, value) {
-        this.tag = tag;
-        this.value = value;
-      }
-      static some(value) {
-        return new Optional(true, value);
-      }
-      static none() {
-        return Optional.singletonNone;
-      }
-      fold(onNone, onSome) {
-        if (this.tag) {
-          return onSome(this.value);
-        } else {
-          return onNone();
-        }
-      }
-      isSome() {
-        return this.tag;
-      }
-      isNone() {
-        return !this.tag;
-      }
-      map(mapper) {
-        if (this.tag) {
-          return Optional.some(mapper(this.value));
-        } else {
-          return Optional.none();
-        }
-      }
-      bind(binder) {
-        if (this.tag) {
-          return binder(this.value);
-        } else {
-          return Optional.none();
-        }
-      }
-      exists(predicate) {
-        return this.tag && predicate(this.value);
-      }
-      forall(predicate) {
-        return !this.tag || predicate(this.value);
-      }
-      filter(predicate) {
-        if (!this.tag || predicate(this.value)) {
-          return this;
-        } else {
-          return Optional.none();
-        }
-      }
-      getOr(replacement) {
-        return this.tag ? this.value : replacement;
-      }
-      or(replacement) {
-        return this.tag ? this : replacement;
-      }
-      getOrThunk(thunk) {
-        return this.tag ? this.value : thunk();
-      }
-      orThunk(thunk) {
-        return this.tag ? this : thunk();
-      }
-      getOrDie(message) {
-        if (!this.tag) {
-          throw new Error(message !== null && message !== void 0 ? message : 'Called getOrDie on None');
-        } else {
-          return this.value;
-        }
-      }
-      static from(value) {
-        return isNonNullable(value) ? Optional.some(value) : Optional.none();
-      }
-      getOrNull() {
-        return this.tag ? this.value : null;
-      }
-      getOrUndefined() {
-        return this.value;
-      }
-      each(worker) {
-        if (this.tag) {
-          worker(this.value);
-        }
-      }
-      toArray() {
-        return this.tag ? [this.value] : [];
-      }
-      toString() {
-        return this.tag ? `some(${ this.value })` : 'none()';
-      }
-    }
-    Optional.singletonNone = new Optional(false);
-
-    const nativeIndexOf = Array.prototype.indexOf;
-    const rawIndexOf = (ts, t) => nativeIndexOf.call(ts, t);
-    const contains = (xs, x) => rawIndexOf(xs, x) > -1;
-    const findUntil = (xs, pred, until) => {
-      for (let i = 0, len = xs.length; i < len; i++) {
-        const x = xs[i];
-        if (pred(x, i)) {
-          return Optional.some(x);
-        } else if (until(x, i)) {
-          break;
-        }
-      }
-      return Optional.none();
-    };
-
-    const keys = Object.keys;
-    const each = (obj, f) => {
-      const props = keys(obj);
-      for (let k = 0, len = props.length; k < len; k++) {
-        const i = props[k];
-        const x = obj[i];
-        f(x, i);
-      }
-    };
-    const map = (obj, f) => {
-      return tupleMap(obj, (x, i) => ({
-        k: i,
-        v: f(x, i)
-      }));
-    };
-    const tupleMap = (obj, f) => {
-      const r = {};
-      each(obj, (x, i) => {
-        const tuple = f(x, i);
-        r[tuple.k] = tuple.v;
-      });
-      return r;
-    };
-
-    var global = tinymce.util.Tools.resolve('tinymce.util.Tools');
-
-    const isCustomList = list => /\btox\-/.test(list.className);
->>>>>>> origin/main
     const isChildOfBody = (editor, elm) => {
         return editor.dom.isChildOf(elm, editor.getBody());
     };
@@ -528,7 +386,6 @@
         return setNodeChangeHandler(editor, nodeChangeHandler);
     };
     const addSplitButton = (editor, id, tooltip, cmd, nodeName, styles) => {
-<<<<<<< HEAD
         const listStyleTypeAliases = {
             'lower-latin': 'lower-alpha',
             'upper-latin': 'upper-alpha',
@@ -566,45 +423,6 @@
             },
             onSetup: makeSetupHandler(editor, nodeName)
         });
-=======
-      const listStyleTypeAliases = {
-        'lower-latin': 'lower-alpha',
-        'upper-latin': 'upper-alpha',
-        'lower-alpha': 'lower-latin',
-        'upper-alpha': 'upper-latin'
-      };
-      const stylesContainsAliasMap = map(listStyleTypeAliases, alias => contains(styles, alias));
-      editor.ui.registry.addSplitButton(id, {
-        tooltip,
-        icon: nodeName === 'OL' ? 'ordered-list' : 'unordered-list',
-        presets: 'listpreview',
-        columns: 3,
-        fetch: callback => {
-          const items = global.map(styles, styleValue => {
-            const iconStyle = nodeName === 'OL' ? 'num' : 'bull';
-            const iconName = styleValue === 'disc' || styleValue === 'decimal' ? 'default' : styleValue;
-            const itemValue = normalizeStyleValue(styleValue);
-            const displayText = styleValueToText(styleValue);
-            return {
-              type: 'choiceitem',
-              value: itemValue,
-              icon: 'list-' + iconStyle + '-' + iconName,
-              text: displayText
-            };
-          });
-          callback(items);
-        },
-        onAction: () => editor.execCommand(cmd),
-        onItemAction: (_splitButtonApi, value) => {
-          applyListFormat(editor, nodeName, value);
-        },
-        select: value => {
-          const listStyleType = getSelectedStyleType(editor);
-          return listStyleType.exists(listStyle => value === listStyle || listStyleTypeAliases[listStyle] === value && !stylesContainsAliasMap[value]);
-        },
-        onSetup: makeSetupHandler(editor, nodeName)
-      });
->>>>>>> origin/main
     };
     const addButton = (editor, id, tooltip, cmd, nodeName, styleValue) => {
         editor.ui.registry.addToggleButton(id, {
