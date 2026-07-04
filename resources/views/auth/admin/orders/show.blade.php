@@ -14,7 +14,7 @@
                     <time datetime="2021-03-22"
                           class="font-medium text-gray-600"> {{ Carbon\Carbon::parse($order->created_at)->format('d/m/Y') }}</time>
                 </p>
-                <form action="{{ route('adminOrders.update', [ $orderInfo->id]) }}"
+                <form action="{{ route('adminOrders.update', ['lang' => app()->getLocale(), $orderInfo->id]) }}"
                       method="POST" enctype="multipart/form-data">
                     @csrf
                     @if($orderInfo->status == 'pending' || $orderInfo->status == 'processing' || $orderInfo->status == 'completed')
@@ -47,11 +47,7 @@
                                 <div
                                     class="relative w-12 h-6 transition duration-200 ease-linear rounded-full"
                                     style="margin-top:-5px"
-<<<<<<< HEAD
                                     :class="[toggle === '1' ? 'bg-green-400' : 'bg-gray-400']" >
-=======
-                                    :class="[toggle === '1' ? 'bg-green-400' : 'bg-gray-400']">
->>>>>>> origin/main
                                     <label for="is_shipped"
                                            class="absolute left-0 w-6  h-6 mb-2 transition duration-100 ease-linear transform bg-white border-2 rounded-full cursor-pointer"
                                            :class="[toggle === '1' ? 'translate-x-full border-green-400' : 'translate-x-0 border-gray-400']"></label>
@@ -83,7 +79,6 @@
                             <div class="py-1 px-1 sm:px-1 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
 
                                 <div class="sm:flex lg:col-span-7 pl-10 pt-4">
-<<<<<<< HEAD
                                     @if(file_exists(public_path('storage/' .$item->product->img_01 )) && $item->product->img_01 != null)
                                         <div
                                             class="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg sm:aspect-none sm:w-40 ">
@@ -98,22 +93,12 @@
                                                  alt="{{Str::of('/uploads/default/default.jpg')->basename('.jpg')}}">
                                         </div>
                                     @endif
-=======
-
-                                    <div
-                                        class="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg sm:aspect-none sm:w-40 ">
-                                        @if(file_exists(public_path('storage/' . $item->product->img_01 )) && $item->product->img_01 != null)
-                                            <img src="{{'/storage/' . $item->product->img_01}}"
-                                                 class="img-backend-products">
-                                        @else
-                                            <img src="{{'/uploads/default/default.jpg' }}"
-                                                 class="img-backend-products"
-                                                 alt="{{Str::of('/uploads/default/default.jpg')->basename('.jpg')}}">
-                                        @endif
-                                    </div>
->>>>>>> origin/main
                                     <div class="mt-6 pt-2 sm:mt-0 sm:ml-6">
+
                                         <h3 class="text-base font-medium text-indigo-600 ">
+
+                                                {{ $item->product->item_name}}
+
                                         </h3>
                                         <p class="mt-2 text-sm font-medium text-gray-900">
                                             € {{ price($item->price) }}
@@ -162,9 +147,11 @@
                             </div>
                         @endif
                     </div>
+
                     <!-- More products... -->
                 </div>
             </section>
+
             <!-- Billing -->
             <section aria-labelledby="summary-heading" class="mt-16">
                 <div
@@ -178,13 +165,8 @@
 
                                 @endif
                                 <span
-<<<<<<< HEAD
                                     class="block"><strong>Nome: </strong> {{$orderInfo->shipping_name}} {{$orderInfo->shipping_surname}}</span>
                                 <span class="block"><strong>Indirizzo: </strong>{{$orderInfo->shipping_address}}</span>
-=======
-                                    class="block"><strong>Name: </strong> {{$orderInfo->shipping_name}} {{$orderInfo->shipping_surname}}</span>
-                                <span class="block"><strong>Address: </strong>{{$orderInfo->shipping_address}}</span>
->>>>>>> origin/main
                                 <span class="block">{{$orderInfo->shipping_zipcode}} {{$orderInfo->shipping_city}} ({{$orderInfo->shipping_province}})</span>
                                 <span class="block"><strong>Telefono: </strong>{{$orderInfo->shipping_phone}}</span>
                             </dd>
@@ -195,13 +177,8 @@
                                     <span class="block"><strong>P.IVA: </strong> {{$orderInfo->billing_vat}}</span>
                                 @endif
                                 <span
-<<<<<<< HEAD
                                     class="block"><strong>Nome: </strong> {{$orderInfo->billing_name}} {{$orderInfo->billing_surname}}</span>
                                 <span class="block"><strong>Indirizzo: </strong>{{$orderInfo->billing_address}}</span>
-=======
-                                    class="block"><strong>Name: </strong> {{$orderInfo->billing_name}} {{$orderInfo->billing_surname}}</span>
-                                <span class="block"><strong>Address: </strong>{{$orderInfo->billing_address}}</span>
->>>>>>> origin/main
                                 <span class="block">{{$orderInfo->billing_zipcode}} {{$orderInfo->billing_city}} ({{$orderInfo->billing_province}})</span>
                                 <span class="block"><strong>Telefono: </strong>{{$orderInfo->billing_phone}}</span>
                             </dd>
@@ -211,6 +188,7 @@
                                 </dd>
                             @endif
                         </div>
+
                         <div>
                             <td class="font-medium text-gray-900">Informazioni Pagamento</td>
                             @if($orderInfo->status == 'pending' || $orderInfo->status == 'processing' || $orderInfo->status == 'completed')
@@ -221,11 +199,7 @@
                                                 <td class="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-500 md:block">
                                               <span
                                                   class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ">
-<<<<<<< HEAD
                                                 Pagamento ricevuto
-=======
-                                                Payment received
->>>>>>> origin/main
                                               </span>
                                                 </td>
                                             </div>
@@ -242,11 +216,7 @@
                                                 <td class="hidden px-6 py-4 whitespace-nowrap text-sm text-gray-500 md:block">
                                               <span
                                                   class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ">
-<<<<<<< HEAD
                                                 Pagamento ricevuto
-=======
-                                              Payment received
->>>>>>> origin/main
                                               </span>
                                                 </td>
                                             </div>
@@ -262,11 +232,7 @@
                                             <div class="ml-3 mt-0 ">
                                               <span
                                                   class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ">
-<<<<<<< HEAD
                                                 Pagamento ricevuto
-=======
-                                                  Payment received
->>>>>>> origin/main
                                               </span>
                                             </div>
                                             <div class="ml-3 mt-3">
@@ -282,11 +248,7 @@
                                                 <td class="hidden px-6 py-4 whitespace-nowrap text-sm text-orange-500 md:block">
                                               <span
                                                   class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-300 text-warning-800 ">
-<<<<<<< HEAD
                                                 In attesa di pagamento
-=======
-                                                Awaiting payment
->>>>>>> origin/main
                                               </span>
                                                 </td>
                                                 <br>
@@ -304,11 +266,7 @@
                                                 <td class="hidden px-6 py-4 whitespace-nowrap text-sm text-orange-500 md:block">
                                               <span
                                                   class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-300 text-warning-800 ">
-<<<<<<< HEAD
                                                 In attesa di pagamento
-=======
-                                              Awaiting payment
->>>>>>> origin/main
                                               </span>
                                                 </td>
                                                 <br>
@@ -325,25 +283,18 @@
                                 <div class="mt-3">
                                     <span
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 ">
-<<<<<<< HEAD
                                         Ordine annullato
-=======
-                                        Order Cancelled
->>>>>>> origin/main
                                     </span>
                                 </div>
                             @endif
                         </div>
                     </dl>
+
                     <dl class="mt-8 divide-y divide-gray-200 text-sm lg:mt-0 lg:col-span-5">
+
                         <div class="py-4 flex items-center justify-between">
-<<<<<<< HEAD
                             <dt class="text-gray-600">Spedizione<br> <span
                                     class="font-weight-light pt-3">Corriere: Poste Italiane</span></dt>
-=======
-                            <dt class="text-gray-600">Shipping<br> <span
-                                    class="font-weight-light pt-3">Courier: Poste Italiane</span></dt>
->>>>>>> origin/main
                             <dd class="font-medium text-gray-900"><br> + € {{ price(7.00) }}</dd>
                         </div>
                         @if($orderInfo->discount)
@@ -369,11 +320,7 @@
 
                     <div
                         x-data="{ 'showModal': false }"
-<<<<<<< HEAD
                         @keydown.escape="showModal = false" class="fadeIn"
-=======
-                        @keydown.escape="showModal = false"
->>>>>>> origin/main
                     >
                         <!-- Trigger for Modal -->
                         <button type="button" @click="showModal = true"
@@ -381,7 +328,6 @@
 
                         <!-- Modal -->
                         <div
-<<<<<<< HEAD
                             class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-opacity-50" style="backdrop-filter: blur(10px); background-color: #0000002e;"
                             x-show="showModal" x-cloak
                             x-transition:enter="motion-safe:ease-out duration-300"
@@ -391,19 +337,6 @@
                             <div
                                 class="max-w-2xl px-6 py-6 mx-auto text-left rounded"
                                 @click.away="showModal = false">
-=======
-                            class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
-                            x-show="showModal"
-                        >
-                            <!-- Modal inner -->
-                            <div
-                                class="max-w-2xl px-6 py-6 mx-auto text-left rounded"
-                                @click.away="showModal = false"
-                                x-transition:enter="motion-safe:ease-out duration-300"
-                                x-transition:enter-start="opacity-0 scale-90"
-                                x-transition:enter-end="opacity-100 scale-100"
-                            >
->>>>>>> origin/main
                                 <!-- Title / Close-->
                                 <div class="flex items-center justify-between">
                                     <h5 class="mr-3 text-black max-w-none">Title</h5>
@@ -449,11 +382,7 @@
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:px-6 sm:flex sm:flex-row-reverse">
                                         <form
-<<<<<<< HEAD
-                                            action="{{route('cancelOrder', [ $order->id])}}"
-=======
-                                            action="{{route('cancelOrder', $order->id)}}"
->>>>>>> origin/main
+                                            action="{{route('cancelOrder', ['lang' => app()->getLocale(), $order->id])}}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <button type="submit" data-toggle="modal" data-target="#my-modal"
@@ -478,6 +407,8 @@
                 @endif
 
             </div>
+
         </main>
     </div>
+
 @endsection
