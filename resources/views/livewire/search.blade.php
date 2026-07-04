@@ -5,7 +5,7 @@
                 <div class="search-form">
                     <form>
                         <input
-                            wire:model.debounce.200ms="search"
+                            wire:model.live.debounce.200ms="search"
                             wire:ref="search-box"
                             type="text"
                             name="search"

@@ -7,8 +7,8 @@
     <meta name="referrer" content="always">
     <link rel="canonical" href="">
     <title> Admin Dashboard | {{ config('app.name') }}</title>
-{{--    @vite(['resources/js/app.js'])--}}
-    <script src="{{ mix('js/app.js') }}" defer></script>
+
+{{--    <script src="{{ mix('js/app.js') }}" defer></script>--}}
     <meta name="description" content="">
     <!-- NO INDEX -->
     <meta name="robots" content="noindex, nofollow">
@@ -19,18 +19,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
     <!-- Google Fonts -->
     @yield('extraCss')
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-{{--    <link href="{{ mix('sass/app.css') }}" rel="stylesheet">--}}
-
     <link rel="stylesheet" href="/assets/css/backendCustom.css">
     <link rel="stylesheet" href="/assets/css/customX.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
     <!-- Scripts -->
     <link rel="stylesheet" href="/assets/vendor/animate.css/animate.min.css">
-{{--    <script--}}
-{{--        src="https://code.jquery.com/jquery-2.2.4.min.js"--}}
-{{--        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="--}}
-{{--        crossorigin="anonymous"></script>--}}
+    @vite(['resources/css/app.css'])
     <x-head.tinymce-config/>
     <livewire:styles/>
 </head>
@@ -76,6 +70,7 @@
 </div>
 
 @yield('javascript')
+@vite(['resources/js/app.js'])
 <livewire:scripts/>
 @livewireStyles
 @livewireChartsScripts
@@ -85,6 +80,6 @@
     window.livewire_app_url = '{{route('products.index')}}';
 </script>--}}
 {{--<script src="/assets/js/switchCategory.js"></script>--}}
-<script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js"></script>
+{{--<script src="https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js"></script>--}}
 </body>
 </html>

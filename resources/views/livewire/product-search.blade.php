@@ -1,13 +1,13 @@
 {{--    <div class="search-style-2">--}}
 {{--        <form wire:submit.prevent="searchProduct">--}}
-{{--            <input  placeholder="Search for items..." wire:model="search" type="search"/>--}}
+{{--            <input  placeholder="Search for items..." wire:model.live="search" type="search"/>--}}
 {{--        </form>--}}
 {{--    </div>--}}
 <div class=" py-5">
     <div style="width: 100% !important;max-width: 750px !important;">
         <div class="search-style-2">
             <form>
-                <input wire:model="search" type="text" placeholder="Cerca prodotto">
+                <input wire:model.live="search" type="text" placeholder="Cerca prodotto">
             </form>
         </div>
     </div>
