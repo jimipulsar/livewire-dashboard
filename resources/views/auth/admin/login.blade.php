@@ -24,7 +24,11 @@
                                             type="email" id="email" name="email"
                                             placeholder="E-mail"
                                     />
-
+                                    @error('email')
+                                    <span class="invalid-feedback text-red" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="mb-4">
                                     <input
@@ -38,13 +42,6 @@
                                                                         </span>
                                     @enderror
                                 </div>
-                                @error('email')
-                                <div class="mb-4">
-                                <span class="invalid-feedback text-red-700 py-4" role="alert">
-                                                                            <span style="font-size:13px; padding-top:10px;padding-bottom:10px" >{{ $message }}</span>
-                                                                        </span>
-                                </div>
-                                @enderror
                                 <div class="text-center pt-1 mb-12 pb-1">
                                     <button
                                             class="inline-block px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
@@ -56,14 +53,6 @@
                                     </button>
                                 </div>
                                 <div class="d-flex text-left pb-1">
-{{--                                    <a href="{{route('registerAdmin')}}"--}}
-{{--                                       class="d-inline-block  px-6 py-2 border-2 border-red-600 text-white font-medium text-xs leading-tight uppercase rounded hover:bg-white hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"--}}
-{{--                                       data-mdb-ripple="true"--}}
-{{--                                       data-mdb-ripple-color="light"--}}
-{{--                                       style=" background: linear-gradient( to right,#ee7724, #d8363a,  #dd3675,#b44593);">--}}
-{{--                                        Registrati--}}
-{{--                                    </a>--}}
-
                                     <a href="{{route('index')}}"
                                             class="d-block ml-10 text-center px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                                             data-mdb-ripple="true"
