@@ -13,6 +13,7 @@ use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
 
@@ -53,7 +54,6 @@ class AdminController extends Controller
         $orders = Order::orderBy('created_at', 'DESC')->paginate(8);
         $date_from = '2024-11-01';
         $date_to = '2024-11-30';
-
 //    get amount transaction paid per month
         $transactions = DB::table('transactions')
             ->whereBetween('created_at', [$date_from, $date_to])

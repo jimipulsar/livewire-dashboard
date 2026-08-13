@@ -17,7 +17,7 @@
                                            class="block my-2 text-sm font-medium text-gray-700">Nome</label>
                                     <input type="text" name="name" id="name"
                                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                    >
+                                    required>
                                 </div>
                                 <div class="col-span-6 sm:col-span-6">
                                     <label for="link"
@@ -46,7 +46,7 @@
 
                                 <select
                                     class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    name="products[]" id="products" autocomplete="products">
+                                    name="products[]" id="products" autocomplete="products" >
                                     <option disabled selected value> -- Seleziona</option>
 
                                     @foreach ($productBrand as $brandP)
@@ -86,15 +86,18 @@
                             </div>
 
                         </div>
-                        <div class="px-4 py-3 text-right sm:px-6 pb-10 mt-8">
-                            <a href="{{url()->previous()}}"
-                               class="btn px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-green-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
-                                Torna indietro
-                            </a>
+                        <br>
+                        <br>
+                        <hr>
+                        <div class=" text-left mt-8 pb-3">
                             <button type="submit"
-                                    class="ml-7 btn px-6 py-2.5 bg-blue-700 hover:bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
+                                    class="btn px-6 py-2.5 bg-blue-700 hover:bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
                                 Salva impostazioni
                             </button>
+                            <a href="{{url()->previous()}}"
+                               class="btn px-6 ml-7 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-green-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
+                                Torna indietro
+                            </a>
                         </div>
                     </div>
                 </div>

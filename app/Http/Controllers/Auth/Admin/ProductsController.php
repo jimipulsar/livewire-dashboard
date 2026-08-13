@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Attribute;
 use App\Models\AttributeProduct;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\CategoryProduct;
 use App\Models\Product;
@@ -26,12 +27,14 @@ class ProductsController extends Controller
      */
     public $mainCategory;
     public $mainAttributes;
-
+    public $mainBrands;
     public function __construct()
     {
         $this->middleware('adminAuth')->except('logout');
         $this->mainCategory = getCategories();
         $this->mainAttributes = getAttributes();
+        $this->mainBrands = getBrands();
+
     }
 
     public function index()
@@ -63,7 +66,10 @@ class ProductsController extends Controller
         $subAttributes = Attribute::with('parentAttribute')
             ->whereHas('parentAttribute')
             ->get();
-
+        $subBrands = Brand::with('parentBrand')
+            ->whereHas('parentBrand')
+            ->get();
+        $brands = getBrands();
         $product->purchasable = \request()->input('purchasable');
 
         return view('auth.admin.products.create', [
@@ -72,6 +78,9 @@ class ProductsController extends Controller
             'subAttributes' => $subAttributes,
             'mainCategory' => $this->mainCategory,
             'mainAttributes' => $this->mainAttributes,
+            'subBrands' => $subBrands,
+            'mainBrands' => $this->mainBrands,
+            'brands' => $brands
         ]);
     }
 
@@ -107,7 +116,10 @@ class ProductsController extends Controller
         $product->stock_qty = \request()->input('stock_qty');
         $product->price = str_replace(',', '.', \request()->input('price'));
         $product->purchasable = \request()->input('purchasable');
-        $product->published = \request()->input('published');
+        $product->base_height = \request()->input('base_height');
+        $product->base_width = \request()->input('base_width');
+        $product->base_depth = \request()->input('base_depth');
+        $product->base_weight = \request()->input('base_weight');
 
         if (\request()->hasFile('img_01')) {
             $image = \request()->file('img_01');
@@ -206,17 +218,25 @@ class ProductsController extends Controller
         $subAttributes = Attribute::with('parentAttribute')
             ->whereHas('parentAttribute')
             ->get();
+        $subBrands = Brand::with('parentBrand')
+            ->whereHas('parentBrand')
+            ->get();
         $uniqueCategories = getCategories();
         $attributes = getAttributes();
+        $brands = getBrands();
 
         return view('auth.admin.products.edit', [
             'product' => $product,
             'subCategories' => $subCategories,
+            'subBrands' => $subBrands,
             'subAttributes' => $subAttributes,
             'mainAttributes' => $this->mainAttributes,
             'uniqueCategories' => $uniqueCategories,
             'mainCategory' => $this->mainCategory,
-            'attributes' => $attributes
+            'mainBrands' => $this->mainBrands,
+            'attributes' => $attributes,
+            'brands' => $brands
+
 //            'selectedCategory' => $selectedCategory
         ]);
     }
@@ -250,6 +270,10 @@ class ProductsController extends Controller
             'long_description' => \request()->input('long_description'),
             'link' => \request()->input('link'),
             'link_2' => \request()->input('link_2'),
+            'base_height' => \request()->input('base_height'),
+            'base_width' => \request()->input('base_width'),
+            'base_depth' => \request()->input('base_depth'),
+            'base_weight' => \request()->input('base_weight'),
             'slug' => Str::slug(\request()->input('item_name')),
             'stock_qty' => \request()->input('stock_qty'),
             'price' => str_replace(',', '.', \request()->input('price')),
@@ -298,6 +322,26 @@ class ProductsController extends Controller
                 ->where('id', '=', $inputIdCategory)
                 ->get()->toArray();
 
+            if ($selectedCategory[0]['parent_id'] !== null) {
+                $product->categories()->sync([$selectedCategory[0]['parent_id'], $selectedCategory[0]['id']]);
+            } else {
+                $product->categories()->sync($selectedCategory[0]['id'], \request()->input('categories'));
+            }
+
+            $inputParentBrand = DB::table('brands')->where('id', '=', \request()->input('brands.0'))->first()->parent_id;
+            $inputIdBrand = DB::table('brands')->where('id', '=', \request()->input('brands.0'))->first()->id;
+
+            $selectedBrand = Brand::orderBy('updated_at')
+                ->where('parent_id', '=', $inputParentBrand)
+                ->where('id', '=', $inputIdBrand)
+                ->get()->toArray();
+
+            if ($selectedBrand[0]['parent_id'] !== null) {
+                $product->brands()->sync([$selectedBrand[0]['parent_id'], $selectedBrand[0]['id']]);
+            } else {
+                $product->brands()->sync($selectedBrand[0]['id'], \request()->input('brands'));
+            }
+
             $inputParentAttribute = DB::table('attributes')->where('id', '=', \request()->input('attributes.0'))->first()->parent_id;
             $inputIdAttribute = DB::table('attributes')->where('id', '=', \request()->input('attributes.0'))->first()->id;
 
@@ -305,12 +349,6 @@ class ProductsController extends Controller
                 ->where('parent_id', '=', $inputParentAttribute)
                 ->where('id', '=', $inputIdAttribute)
                 ->get()->toArray();
-
-            if ($selectedCategory[0]['parent_id'] !== null) {
-                $product->categories()->sync([$selectedCategory[0]['parent_id'], $selectedCategory[0]['id']]);
-            } else {
-                $product->categories()->sync($selectedCategory[0]['id'], \request()->input('categories'));
-            }
 
 
             if ($selectedAttribute[0]['parent_id'] !== null) {

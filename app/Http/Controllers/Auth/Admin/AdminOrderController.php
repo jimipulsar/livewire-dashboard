@@ -30,7 +30,7 @@ class AdminOrderController extends Controller
     public function index()
     {
 
-        $orders = Order::where('is_paid', '1')->orderBy('updated_at', 'DESC')->paginate(10); // fix n + 1 issues
+        $orders = Order::where('is_paid', '1')->orderBy('created_at', 'DESC')->paginate(10); // fix n + 1 issues
 
         return view('auth.admin.orders.index', [
             'orders' => $orders,

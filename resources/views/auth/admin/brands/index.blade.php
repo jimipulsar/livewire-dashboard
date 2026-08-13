@@ -1,7 +1,7 @@
 @extends('backend.adminlayouts.master')
 
 @section('body')
-    <h3 class="text-gray-700 text-3xl font-medium">Prodotti</h3>
+    <h3 class="text-gray-700 text-3xl font-medium">Marchi</h3>
     <div class="mt-10">
         <div class=" text-left">
             <a href="{{route('brands.create')}}"

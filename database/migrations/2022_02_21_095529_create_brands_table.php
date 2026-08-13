@@ -20,6 +20,7 @@ class CreateBrandsTable extends Migration
             $table->text('description')->nullable();
             $table->text('cover')->nullable();
             $table->text('link')->nullable();
+            $table->integer('parent_id')->unsigned()->nullable();
             $table->biginteger('user_id')->default(1)->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

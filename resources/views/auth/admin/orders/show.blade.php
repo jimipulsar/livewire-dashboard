@@ -14,7 +14,7 @@
                     <time datetime="2021-03-22"
                           class="font-medium text-gray-600"> {{ Carbon\Carbon::parse($order->created_at)->format('d/m/Y') }}</time>
                 </p>
-                <form action="{{ route('adminOrders.update', ['lang' => app()->getLocale(), $orderInfo->id]) }}"
+                <form action="{{ route('adminOrders.update', [ $orderInfo->id]) }}"
                       method="POST" enctype="multipart/form-data">
                     @csrf
                     @if($orderInfo->status == 'pending' || $orderInfo->status == 'processing' || $orderInfo->status == 'completed')
@@ -83,22 +83,22 @@
                                         <div
                                             class="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg sm:aspect-none sm:w-40 ">
                                             <img src="{{ '/storage/' . $item->product->img_01 }}"
-                                                 class="img-backend-products">
+                                                 class="img-order">
                                         </div>
                                     @else
                                         <div
                                             class="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg sm:aspect-none sm:w-40 ">
                                             <img src="{{'/uploads/default/default.jpg' }}"
-                                                 class="img-backend-products"
+                                                 class="img-order"
                                                  alt="{{Str::of('/uploads/default/default.jpg')->basename('.jpg')}}">
                                         </div>
                                     @endif
                                     <div class="mt-6 pt-2 sm:mt-0 sm:ml-6">
 
                                         <h3 class="text-base font-medium text-indigo-600 ">
-
+                                            <a href="#">
                                                 {{ $item->product->item_name}}
-
+                                            </a>
                                         </h3>
                                         <p class="mt-2 text-sm font-medium text-gray-900">
                                             € {{ price($item->price) }}
@@ -382,7 +382,7 @@
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:px-6 sm:flex sm:flex-row-reverse">
                                         <form
-                                            action="{{route('cancelOrder', ['lang' => app()->getLocale(), $order->id])}}"
+                                            action="{{route('cancelOrder', [ $order->id])}}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <button type="submit" data-toggle="modal" data-target="#my-modal"
