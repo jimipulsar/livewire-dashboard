@@ -46,7 +46,7 @@
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Immagine
                     </th>
-                    <th style="width:200px; cursor:pointer" wire:click.prevent="sortBy('item_name')"
+                    <th style="width:250px; cursor:pointer" wire:click.prevent="sortBy('item_name')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Nome Articolo
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -62,7 +62,7 @@
                                   d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
                         </svg>
                     </th>
-                    <th style=" cursor:pointer" wire:click.prevent="sortBy('item_code')"
+                    <th style="width:150px; cursor:pointer" wire:click.prevent="sortBy('item_code')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         SKU
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -78,7 +78,7 @@
                                   d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
                         </svg>
                     </th>
-                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    <th  style="width:350px" class="d-flex px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Categoria
                     </th>
                     <th style="width:180px; cursor:pointer" wire:click="sortBy('stock_qty')"
@@ -97,7 +97,7 @@
                                   d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
                         </svg>
                     </th>
-                    <th style="width:180px;cursor:pointer" wire:click.prevent="sortBy('stock_qty')"
+                    <th style="width:200px;cursor:pointer" wire:click.prevent="sortBy('stock_qty')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Disponibilità
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -129,7 +129,7 @@
                                   d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
                         </svg>
                     </th>
-                    <th wire:click.prevent="sortBy('price')" style="width:150px;cursor:pointer"
+                    <th wire:click.prevent="sortBy('price')" style="width:180px;cursor:pointer"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Prezzo
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -187,7 +187,7 @@
                                     class="leading-5 text-gray-900 ">{{ $product->item_code }}</div>
 
                         </td>
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm">
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm" style="width:250px ">
                             @for ($i = 0; $i < count($product->categories); $i++)
                                 @if ($i == count($product->categories) - 1)
                                     {{ ucFirst($product->categories[$i]->name) }}
