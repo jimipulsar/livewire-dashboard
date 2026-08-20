@@ -73,5 +73,6 @@
 @livewireStyles
 @livewireChartsScripts
 <script src="{{ asset('assets/js/loader.js') }}" defer></script>
+<script src="/dist/js/app.js"></script>
 </body>
 </html>
