@@ -1,4 +1,4 @@
-<p align="center"><img src="public/uploads/logo/laravel-livewire.jpg" width="860"><br></p>
+<p align="center"><img src="public/uploads/panel/tall.jpg" width="860"><br></p>
 
 ## E-commerce Laravel Full-Stack - DASHBOARD ADMIN PANEL FOR ECOMMERCE
 
