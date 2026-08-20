@@ -33,8 +33,8 @@ class AttributesTableSeeder extends Seeder
             for ($j = 1; $j <= 2; $j++) {
                 $code1 = $faker->sentence(1);
                 $name1 = $faker->sentence(1);
-                $slug1 = Str::slug($name);
-                $attribute->childAttributes()->create([
+                $slug1 = Str::slug($name1);
+                $childAttribute = $attribute->childAttributes()->create([
                     'code' => $code1,
                     'name' => $name1,
                     'slug' => $slug1
@@ -43,8 +43,8 @@ class AttributesTableSeeder extends Seeder
                 for ($k = 1; $k <= 2; $k++) {
                     $code2 = $faker->sentence(1);
                     $name2 = $faker->sentence(1);
-                    $slug2 = Str::slug($name);
-                    $attribute->childAttributes()->create([
+                    $slug2 = Str::slug($name2);
+                    $childAttribute->childAttributes()->create([
                         'code' => $code2,
                         'name' => $name2,
                         'slug' => $slug2

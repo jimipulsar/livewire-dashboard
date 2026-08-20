@@ -18,7 +18,6 @@ class CustomerTableSeeder extends Seeder
 
             [
 
-
                 'email' => 'randomuser@github.com',
                 'shipping_name' => 'Giovanni',
                 'shipping_surname' => 'Rossi',

@@ -18,15 +18,31 @@ class BrandsTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             $name = $faker->sentence(1);
             $slug = Str::slug($name);
-            Brand::create([
-                'name' => $name,
-                'slug' => $slug,
+            $category = Brand::create([
+                'name'        => $name,
+                'slug' => $slug ,
             ]);
 
+            for ($j = 1; $j <= 2; $j++) {
+                $name1 = $faker->sentence(1);
+                $slug1 = Str::slug($name1);
+                $childCategory = $category->childBrands()->create([
+                    'name'        =>   $name1 ,
+                    'slug' =>   $slug1,
+                ]);
 
+                for ($k = 1; $k <= 2; $k++) {
+                    $name2 = $faker->sentence(1);
+                    $slug2 = Str::slug($name2);
+                    $childCategory->childBrands()->create([
+                        'name'        =>  $name2,
+                        'slug' =>     $slug2,
+                    ]);
+                }
+            }
         }
     }
 }
