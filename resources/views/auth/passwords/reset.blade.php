@@ -7,7 +7,7 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="{{route('home')}}" rel="nofollow"><i
+                    <a href="{{route('home', app()->getLocale())}}" rel="nofollow"><i
                                 class="fi-rs-home mr-5"></i>Home</a>
                     <span></span> Password reset
                 </div>
@@ -40,7 +40,7 @@
                                 <h3 class="d-inline-block section-title mb-0 pb-2 font-size-26">Resetta la password</h3>
                             </div>
                             <!-- End Title -->
-                            <form method="POST" action="{{ route('password.update') }}">
+                            <form method="POST" action="{{ route('password.update', app()->getLocale()) }}">
                             @csrf
                                 <input type="hidden" name="token" value="{{ $token }}">
                                 <!-- Form Group -->

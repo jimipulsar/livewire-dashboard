@@ -65,7 +65,7 @@
                 </div>
                 <div class="bg-gray-50 px-4 pb-7 sm:px-6 sm:flex sm:flex-row-reverse">
                     <form
-                        action="{{ route('products.destroy' ,[ $product->id]) }}"
+                        action="{{ route('products.destroy' ,['lang' => app()->getLocale(), $product->id]) }}"
                         method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('DELETE')

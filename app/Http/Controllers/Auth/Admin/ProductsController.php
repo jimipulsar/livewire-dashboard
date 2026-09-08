@@ -124,7 +124,7 @@ class ProductsController extends Controller
         if (\request()->hasFile('img_01')) {
             $image = \request()->file('img_01');
             $name = $image->getClientOriginalName();
-            $destinationPath = public_path('storage/');
+            $destinationPath = public_path('uploads/products/');
             $image->move($destinationPath, $name);
             $product->img_01 = $name;
         } else {
@@ -133,14 +133,14 @@ class ProductsController extends Controller
         if (\request()->hasFile('img_02')) {
             $image2 = \request()->file('img_02');
             $name2 = $image2->getClientOriginalName();
-            $destinationPath2 = public_path('storage/');
+            $destinationPath2 = public_path('uploads/products/');
             $image2->move($destinationPath2, $name2);
             $product->img_02 = $name2;
         }
         if (\request()->hasFile('img_03')) {
             $image3 = \request()->file('img_03');
             $name3 = $image3->getClientOriginalName();
-            $destinationPath3 = public_path('storage/');
+            $destinationPath3 = public_path('uploads/products/');
             $image3->move($destinationPath3, $name3);
             $product->img_03 = $name3;
         }
@@ -168,7 +168,7 @@ class ProductsController extends Controller
                 ->where('parent_id', '=', $inputParentAttribute)
                 ->where('id', '=', $inputIdAttribute)
                 ->get()->toArray();
-//dd($selectedAttribute);
+
             $product->save();
             $product->categories()->sync([$selectedCategory[0]['parent_id'], $selectedCategory[0]['id']]);
             $product->attributes()->sync([$selectedAttribute[0]['parent_id'], $selectedAttribute[0]['id']]);
@@ -254,9 +254,9 @@ class ProductsController extends Controller
 
         $product = Product::findOrFail($id);
         \request()->validate([
-            'img_01' => 'image|mimes:jpeg,png,webp,jpg,gif,svg|max:3048',
-            'img_02' => 'image|mimes:jpeg,png,webp,jpg,gif,svg|max:3048',
-            'img_03' => 'image|mimes:jpeg,png,webp,jpg,gif,svg|max:3048',
+            'img_01' => 'image|mimes:jpeg,png,webp,jpg,gif,svg|max:4048',
+            'img_02' => 'image|mimes:jpeg,png,webp,jpg,gif,svg|max:4048',
+            'img_03' => 'image|mimes:jpeg,png,webp,jpg,gif,svg|max:4048',
             'attachment' => 'file|mimes:ppt,pptx,doc,docx,pdf,xls,xlsx,txt|max:10048',
             'purchasable' => 'required'
         ]);
@@ -284,7 +284,7 @@ class ProductsController extends Controller
         if (\request()->hasFile('img_01')) {
             $image = \request()->file('img_01');
             $name = $image->getClientOriginalName();
-            $destinationPath = public_path('storage/');
+            $destinationPath = public_path('uploads/products/');
             $image->move($destinationPath, $name);
             $product->img_01 = $name;
         }
@@ -292,7 +292,7 @@ class ProductsController extends Controller
         if (\request()->hasFile('img_02')) {
             $image2 = \request()->file('img_02');
             $name2 = $image2->getClientOriginalName();
-            $destinationPath2 = public_path('storage/');
+            $destinationPath2 = public_path('uploads/products/');
             $image2->move($destinationPath2, $name2);
             $product->img_02 = $name2;
         }
@@ -300,7 +300,7 @@ class ProductsController extends Controller
         if (\request()->hasFile('img_03')) {
             $image3 = \request()->file('img_03');
             $name3 = $image3->getClientOriginalName();
-            $destinationPath3 = public_path('storage/');
+            $destinationPath3 = public_path('uploads/products/');
             $image3->move($destinationPath3, $name3);
             $product->img_03 = $name3;
         }
@@ -357,9 +357,7 @@ class ProductsController extends Controller
                 $product->attributes()->sync($selectedAttribute[0]['id'], \request()->input('attributes'));
             }
             $product->save();
-//            dd(\request()->input('categories'));
-//            dd(\request()->input('categories', []));
-//            $product->categories()->sync(\request()->input('categories', []));
+
             return redirect()->route('products.index'
             )->with([
                 'product' => $product,
@@ -386,70 +384,102 @@ class ProductsController extends Controller
         if (!$product) {
             abort(404);
         }
-        $product->delete();
-        return redirect()->route('products.index'
-        )->with([
-            'product' => $product
-        ])->with('success', 'Prodotto eliminato con successo!');
+
+        try {
+               $product->delete();
+                 return redirect()->route('products.index'
+                 )->with([
+                    'product' => $product
+                ])->with('success', 'Prodotto eliminato con successo!');
+
+        } catch (\Throwable $e) {
+
+            return back()->withErrors('Errore! ' . $e->getMessage());
+        }
+
+
     }
 
     public function remove1( $id)
     {
         $product = Product::findOrFail($id);
+        try {
+            if (file_exists(public_path('uploads/products/' . $product->img_01)))
+                unlink(public_path('uploads/products/' . $product->img_01));
+            File::delete('uploads/products/' . $product->img_01);
+            $product->update([
+                'img_01' => null,
+            ]);
 
-        if (file_exists(public_path('uploads/products/images/' . $product->img_01)))
-            unlink(public_path('uploads/products/images/' . $product->img_01));
-        File::delete('uploads/products/images/' . $product->img_01);
-        $product->update([
-            'img_01' => null,
-        ]);
+            return redirect()->route('products.index')->with('success', 'Immagine # 1 eliminata con successo!');
 
-        return redirect()->route('products.index')->with('success', 'Immagine # 2 eliminata con successo!');
+        } catch (\Throwable $e) {
+
+            return back()->withErrors('Errore! ' . $e->getMessage());
+        }
+
     }
 
     public function remove2( $id)
     {
         $product = Product::findOrFail($id);
 
-        if (file_exists(public_path('uploads/products/images/' . $product->img_02)))
-            unlink(public_path('uploads/products/images/' . $product->img_02));
-        File::delete('uploads/products/images/' . $product->img_02);
-        $product->update([
-            'img_02' => null,
-        ]);
+        try {
+            if (file_exists(public_path('uploads/products/' . $product->img_02)))
+                unlink(public_path('uploads/products/' . $product->img_02));
+            File::delete('uploads/products/' . $product->img_02);
+            $product->update([
+                'img_02' => null,
+            ]);
 
-        return redirect()->route('products.index')->with('success', 'Immagine # 2 eliminata con successo!');
+            return redirect()->route('products.index')->with('success', 'Immagine # 2 eliminata con successo!');
+
+        } catch (\Throwable $e) {
+
+            return back()->withErrors('Errore! ' . $e->getMessage());
+        }
     }
 
     public function remove3( $id)
     {
         $product = Product::findOrFail($id);
 
-        if (file_exists(public_path('uploads/products/images/' . $product->img_03))) {
-            Storage::delete('uploads/products/images/' . $product->img_03);
+        try {
+            if (file_exists(public_path('uploads/products/' . $product->img_03)))
+                unlink(public_path('uploads/products/' . $product->img_03));
+            File::delete('uploads/products/' . $product->img_03);
+            $product->update([
+                'img_03' => null,
+            ]);
 
+            return redirect()->route('products.index')->with('success', 'Immagine # 3 eliminata con successo!');
+
+        } catch (\Throwable $e) {
+
+            return back()->withErrors('Errore! ' . $e->getMessage());
         }
-        $product->update([
-            'img_03' => null,
-        ]);
-
-
-        return redirect()->route('products.index')->with('success', 'Immagine # 3 eliminata con successo!');
     }
 
     public function removeAttachment( $id)
     {
         $product = Product::findOrFail($id);
+        try {
+            if (file_exists(storage_path('uploads/products/' . $product->attachment)))
+                unlink(public_path('uploads/products/' . $product->attachment));
+            File::delete(storage_path('app/public/uploads/' . $product->attachment));
 
-        if (file_exists(storage_path('uploads/' . $product->attachment)))
-            unlink(storage_path('app/public/uploads/' . $product->attachment));
-        File::delete(storage_path('app/public/uploads/' . $product->attachment));
+            $product->update([
+                'attachment' => null,
+            ]);
 
-        $product->update([
-            'attachment' => null,
-        ]);
+            return redirect()->route('products.index')->with('success', 'Allegato rimosso con successo!');
 
-        return redirect()->route('products.index')->with('success', 'Immagine # 2 eliminata con successo!');
+        } catch (\Throwable $e) {
+
+            return back()->withErrors('Errore! ' . $e->getMessage());
+        }
+
+
     }
 
     public

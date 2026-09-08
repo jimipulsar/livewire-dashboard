@@ -8,7 +8,11 @@ $(window).on('load', function () {
     $("#pageloader").show().fadeOut();
 });
 $(document).ready(function () {
-    $('#hideMeBack').delay(3000).fadeOut()
+    $('#hideMeBack').delay(8000).fadeOut()
+
+});
+$(document).ready(function () {
+    $('#hideMe').delay(8000).fadeOut()
 
 });
 $(document).ready(function () {
@@ -32,3 +36,13 @@ $(document).ready(function () {
         reader.readAsDataURL(this.files[0]);
     });
 });
+function printableDiv(printableAreaDivId) {
+    var printContents = document.getElementById(printableAreaDivId).innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+}

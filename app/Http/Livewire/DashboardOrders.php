@@ -3,7 +3,12 @@
 namespace App\Http\Livewire;
 
 use App\Models\Order;
+use App\Models\Transaction;
+use App\Models\Visitor;
+use Asantibanez\LivewireCharts\Models\AreaChartModel;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -29,23 +34,24 @@ class DashboardOrders extends Component
     ];
     public $selected;
     public $ids = [];
+    public $startDate;
+    public $endDate;
+    public $chartData = [];
 
     public function mount()
     {
+//        $dateStart = Carbon::parse($this->startDate)->locale('it_IT');
+//        $dateItStart = $dateStart->translatedFormat('d F Y');
+//        $dateEnd= Carbon::parse($this->endDate)->locale('it_IT');
+//        $dateItEnd = $dateEnd->translatedFormat('d F Y');
+        $this->startDate = $startDate ?? now()->subMonths(12)->toDateString();
+        $this->endDate = $endDate ?? now()->addDay(1)->toDateString();
 
-
-    }
-
-    /*
-     * Reset pagination when doing a search
-     */
-    public function updated()
-    {
-        $this->resetPage();
     }
 
     public function render()
     {
+
         $orders = Order::with('items')->withCount('items');
         $this->applySearchFilter($orders->orderBy($this->sortColumnName, $this->sortDirection));
         $this->getData($orders);
@@ -54,10 +60,55 @@ class DashboardOrders extends Component
         $orders = $orders->orderBy($this->sortByColumn(), $this->sortDirection())
             ->paginate($this->perPage);
 
+        //SALES REPORT CHART
+        $rangeChartModel = new AreaChartModel();
+        $rangeChartModel->setTitle(__('Report Vendite' ))
+            ->setAnimated(true)
+            ->setSmoothCurve();
+
+        foreach (rangeTransactions($this->startDate,$this->endDate) as $range) {
+
+            $rangeChartModel
+                ->addPoint(__(ucfirst(__($range['month']))) . ' ' . $range['year'], price($range['amount_paid']),
+                    ['€' . price($range['amount_paid'])], '#fc8181');
+        }
+
+        //VISITORS CHART
+        $visitorChartModel = new AreaChartModel();
+        $visitorChartModel->setTitle(__('Visite giornaliere' ))
+            ->setAnimated(true)
+            ->setColor('#e69138')
+            ->setSmoothCurve();
+
+        foreach (groupedVisitors() as $visitor) {
+            $visit =  DB::table('visitors')
+                ->where('visited_at', '=', $visitor['date'])
+                ->orderBy('created_at', 'asc')
+                ->count();
+            $visitorChartModel
+                ->addPoint(__(ucfirst(__($visitor['day']))) . ' ' . __(ucfirst(__($visitor['month']))) . ' ' .  $visitor['year'], floor($visit),
+                    '#fc8181');
+
+        }
+
+        $visitors = Visitor::selectRaw('DATE(created_at) as date, count(*) as visitors')
+            ->groupBy('date')
+            ->orderBy('date', 'ASC')
+            ->get()
+            ->toArray();
+
         return view('livewire.dashboard-orders', [
             'orders' => $orders,
-            'getStatus' => $getStatus
+            'getStatus' => $getStatus,
+            'rangeChartModel' => $rangeChartModel,
+            'visitors' => $visitors,
+            'visitorChartModel' => $visitorChartModel,
+
+
+
         ]);
+
+
     }
 
     public function sortByColumn()

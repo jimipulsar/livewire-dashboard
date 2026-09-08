@@ -47,7 +47,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('web')->except('logout');
+        $this->middleware('customer')->except('logout');
     }
 
     public function showRegistrationForm()
@@ -79,18 +79,18 @@ class RegisterController extends Controller
         $userAdmin = User::find(1);
 
         $details = [
-            'greeting' => 'You have received a new registration from Livewire Ecommerce Platform',
-            'body' => 'Click the button below to view registered users',
-            'thanks' => 'Thank you',
-            'subject' => 'New website registration',
-            'actionText' => 'RESTRICTED AREA',
-            'actionURL' => url(env('APP_URL') . env('APP_ADMIN_URL')),
-            'email' => $user->email,
+            'greeting' => 'Hai ricevuto una nuova registrazione da Livewire Ecommerce Platform',
+            'body' => 'Clicca sul pulsante qui di seguito per visualizzare gli utenti registrati',
+            'thanks' => 'Grazie!',
+            'subject' => 'Nuova registrazione al sito web',
+            'actionText' => 'AREA RISERVATA',
+            'actionURL' => url(env('APP_URL') . '/'  . env('APP_ADMIN_URL') ),
+            'email' =>   $user->email,
             'billing_name' => $user->billing_name
         ];
         Notification::send($userAdmin, new NewRegistrationNotification($details));
 
-        return redirect()->route('orders.index')->with('success', 'You have successfully registered!');
+        return redirect()->route('orders.index')->with('success', 'Ti sei registrato con successo!');
 //
 //        return $request->wantsJson()
 //            ? new JsonResponse([], 201)
@@ -142,11 +142,31 @@ class RegisterController extends Controller
         return Customer::create([
             'email' => $data['email'],
             'billing_name' => $data['billing_name'],
-            'billing_surname' => $data['billing_surname'],
+           'billing_surname' => $data['billing_surname'],
+//           'billing_company' => $data['billing_company'],
+//           'billing_vat' => $data['billing_vat'],
+//           'billing_phone' => $data['billing_phone'],
+//           'billing_address' => $data['billing_address'],
+//           'billing_city' => $data['billing_city'],
+//           'billing_zipcode' => $data['billing_zipcode'],
+//           'billing_province' => $data['billing_province'],
+//
+//           'shipping_name' => $data['billing_name'],
+//           'shipping_surname' => $data['billing_surname'],
+//           'shipping_company' => $data['billing_company'],
+//           'shipping_country' => $data['shipping_country'],
+//           'shipping_vat' => $data['billing_vat'],
+//           'shipping_phone' => $data['billing_phone'],
+//           'shipping_address' => $data['billing_address'],
+//           'shipping_city' => $data['billing_city'],
+//           'shipping_zipcode' => $data['billing_zipcode'],
+//           'shipping_province' => $data['billing_province'],
             'password' => Hash::make($data['password']),
         ]);
 
     }
+
+    // return redirect()->route('home')->with('success', 'Registrazione avvenuta');
 
     public function redirectPath()
     {

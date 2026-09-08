@@ -19,7 +19,9 @@ return [
         '4' => 'Status',
         '5' => 'Order date',
         '6' => 'Order No.',
-        '7' => 'Amount'
+        '7' => 'Amount',
+        '8' => 'Attributes',
+        '9' => 'Transactions'
     ],
     'status' => [
         '0' => 'Pending',

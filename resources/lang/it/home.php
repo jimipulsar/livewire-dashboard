@@ -79,6 +79,18 @@ return [
     "proceed" => 'Procedi al pagamento',
     "couponCode" => 'Codice Coupon',
     "couponApply" => 'Applica',
-    "pieces" => 'Pezzi per confezione'
+    "pieces" => 'Pezzi per confezione',
+    "users" => 'Utenti',
+    "users_activities" => 'Attività utenti',
+    "admin_activities" => 'Attività Admin',
+    "sold_products" => 'Prodotti Venduti',
+    "new_orders" => 'Nuovi ordini',
+    "total_products" => 'Prodotti totali',
+    "warning" => 'Attenzione',
+    "registered_users" => 'Utenti registrati',
+    "higher_price" => "in più rispetto all'ultimo mese",
+    "lower_price" => "in meno rispetto all'ultimo mese",
+
+
 ];
 

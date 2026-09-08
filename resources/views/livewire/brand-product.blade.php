@@ -40,7 +40,6 @@
         <div
             class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
             <table class="min-w-full">
-                <thead>
                 <tr>
                     <th style="width:100px"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
@@ -67,7 +66,6 @@
                         Azioni
                     </th>
                 </tr>
-                </thead>
 
                 <tbody class="bg-white">
 
@@ -78,7 +76,7 @@
                                 <div class="flex items-center">
 
                                     <img src="{{ '/storage/' . $brand->cover }}"
-                                         class="img-responsive">
+                                         class="img-backend-prod">
 
                                 </div>
                             </td>
@@ -87,17 +85,20 @@
                                 <div class="flex items-center">
 
                                     <img src="{{'/uploads/default/default.jpg' }}"
-                                         class="img-responsive" style="height:70px;"
+                                         class="img-backend-products"
                                          alt="{{Str::of('/uploads/default/default.jpg')->basename('.jpg')}}">
 
                                 </div>
                             </td>
-                        @endif
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div
-                                class="leading-5 text-gray-900 ">{{ $brand->name }}</div>
 
-                        </td>
+                        @endif
+                        @if($brand->parentBrand)
+                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ $brand->name }}
+                                <strong>-></strong> {{ $brand->parentBrand->name }}</td>
+                        @else
+                            <td style="font-weight: bold;"
+                                class="text-sm px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">{{ $brand->name }}</td>
+                        @endif
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-end justify-content-end right">
                             <div
                                 x-data="{ 'showModal': false }"
@@ -109,11 +110,12 @@
 
                                 <!-- Modal -->
                                 <div
-                                    class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-opacity-50" style="backdrop-filter: blur(10px); background-color: #0000002e;"
+                                    class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-opacity-50"
+                                    style="backdrop-filter: blur(10px); background-color: #0000002e;"
                                     x-show="showModal" x-cloak
                                     x-transition:enter="motion-safe:ease-out duration-300"
                                     x-transition:enter-start="opacity-0 scale-90"
-                                    x-transition:enter-end="opacity-100 scale-100" >
+                                    x-transition:enter-end="opacity-100 scale-100">
                                     <!-- Modal inner -->
                                     <div
                                         class="max-w-2xl px-6 py-6 mx-auto text-left rounded"
@@ -206,9 +208,9 @@
         </div>
         <div class="d-flex justify-content-center mt-5 mb-5">
             @if(isset($query))
-                {{ $brands->appends($query)->onEachSide(1)->links() }}
+                {{ $brands->appends($query)->onEachSide(1)->links(['scrollTo' => false]) }}
             @else
-                {{ $brands->onEachSide(1)->links('vendor.livewire.tailwind') }}
+                {{ $brands->onEachSide(1)->links('vendor.livewire.tailwind',['scrollTo' => false]) }}
             @endif
         </div>
     </div>

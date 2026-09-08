@@ -33,11 +33,11 @@ class MailResetPasswordToken extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("Reset password")
-            ->line("You received this email because we received a password reset request for your account.")
-            ->action('Reset Password', url(app()->getLocale() . '/password/reset', $this->token))
-            ->line('This password reset link will expire in 60 minutes')
-            ->line('If you have not requested a password reset, no further action is necessary.');
+            ->subject("Reimposta password")
+            ->line("Hai ricevuto questa email perché abbiamo ricevuto una richiesta di reimpostazione della password per il tuo account.")
+            ->action('Resetta Password', url(app()->getLocale() . '/password/reset', $this->token))
+            ->line('Questo link per la reimpostazione della password scadrà tra 60 minuti.')
+            ->line('Se non hai richiesto la reimpostazione della password, non sono necessarie ulteriori azioni.');
 
     }
 }

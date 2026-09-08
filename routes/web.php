@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::redirect('/', env('APP_ADMIN_URL'));
+Route::redirect('/', env('APP_ADMIN_URL'))->name('index');
 
 Auth::routes();
 
@@ -26,8 +26,5 @@ Route::post('/login', [LoginController::class, 'postLogin'])->name('customerLogi
 Route::any( env('APP_ADMIN_URL') . '/register', [RegisterAdminController::class, 'showRegistrationForm'])->name('registerAdmin');
 Route::post(env('APP_ADMIN_URL') . '/register', [RegisterAdminController::class, 'register'])->name('registerAdminPOST');
 
-Route::get(env('APP_ADMIN_URL'),[LoginAdminController::class, 'getLogin'])->name('index');
+Route::get(env('APP_ADMIN_URL'),[LoginAdminController::class, 'getLogin'])->name('adminLogin');
 Route::post(env('APP_ADMIN_URL'), [LoginAdminController::class, 'postLogin'])->name('adminLoginPost');
-
-
-

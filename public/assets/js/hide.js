@@ -1,3 +1,3 @@
 $(window).load(function(){
-    setTimeout(function(){ $('#hideMe').fadeOut() }, 6000);
+    setTimeout(function(){ $('#hideMe').fadeOut() }, 7000);
 });

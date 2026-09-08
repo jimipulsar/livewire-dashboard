@@ -11,7 +11,7 @@
                 var select = document.querySelector('select.goog-te-combo');
                 select.value    = "en";
                 select.dispatchEvent(new Event('change'));
-            },100)
+            },1000)
         }
     </script>
 

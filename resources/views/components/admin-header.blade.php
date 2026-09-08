@@ -37,7 +37,7 @@
                 @if(getNotifications()->count() > 0)
                     @foreach( getNotifications() as $notify)
                         @if($notify->order_id)
-                            <a href="{{ route('adminOrders.show',[ $notify->order_id]) }}"
+                            <a href="{{ route('adminOrders.show',['lang' => app()->getLocale(), $notify->order_id]) }}"
                                class="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-blue-900 -mx-2">
                                 <svg class="svg-icon font-size-11" viewBox="0 0 20 20" style="height:20px">
                                     <path
@@ -53,7 +53,7 @@
                         @foreach( collect(json_decode($notify->data, true)) as $key => $value )
                             @if($key == 'email_subscription')
 
-                                <a href="{{ route('subscribers.index') }}"
+                                <a href="{{ route('subscribers.index',['lang' => app()->getLocale()]) }}"
                                    class="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-blue-900 -mx-2">
                                     <svg class="svg-icon font-size-11" viewBox="0 0 20 20" style="height:20px">
                                         <path
@@ -69,7 +69,7 @@
                         @endforeach
                         @foreach( collect(json_decode($notify->data, true)) as $key => $value )
                             @if($key == 'billing_name')
-                                <a href="{{ route('customers.index') }}"
+                                <a href="{{ route('customers.index',['lang' => app()->getLocale()]) }}"
                                    class="flex items-center px-4 py-3 text-gray-600 hover:text-white hover:bg-blue-900 -mx-2">
                                     <svg class="svg-icon font-size-11" viewBox="0 0 20 20" style="height:20px">
                                         <path
@@ -115,12 +115,12 @@
                     {{--                     <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>--}}
                     {{--                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>--}}
                     <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-900 hover:text-white"
-                       href="{{ route('logout') }}"
+                       href="{{ route('logout', ['lang' => app()->getLocale()]) }}"
                        onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                         {{ __('Esci') }}
                     </a>
-                    <form id="logout-form" action="{{ route('adminLogout') }}" method="POST"
+                    <form id="logout-form" action="{{ route('adminLogout', app()->getLocale()) }}" method="POST"
                           class="d-none">
                         @csrf
                     </form>

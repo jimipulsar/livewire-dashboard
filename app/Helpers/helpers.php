@@ -6,11 +6,20 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\Visitor;
 use App\Models\Wishlist;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
+
+if (!function_exists('previous')) {
+    function previous()
+    {
+        return \request()->session()->get('_previous')['url'];
+
+    }
+}
 
 if (!function_exists('getCart')) {
     function getCart()
@@ -227,9 +236,95 @@ if (!function_exists('percentCustomers')) {
     function percentCustomers()
     {
         $diffCust = countCurrentMonthCustomers() - countPreviousMonthCustomers();
-        if ($diffCust != null && countPreviousMonthCustomers() > 0) {
+
+        try {
+
             return $diffCust / countCurrentMonthCustomers() * 100; //increase percent
+
+        } catch (DivisionByZeroError $e) {
+
+            return 0;
+
         }
+
+    }
+}
+if (!function_exists('percentTransactions')) {
+
+    function percentTransactions()
+    {
+        $diffTransactions = currentMonthTransactions() - previousMonthTransactions();
+
+        try {
+
+            return $diffTransactions / previousMonthTransactions() * 100; //increase percent
+
+        } catch (DivisionByZeroError $e) {
+
+            return 0;
+
+        }
+
+    }
+}
+
+if (!function_exists('previousMonthOrders')) {
+
+    function previousMonthOrders()
+    {
+        return DB::table('orders')
+            ->whereBetween('created_at',
+                [Carbon::now()->subMonths()->startOfMonth(), Carbon::now()->subMonths()->endOfMonth()]
+            )
+            ->count();
+    }
+}
+if (!function_exists('currentMonthOrders')) {
+
+    function currentMonthOrders()
+    {
+        return DB::table('orders')
+            ->whereBetween('created_at',
+                [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()]
+            )
+            ->count();
+    }
+}
+if (!function_exists('percentOrders')) {
+
+    function percentOrders()
+    {
+        $diffOrders = currentMonthOrders() - previousMonthOrders();
+
+        try {
+
+            return $diffOrders / previousMonthOrders() * 100; //increase percent
+
+        } catch (DivisionByZeroError $e) {
+
+            return 0;
+
+        }
+
+    }
+}
+if (!function_exists('percentProducts')) {
+
+    function percentProducts()
+    {
+        $diffProducts = currentMonthProducts() - previousMonthProducts();
+
+
+        try {
+
+            return $diffProducts / previousMonthProducts() * 100; //increase percent
+
+        } catch (DivisionByZeroError $e) {
+
+            return 0;
+
+        }
+
 
     }
 }
@@ -243,6 +338,25 @@ if (!function_exists('countOrders')) {
 //            )
             ->orderBy('created_at')
             ->count();
+    }
+}
+if (!function_exists('groupedVisitors')) {
+
+    function groupedVisitors()
+    {
+        return Visitor::select(
+            DB::raw('year(visited_at) as year'),
+            DB::raw('date(visited_at) as date'),
+            DB::raw('day(visited_at) as day'),
+            DB::raw('DATE_FORMAT(created_at, "%M") as month')
+        )
+            ->orderBy('created_at')
+            ->groupBy('day')
+            ->groupBy('month')
+            ->groupBy('date')
+            ->groupBy('year')
+            ->get()
+            ->toArray();
     }
 }
 if (!function_exists('sellProducts')) {
@@ -279,52 +393,7 @@ if (!function_exists('currentMonthTransactions')) {
             ->sum('amount_paid');
     }
 }
-if (!function_exists('percentTransactions')) {
 
-    function percentTransactions()
-    {
-        $diffTransactions = currentMonthTransactions() - previousMonthTransactions();
-        if ($diffTransactions != null && previousMonthTransactions() > 0) {
-            return $diffTransactions / previousMonthTransactions() * 100; //increase percent
-        }
-
-    }
-}
-
-if (!function_exists('previousMonthOrders')) {
-
-    function previousMonthOrders()
-    {
-        return DB::table('orders')
-            ->whereBetween('created_at',
-                [Carbon::now()->subMonths()->startOfMonth(), Carbon::now()->subMonths()->endOfMonth()]
-            )
-            ->count();
-    }
-}
-if (!function_exists('currentMonthOrders')) {
-
-    function currentMonthOrders()
-    {
-        return DB::table('orders')
-            ->whereBetween('created_at',
-                [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()]
-            )
-            ->count();
-    }
-}
-if (!function_exists('percentOrders')) {
-
-    function percentOrders()
-    {
-        $diffOrders = currentMonthOrders() - previousMonthOrders();
-
-        if ($diffOrders != null && previousMonthOrders() > 0) {
-            return $diffOrders / previousMonthOrders() * 100; //increase percent
-        }
-
-    }
-}
 
 if (!function_exists('previousMonthProducts')) {
 
@@ -348,19 +417,23 @@ if (!function_exists('currentMonthProducts')) {
             ->count();
     }
 }
-if (!function_exists('percentProducts')) {
 
-    function percentProducts()
-    {
-        $diffProducts = currentMonthProducts() - previousMonthProducts();
-
-        if ($diffProducts != null && previousMonthProducts() > 0) {
-            return $diffProducts / previousMonthProducts() * 100; //increase percent
-        }
-
-    }
-}
-
+//if (!function_exists('groupedTransaction')) {
+//
+//    function groupedTransaction()
+//    {
+//        return Transaction::select(
+//            DB::raw('DATE_FORMAT(created_at, "%d %M %Y") as date'),
+//            DB::raw('sum(amount_paid) as amount_paid')
+//        )
+//            ->whereYear('created_at', date('Y'))
+//            ->orderBy('created_at', 'asc')
+//            ->groupBy('date')
+//            ->groupBy('amount_paid')
+//            ->get()
+//            ->toArray();
+//    }
+//}
 if (!function_exists('groupedTransaction')) {
 
     function groupedTransaction()
@@ -370,11 +443,30 @@ if (!function_exists('groupedTransaction')) {
             DB::raw('DATE_FORMAT(created_at, "%M") as month'),
             DB::raw('sum(amount_paid) as amount_paid')
         )
+            ->whereYear('created_at', date('Y'))
             ->orderBy('created_at')
             ->groupBy('year')
             ->groupBy('month')
             ->get()
             ->toArray();
+    }
+}
+if (!function_exists('rangeTransactions')) {
+
+    function rangeTransactions($key, $value)
+    {
+        return Transaction::select(
+            DB::raw('year(created_at) as year'),
+            DB::raw('DATE_FORMAT(created_at, "%M") as month'),
+            DB::raw('sum(amount_paid) as amount_paid')
+        )
+            ->whereBetween('created_at', [$key, $value])
+            ->orderBy('created_at')
+            ->groupBy('year')
+            ->groupBy('month')
+            ->get()
+            ->toArray();
+
     }
 }
 if (!function_exists('lastMonthTransaction')) {
@@ -498,6 +590,17 @@ if (!function_exists('price')) {
     function price($format): string
     {
         return number_format(floatval($format->price ?? $format), 2, ',', '');
+    }
+}
+if (!function_exists('integer')) {
+
+    /**
+     * @param $format (product obj|string|decimal)
+     * @return string
+     */
+    function integer($format): string
+    {
+        return number_format(floatval($format->integer ?? $format), 1, '.', '');
     }
 }
 if (!function_exists('removeDecimal')) {

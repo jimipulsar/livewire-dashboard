@@ -12,8 +12,24 @@
 
     <div class="flex flex-col mt-8">
         <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+
             <div
                 class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                <div class="my-4">
+                    <p class="text-sm text-gray-700 leading-5">
+                        @if($categories->firstItem() )
+                            <span>{!! __('Showing') !!}</span>
+                            <span class="font-medium">{{ $categories->firstItem() }}</span>
+                            <span>{!! __('to') !!}</span>
+                            <span class="font-medium">{{ $categories->lastItem() }}</span>
+                            <span>{!! __('of') !!}</span>
+                            <span class="font-medium">{{ $categories->total() }}</span>
+                            <span>{!! __('results') !!}</span>
+                        @else
+                            <span>Nessun risultato trovato</span>
+                        @endif
+                    </p>
+                </div>
                 <table class="min-w-full">
                     <thead>
                     <tr>

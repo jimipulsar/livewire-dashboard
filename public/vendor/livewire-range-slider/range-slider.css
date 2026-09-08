@@ -1,0 +1,558 @@
+/* Base Styles */
+.range-slider {
+    margin: 20px 0;
+}
+
+.range-slider .noUi-target {
+    border: none;
+    box-shadow: none;
+}
+
+/* ============================================
+   SIZES
+   ============================================ */
+
+/* Small */
+.range-slider-small .noUi-target {
+    height: 6px;
+}
+
+.range-slider-small .noUi-handle {
+    width: 24px;
+    height: 24px;
+    top: -10px;
+    right: -12px;
+}
+
+/* Medium (Default) */
+.range-slider-medium .noUi-target {
+    height: 8px;
+}
+
+.range-slider-medium .noUi-handle {
+    width: 28px;
+    height: 28px;
+    top: -11px;
+    right: -14px;
+}
+
+/* Large */
+.range-slider-large .noUi-target {
+    height: 10px;
+}
+
+.range-slider-large .noUi-handle {
+    width: 34px;
+    height: 34px;
+    top: -13px;
+    right: -17px;
+}
+
+/* ============================================
+   VARIANTS (Handle Shapes)
+   ============================================ */
+
+/* Square */
+.range-slider-square .noUi-handle {
+    border-radius: 3px;
+}
+
+/* Rounded */
+.range-slider-rounded .noUi-handle {
+    border-radius: 50%;
+}
+
+.range-slider .noUi-handle:before,
+.range-slider .noUi-handle:after {
+    display: none; /* Hide the lines in circular handles */
+}
+
+/* ============================================
+   TAILWIND-INSPIRED THEMES
+   ============================================ */
+
+/* Blue Theme (Tailwind Blue) */
+.range-slider-blue .noUi-connect {
+    background: #3b82f6; /* blue-500 */
+}
+
+.range-slider-blue .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #3b82f6; /* blue-500 */
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.range-slider-blue .noUi-handle:hover {
+    border-color: #2563eb; /* blue-600 */
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+}
+
+.range-slider-blue .noUi-handle:active {
+    border-color: #1d4ed8; /* blue-700 */
+    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.6);
+}
+
+/* Indigo Theme (Tailwind Indigo) */
+.range-slider-indigo .noUi-connect {
+    background: #6366f1; /* indigo-500 */
+}
+
+.range-slider-indigo .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #6366f1; /* indigo-500 */
+    box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
+}
+
+.range-slider-indigo .noUi-handle:hover {
+    border-color: #4f46e5; /* indigo-600 */
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+}
+
+.range-slider-indigo .noUi-handle:active {
+    border-color: #4338ca; /* indigo-700 */
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.6);
+}
+
+/* Purple Theme (Tailwind Purple) */
+.range-slider-purple .noUi-connect {
+    background: #a855f7; /* purple-500 */
+}
+
+.range-slider-purple .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #a855f7; /* purple-500 */
+    box-shadow: 0 2px 4px rgba(168, 85, 247, 0.2);
+}
+
+.range-slider-purple .noUi-handle:hover {
+    border-color: #9333ea; /* purple-600 */
+    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4);
+}
+
+.range-slider-purple .noUi-handle:active {
+    border-color: #7e22ce; /* purple-700 */
+    box-shadow: 0 2px 12px rgba(168, 85, 247, 0.6);
+}
+
+/* Pink Theme (Tailwind Pink) */
+.range-slider-pink .noUi-connect {
+    background: #ec4899; /* pink-500 */
+}
+
+.range-slider-pink .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #ec4899; /* pink-500 */
+    box-shadow: 0 2px 4px rgba(236, 72, 153, 0.2);
+}
+
+.range-slider-pink .noUi-handle:hover {
+    border-color: #db2777; /* pink-600 */
+    box-shadow: 0 2px 8px rgba(236, 72, 153, 0.4);
+}
+
+.range-slider-pink .noUi-handle:active {
+    border-color: #be185d; /* pink-700 */
+    box-shadow: 0 2px 12px rgba(236, 72, 153, 0.6);
+}
+
+/* Rose Theme (Tailwind Rose) */
+.range-slider-rose .noUi-connect {
+    background: #f43f5e; /* rose-500 */
+}
+
+.range-slider-rose .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #f43f5e; /* rose-500 */
+    box-shadow: 0 2px 4px rgba(244, 63, 94, 0.2);
+}
+
+.range-slider-rose .noUi-handle:hover {
+    border-color: #e11d48; /* rose-600 */
+    box-shadow: 0 2px 8px rgba(244, 63, 94, 0.4);
+}
+
+.range-slider-rose .noUi-handle:active {
+    border-color: #be123c; /* rose-700 */
+    box-shadow: 0 2px 12px rgba(244, 63, 94, 0.6);
+}
+
+/* Emerald Theme (Tailwind Emerald) */
+.range-slider-emerald .noUi-connect {
+    background: #10b981; /* emerald-500 */
+}
+
+.range-slider-emerald .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #10b981; /* emerald-500 */
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.range-slider-emerald .noUi-handle:hover {
+    border-color: #059669; /* emerald-600 */
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+.range-slider-emerald .noUi-handle:active {
+    border-color: #047857; /* emerald-700 */
+    box-shadow: 0 2px 12px rgba(16, 185, 129, 0.6);
+}
+
+/* Teal Theme (Tailwind Teal) */
+.range-slider-teal .noUi-connect {
+    background: #14b8a6; /* teal-500 */
+}
+
+.range-slider-teal .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #14b8a6; /* teal-500 */
+    box-shadow: 0 2px 4px rgba(20, 184, 166, 0.2);
+}
+
+.range-slider-teal .noUi-handle:hover {
+    border-color: #0d9488; /* teal-600 */
+    box-shadow: 0 2px 8px rgba(20, 184, 166, 0.4);
+}
+
+.range-slider-teal .noUi-handle:active {
+    border-color: #0f766e; /* teal-700 */
+    box-shadow: 0 2px 12px rgba(20, 184, 166, 0.6);
+}
+
+/* Cyan Theme (Tailwind Cyan) */
+.range-slider-cyan .noUi-connect {
+    background: #06b6d4; /* cyan-500 */
+}
+
+.range-slider-cyan .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #06b6d4; /* cyan-500 */
+    box-shadow: 0 2px 4px rgba(6, 182, 212, 0.2);
+}
+
+.range-slider-cyan .noUi-handle:hover {
+    border-color: #0891b2; /* cyan-600 */
+    box-shadow: 0 2px 8px rgba(6, 182, 212, 0.4);
+}
+
+.range-slider-cyan .noUi-handle:active {
+    border-color: #0e7490; /* cyan-700 */
+    box-shadow: 0 2px 12px rgba(6, 182, 212, 0.6);
+}
+
+/* Sky Theme (Tailwind Sky) */
+.range-slider-sky .noUi-connect {
+    background: #0ea5e9; /* sky-500 */
+}
+
+.range-slider-sky .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #0ea5e9; /* sky-500 */
+    box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2);
+}
+
+.range-slider-sky .noUi-handle:hover {
+    border-color: #0284c7; /* sky-600 */
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.4);
+}
+
+.range-slider-sky .noUi-handle:active {
+    border-color: #0369a1; /* sky-700 */
+    box-shadow: 0 2px 12px rgba(14, 165, 233, 0.6);
+}
+
+/* Orange Theme (Tailwind Orange) */
+.range-slider-orange .noUi-connect {
+    background: #f97316; /* orange-500 */
+}
+
+.range-slider-orange .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #f97316; /* orange-500 */
+    box-shadow: 0 2px 4px rgba(249, 115, 22, 0.2);
+}
+
+.range-slider-orange .noUi-handle:hover {
+    border-color: #ea580c; /* orange-600 */
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
+}
+
+.range-slider-orange .noUi-handle:active {
+    border-color: #c2410c; /* orange-700 */
+    box-shadow: 0 2px 12px rgba(249, 115, 22, 0.6);
+}
+
+/* Amber Theme (Tailwind Amber) */
+.range-slider-amber .noUi-connect {
+    background: #f59e0b; /* amber-500 */
+}
+
+.range-slider-amber .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #f59e0b; /* amber-500 */
+    box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
+}
+
+.range-slider-amber .noUi-handle:hover {
+    border-color: #d97706; /* amber-600 */
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+}
+
+.range-slider-amber .noUi-handle:active {
+    border-color: #b45309; /* amber-700 */
+    box-shadow: 0 2px 12px rgba(245, 158, 11, 0.6);
+}
+
+/* Red Theme (Tailwind Red) */
+.range-slider-red .noUi-connect {
+    background: #ef4444; /* red-500 */
+}
+
+.range-slider-red .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #ef4444; /* red-500 */
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+.range-slider-red .noUi-handle:hover {
+    border-color: #dc2626; /* red-600 */
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+}
+
+.range-slider-red .noUi-handle:active {
+    border-color: #b91c1c; /* red-700 */
+    box-shadow: 0 2px 12px rgba(239, 68, 68, 0.6);
+}
+
+/* Slate Theme (Tailwind Slate/Gray) */
+.range-slider-slate .noUi-connect {
+    background: #64748b; /* slate-500 */
+}
+
+.range-slider-slate .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #64748b; /* slate-500 */
+    box-shadow: 0 2px 4px rgba(100, 116, 139, 0.2);
+}
+
+.range-slider-slate .noUi-handle:hover {
+    border-color: #475569; /* slate-600 */
+    box-shadow: 0 2px 8px rgba(100, 116, 139, 0.4);
+}
+
+.range-slider-slate .noUi-handle:active {
+    border-color: #334155; /* slate-700 */
+    box-shadow: 0 2px 12px rgba(100, 116, 139, 0.6);
+}
+
+/* ============================================
+   TOOLTIPS
+   ============================================ */
+
+.range-slider .noUi-tooltip {
+    background: #1f2937;
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Theme-specific tooltip colors */
+.range-slider-blue .noUi-tooltip {
+    background: #3b82f6; /* blue-500 */
+}
+
+.range-slider-indigo .noUi-tooltip {
+    background: #6366f1; /* indigo-500 */
+}
+
+.range-slider-purple .noUi-tooltip {
+    background: #a855f7; /* purple-500 */
+}
+
+.range-slider-pink .noUi-tooltip {
+    background: #ec4899; /* pink-500 */
+}
+
+.range-slider-rose .noUi-tooltip {
+    background: #f43f5e; /* rose-500 */
+}
+
+.range-slider-emerald .noUi-tooltip {
+    background: #10b981; /* emerald-500 */
+}
+
+.range-slider-teal .noUi-tooltip {
+    background: #14b8a6; /* teal-500 */
+}
+
+.range-slider-cyan .noUi-tooltip {
+    background: #06b6d4; /* cyan-500 */
+}
+
+.range-slider-sky .noUi-tooltip {
+    background: #0ea5e9; /* sky-500 */
+}
+
+.range-slider-orange .noUi-tooltip {
+    background: #f97316; /* orange-500 */
+}
+
+.range-slider-amber .noUi-tooltip {
+    background: #f59e0b; /* amber-500 */
+}
+
+.range-slider-red .noUi-tooltip {
+    background: #ef4444; /* red-500 */
+}
+
+.range-slider-slate .noUi-tooltip {
+    background: #64748b; /* slate-500 */
+}
+
+/* ============================================
+   PIPS (Markers)
+   ============================================ */
+
+.range-slider .noUi-pips {
+    color: #6b7280;
+    font-size: 11px;
+}
+
+.range-slider .noUi-marker-horizontal.noUi-marker-large {
+    background: #d1d5db;
+    height: 12px;
+}
+
+.range-slider .noUi-marker-horizontal.noUi-marker-normal {
+    background: #e5e7eb;
+    height: 8px;
+}
+
+.range-slider .noUi-value {
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.range-slider .noUi-value-horizontal {
+    transform: translate(-50%, 50%);
+}
+
+/* ============================================
+   RTL SUPPORT
+   ============================================ */
+
+/* ============================================
+   DISABLED STATE
+   ============================================ */
+
+.range-slider .noUi-target[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.range-slider .noUi-target[disabled] .noUi-handle {
+    cursor: not-allowed;
+}
+
+/* ============================================
+   ACCESSIBILITY / FOCUS STATES
+   ============================================ */
+
+.range-slider .noUi-handle:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+.range-slider-indigo .noUi-handle:focus {
+    outline-color: #6366f1;
+}
+
+.range-slider-purple .noUi-handle:focus {
+    outline-color: #a855f7;
+}
+
+.range-slider-pink .noUi-handle:focus {
+    outline-color: #ec4899;
+}
+
+.range-slider-rose .noUi-handle:focus {
+    outline-color: #f43f5e;
+}
+
+.range-slider-emerald .noUi-handle:focus {
+    outline-color: #10b981;
+}
+
+.range-slider-teal .noUi-handle:focus {
+    outline-color: #14b8a6;
+}
+
+.range-slider-cyan .noUi-handle:focus {
+    outline-color: #06b6d4;
+}
+
+.range-slider-sky .noUi-handle:focus {
+    outline-color: #0ea5e9;
+}
+
+.range-slider-orange .noUi-handle:focus {
+    outline-color: #f97316;
+}
+
+.range-slider-amber .noUi-handle:focus {
+    outline-color: #f59e0b;
+}
+
+.range-slider-red .noUi-handle:focus {
+    outline-color: #ef4444;
+}
+
+.range-slider-slate .noUi-handle:focus {
+    outline-color: #64748b;
+}
+
+/* ============================================
+   TRANSITIONS
+   ============================================ */
+
+.range-slider .noUi-handle {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.range-slider .noUi-connect {
+    transition: background 0.3s ease;
+}
+
+/* ============================================
+   CUSTOM THEME TEMPLATE
+   ============================================ */
+
+/*
+Example: Create your own custom theme
+
+.range-slider-mytheme .noUi-connect {
+    background: #yourcolor;
+}
+
+.range-slider-mytheme .noUi-handle {
+    background: #ffffff;
+    border: 2px solid #yourcolor;
+    box-shadow: 0 2px 4px rgba(your, rgb, values, 0.2);
+}
+
+.range-slider-mytheme .noUi-handle:hover {
+    border-color: #yourdarkercolor;
+    box-shadow: 0 2px 8px rgba(your, rgb, values, 0.4);
+}
+
+.range-slider-mytheme .noUi-tooltip {
+    background: #yourcolor;
+}
+
+.range-slider-mytheme .noUi-handle:focus {
+    outline-color: #yourcolor;
+}
+*/

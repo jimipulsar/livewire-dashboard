@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Auth\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdminLogin;
 use App\Models\CustomerLogin;
+use App\Models\Visitor;
 use Illuminate\Support\Facades\Auth;
 
 class LogActivityController extends Controller
@@ -14,7 +15,15 @@ class LogActivityController extends Controller
     {
         $this->middleware('adminAuth')->except('logout');
     }
+    public function visitors()
+    {
 
+
+        return view('auth.admin.visitors-activity');
+
+
+
+    }
     public function index()
     {
         if (Auth::guard('admin')->check()) {

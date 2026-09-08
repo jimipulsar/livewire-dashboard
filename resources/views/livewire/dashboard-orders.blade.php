@@ -1,32 +1,74 @@
 <div class="" id="orderarea">
-    <div class="flex flex-wrap mt-4">
-            <div class="w-full pr-4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 ">
-                <div class="search-style-2 my-4">
-                    <form>
-                        <label for="default-search"
-                               class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
-                        <div class="relative">
-                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
-                                     stroke="currentColor"
-                                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                            </div>
-                            <input wire:model.live="searchOrder" type="search" id="default-search"
-                                   class="block p-4 pl-10 w-full text-sm text-gray-900 bg-white-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   placeholder="Cerca Ordine..." required>
-                            {{--                        <button type="submit" class="btn px-6  py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out  absolute right-2.5 bottom-2.5">Cerca</button>--}}
-                        </div>
-                    </form>
+
+    <div class="mt-5">
+        <div class="flex flex-wrap mt-6">
+            <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 ">
+                <div class="flex space-x-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium">From:</label>
+                        <input type="date" wire:model.live="startDate" class="border rounded p-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">To:</label>
+                        <input type="date" wire:model.live="endDate" class="border rounded p-2">
+                    </div>
+                </div>
+                <!-- Date Range Chart Container -->
+                <div class="w-full sm:w-1/2 md:w-1/1 lg:w-1/1 xl:w-1/1 ">
+                    <div class="flex items-center shadow-sm rounded-md bg-white py-3 my-3 " style="height: 25rem;">
+                        <livewire:livewire-area-chart
+                            key="{{ $rangeChartModel->reactiveKey() }}"
+                            :area-chart-model="$rangeChartModel"
+                        />
+                    </div>
                 </div>
             </div>
-            <div class="w-full sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3 pt-6" style="float: right; margin: 0 0 0 auto; width:240px;">
+            <div class="w-full pl-5  sm:w-1/4 md:w-1/2 lg:w-1/2 xl:w-1/2 " style="margin-top:62px">
+
+                <div class="flex items-center shadow-sm rounded-md bg-white py-3 my-3 " style="height: 25rem;">
+                    <livewire:livewire-area-chart
+                        key="{{ $visitorChartModel->reactiveKey() }}"
+                        :area-chart-model="$visitorChartModel"
+                    />
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="flex flex-wrap mt-4">
+        <div class="pr-4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 ">
+            <div class="search-style-2 my-4">
+                <form>
+                    <label for="default-search"
+                           class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
+                    <div class="relative">
+                        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
+                                 stroke="currentColor"
+                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <input wire:model.live="searchOrder" type="search" id="default-search"
+                               class="block p-4 pl-10 text-sm text-gray-900 bg-white-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder="Cerca Ordine..." required>
+                        {{--                        <button type="submit" class="btn px-6  py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out  absolute right-2.5 bottom-2.5">Cerca</button>--}}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/3 pt-6" style="float: right; margin: 0 0 0 auto; width:240px;">
+
                 <div x-data="{ isOpen: false }" class="relative ">
+                    @if(!empty($getStatus))
                     <button type="button" @click="isOpen = !isOpen"
-                            class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                            id="menu-button" aria-expanded="true" aria-haspopup="true" style="cursor:pointer">
+                            class="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                            id="menu-button" aria-expanded="true" aria-haspopup="true"
+                            style="cursor:pointer; width:238px">
                         Filtra per stato
                         <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                              aria-hidden="true" data-slot="icon">
@@ -49,7 +91,7 @@
                         <div
                             class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                            <div class="py-1" >
+                            <div class="py-1">
                                 @foreach ($getStatus as $index => $thing)
                                     <ul>
                                         <li class="bg-neutral-50 px-4 py-2 text-sm text-neutral-600 hover:bg-neutral-900/5 hover:text-neutral-900 focus-visible:bg-neutral-900/10 focus-visible:text-neutral-900 focus-visible:outline-none dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-50/5 dark:hover:text-white dark:focus-visible:bg-neutral-50/10 dark:focus-visible:text-white">
@@ -65,9 +107,24 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
-            </div>
-
+        </div>
+    </div>
+    <div class="my-4">
+        <p class="text-sm text-gray-700 leading-5">
+            @if($orders->firstItem() )
+                <span>{!! __('Showing') !!}</span>
+                <span class="font-medium">{{ $orders->firstItem() }}</span>
+                <span>{!! __('to') !!}</span>
+                <span class="font-medium">{{ $orders->lastItem() }}</span>
+                <span>{!! __('of') !!}</span>
+                <span class="font-medium">{{ $orders->total() }}</span>
+                <span>{!! __('results') !!}</span>
+            @else
+                <span>Nessun ordine trovato</span>
+            @endif
+        </p>
     </div>
     <div class="align-middle overflow-x-auto shadow sm:rounded-lg mb-4">
         <table class="min-w-full divide-y divide-gray-200">
@@ -234,5 +291,4 @@
         {{ $orders->onEachSide(1)->links('vendor.livewire.tailwind') }}
     @endif
 </div>
-
-</div>
+<!-- Chart Lifecycle Script -->

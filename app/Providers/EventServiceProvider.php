@@ -22,6 +22,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        CustomerLoginHistory::class => [
+            CustomerListenerHistory::class,
+        ],
         AdminLoginHistory::class => [
             AdminListenerHistory::class,
         ]

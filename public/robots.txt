@@ -1,2 +1,18 @@
-User-agent: *
-Disallow:
+# Block ALL Meta Crawlers
+User-agent: facebookexternalhit
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Meta-ExternalFetcher
+Disallow: /
+
+User-agent: Facebot
+Disallow: /

@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
 
                 'name' => 'Admin',
 
-                'email' => 'jimipulsar@github.com',
+                'email' => 'admin@pietroricci.it',
 
                 'address' => 'Station Street',
 

@@ -4,8 +4,8 @@
          class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start animated slideInRight"
          id="hideMeBack">
         <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
-            <div
-                    class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+                 <div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden" style="border-radius: 10px 1px 0px 10px;margin-right: -22px;">
+
                 <div class="p-4">
                     <div class="flex items-start">
                         <div class="flex-shrink-0">

@@ -24,13 +24,17 @@
         </div>
         <div class="my-4">
             <p class="text-sm text-gray-700 leading-5">
-                <span>{!! __('Showing') !!}</span>
-                <span class="font-medium">{{ $itemsAttributes->firstItem() }}</span>
-                <span>{!! __('to') !!}</span>
-                <span class="font-medium">{{ $itemsAttributes->lastItem() }}</span>
-                <span>{!! __('of') !!}</span>
-                <span class="font-medium">{{ $itemsAttributes->total() }}</span>
-                <span>{!! __('results') !!}</span>
+                @if($itemsAttributes->firstItem() )
+                    <span>{!! __('Showing') !!}</span>
+                    <span class="font-medium">{{ $itemsAttributes->firstItem() }}</span>
+                    <span>{!! __('to') !!}</span>
+                    <span class="font-medium">{{ $itemsAttributes->lastItem() }}</span>
+                    <span>{!! __('of') !!}</span>
+                    <span class="font-medium">{{ $itemsAttributes->total() }}</span>
+                    <span>{!! __('results') !!}</span>
+                @else
+                    <span>Nessun risultato trovato</span>
+                @endif
             </p>
         </div>
         <div
@@ -123,7 +127,7 @@
                                 x-data="{ 'showModal': false }"
                                 @keydown.escape="showModal = false" id="btLeft">
                                 <button type="button" @click="showModal = true" title="Elimina"
-                                        class="px-4 py-2.5 ml-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lgfocus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0active:bg-red-800 active:shadow-lgtransition duration-150 ease-in-out mr-4">
+                                        class="cursor-pointer px-4 py-2.5 ml-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lgfocus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0active:bg-red-800 active:shadow-lgtransition duration-150 ease-in-out mr-4">
                                     <i class="fas fa-trash-alt"></i></button>
                                 <!-- Trigger for Modal -->
 
@@ -216,8 +220,11 @@
             </table>
         </div>
         <div class="d-flex justify-content-center mt-5 mb-5">
-            {{ $itemsAttributes->links('vendor.pagination.tailwind') }}
-
+            @if(isset($query))
+                {{ $itemsAttributes->appends($query)->onEachSide(1)->links(['scrollTo' => false]) }}
+            @else
+                {{ $itemsAttributes->onEachSide(1)->links('vendor.livewire.tailwind',['scrollTo' => false]) }}
+            @endif
         </div>
     </div>
 </div>

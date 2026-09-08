@@ -43,7 +43,7 @@
                                     @foreach (Config::get('languages') as $lang => $language)
                                         @if ($lang != App::getLocale())
                                             @if(app()->getLocale() == 'it')
-                                                <li><a href="{{route('index')}}">
+                                                <li><a href="{{route('index',['lang' => $lang])}}">
                                                         <img src="/assets/images/flags/eng.png" alt="ENG Flag"
                                                              width="18" height="12"
                                                              class="dropdown-image"/>
@@ -51,7 +51,7 @@
                                                     </a>
                                                 </li>
                                             @else
-                                                <li><a href="{{route('index')}}">
+                                                <li><a href="{{route('index',['lang' => $lang])}}">
                                                         <img src="/assets/images/flags/ita.png" alt="ITA Flag"
                                                              width="18" height="12"
                                                              class="dropdown-image"/>
@@ -72,25 +72,25 @@
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-                    <a href="{{route('index')}}"><img
+                    <a href="{{route('index',['lang' => app()->getLocale()])}}"><img
                             src="/uploads/logo/logo.png" alt="logo" style="height: 140px;width: 100%;object-fit: contain;"/></a>
                 </div>
                 <div class="header-right">
-                    <livewire:product-search>
+                    <livewire:product-search></livewire:product-search>
                         <div class="header-action-right">
                             <div class="header-action-2">
                                 <div class="header-action-icon-2">
-                                    <a href="{{route('compare')}}">
+                                    <a href="{{route('compare', app()->getLocale())}}">
                                         <img class="svgInject" alt="Livewire"
                                              src="/assets/imgs/theme/icons/icon-compare.svg"/>
                                         @if(session('compare'))
                                             <span class="pro-count blue">{{ count((array) session('compare')) }}</span>
                                         @endif
                                     </a>
-                                    <a href="{{route('compare')}}"><span class="lable ml-0">Confronta</span></a>
+                                    <a href="{{route('compare', app()->getLocale())}}"><span class="lable ml-0">Confronta</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a href="{{route('wishlist')}}">
+                                    <a href="{{route('wishlist', app()->getLocale())}}">
                                         <img class="svgInject" alt="Livewire"
                                              src="/assets/imgs/theme/icons/icon-heart.svg"/>
                                         @if(session('wishlist'))
@@ -100,47 +100,47 @@
                                             <span class="pro-count blue">{{ getFavorites()->count()  }}</span>
                                         @endif
                                     </a>
-                                    <a href="{{route('wishlist')}}"><span
+                                    <a href="{{route('wishlist', app()->getLocale())}}"><span
                                             class="lable">Wishlist</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a class="mini-cart-icon" href="{{route('cart')}}">
+                                    <a class="mini-cart-icon" href="{{route('cart', app()->getLocale())}}">
                                         <img alt="Livewire" src="/assets/imgs/theme/icons/icon-cart.svg"/>
 
                                         @if(session('cart'))
                                             <span class="pro-count blue">{{ count((array) session('cart')) }}</span>
                                         @endif
                                     </a>
-                                    <a href="{{route('cart')}}"><span class="lable">Carrello</span></a>
+                                    <a href="{{route('cart', app()->getLocale())}}"><span class="lable">Carrello</span></a>
                                     @if(session('cart'))
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                             <ul>
                                                 @foreach(session('cart') as $id => $details)
                                                     <li>
 
-                                                        @if(file_exists(public_path('storage/' . $details['img_01'] )) && $details['img_01'] != null)
+                                                        @if(file_exists(public_path('uploads/products/' . $details['img_01'] )) && $details['img_01'] != null)
                                                             <div class="shopping-cart-img">
-                                                                <a href="{{ route('shop.show',[$id,$details['slug']]) }}"><img
+                                                                <a href="{{ route('shop.show',['lang'=>app()->getLocale(),$id,$details['slug']]) }}"><img class="img-cart-prod"
                                                                         alt="Livewire"
-                                                                        src="{{'/storage/' . $details['img_01'] }}"/></a>
+                                                                        src="{{'/uploads/products/' . $details['img_01'] }}"/></a>
                                                             </div>
                                                         @else
                                                             <div class="shopping-cart-img">
-                                                                <a href="{{ route('shop.show',[$id,$details['slug']]) }}"><img
+                                                                <a href="{{ route('shop.show',['lang'=>app()->getLocale(),$id,$details['slug']]) }}"><img class="img-cart-prod"
                                                                         alt="Livewire"
                                                                         src="{{'/uploads/default/default.jpg'}}"/></a>
                                                             </div>
                                                         @endif
                                                         <div class=" shopping-cart-title">
                                                             <h4>
-                                                                <a href="{{ route('shop.show',[$id,$details['slug']]) }}">{{$details['name']}}</a>
+                                                                <a href="{{ route('shop.show',['lang'=>app()->getLocale(),$id,$details['slug']]) }}">{{$details['name']}}</a>
                                                             </h4>
                                                             <h4>
                                                                 <span>{{$details['quantity']}} × </span>€ {{ price($details['price']) }}
                                                             </h4>
                                                         </div>
                                                         <div class="shopping-cart-delete">
-                                                            <a href="{{route('remove', [$id])}}"><i
+                                                            <a href="{{route('remove', ['lang'=>app()->getLocale(),$id])}}"><i
                                                                     class="fi-rs-cross-small"></i></a>
                                                         </div>
                                                     </li>
@@ -153,9 +153,9 @@
                                                     </h4>
                                                 </div>
                                                 <div class="shopping-cart-button">
-                                                    <a href="{{route('cart')}}"
+                                                    <a href="{{route('cart', app()->getLocale())}}"
                                                        class="outline">Carrello</a>
-                                                    <a href="{{route('checkout')}}">Checkout</a>
+                                                    <a href="{{route('checkout', app()->getLocale())}}">Checkout</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -164,33 +164,33 @@
                                 <div class="header-action-icon-2">
 
                                     @if(Auth::check())
-                                        <a href="{{route('customerLogin')}}"><span
-                                                class="lable ml-0"><img class="svgInject" alt="Livewire"
-                                                                        src="/assets/imgs/theme/icons/icon-user.svg"/>{{ Auth::user()->billing_name }}</span></a>
+                                        <a href="{{route('login',app()->getLocale())}}"><img class="svgInject" alt="Livewire"
+                                                                        src="/assets/imgs/theme/icons/icon-user.svg"/><span
+                                                class="lable ml-0">{{ Auth::user()->billing_name }}</span></a>
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                             <a href="#currency" class="notranslate"><i
                                                     class="w-icon-account"></i> </a>
                                             <ul>
                                                 <li>
-                                                    <a href="{{ route('profile') }}"><i
+                                                    <a href="{{ route('profile',app()->getLocale()) }}"><i
                                                             class="fi fi-rs-user mr-10"></i>
                                                         {!!__('app.profile')!!}
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ route('orders.index') }}">
+                                                    <a href="{{ route('orders.index',app()->getLocale()) }}">
                                                         <i class="fi fi-rs-settings-sliders mr-10"></i> {!!__('checkout.orders.0')!!}
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a
-                                                        href="{{ route('logout') }}"
+                                                        href="{{ route('logout',app()->getLocale()) }}"
                                                         onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                                                         <i class="fi fi-rs-sign-out mr-10"></i> {!!__('app.logout')!!}
                                                     </a>
                                                 </li>
-                                                <form id="logout-form" action="{{ route('logout') }}"
+                                                <form id="logout-form" action="{{ route('logout',app()->getLocale()) }}"
                                                       method="POST"
                                                       class="d-none">
                                                     @csrf
@@ -198,16 +198,17 @@
                                             </ul>
                                         </div>
                                     @else
-{{--                                        <a href="{{route('login')}}"><span--}}
-{{--                                                class="lable ml-0"><img class="svgInject" alt="Livewire"--}}
-{{--                                                                        src="/assets/imgs/theme/icons/icon-user.svg"/>Accedi</span></a>--}}
-{{--                                        <span class="delimiter d-lg-show">/</span>--}}
-                                        {{--                                    <a href="{{route('register')}}"--}}
-                                        {{--                                       class="ml-0 d-lg-show">Registrati</a>--}}
+                                        <a href="{{route('login',app()->getLocale())}}">
+                                            <img class="svgInject" alt="Livewire"
+                                                 src="/assets/imgs/theme/icons/icon-user.svg"/>
+                                        </a>
+                                        <a href="{{route('login',app()->getLocale())}}"><span class="lable ml-0">Accedi</span></a>
                                     @endif
                                 </div>
+
                             </div>
                         </div>
+
                 </div>
             </div>
         </div>
@@ -219,46 +220,46 @@
                     <a href="{{url('/')}}"><img src="/uploads/logo/logo.png" alt="logo" style="height: 71px;width: 100%;object-fit: contain;"/></a>
                 </div>
                 <div class="header-nav d-none d-lg-flex">
-{{--                    @if(getCategories()->count())--}}
-{{--                    <div class="main-categori-wrap d-none d-lg-block">--}}
-{{--                        <a class="categories-button-active" href="#">--}}
-{{--                            <span class="fi-rs-apps"></span> <span class="et"></span> Categorie--}}
-{{--                            <i class="fi-rs-angle-down"></i>--}}
-{{--                        </a>--}}
-{{--                        <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading notranslate">--}}
-{{--                            <div class="d-flex categori-dropdown-inner">--}}
-{{--                                <ul>--}}
-{{--                                    @foreach (getCategories() as $cat)--}}
-{{--                                        <li>--}}
-{{--                                            <a href="{{ route('categoryPage',[$cat->id,  $cat->category_slug]) }}"><img--}}
-{{--                                                        src='/assets/imgs/theme/icons/category-{{$cat->id ?? 1}}.svg'--}}
-{{--                                                        alt=""/>{{ucFirst($cat->name)}}</a>--}}
-{{--                                        </li>--}}
-{{--                                    @endforeach--}}
-{{--                                </ul>--}}
-{{--                                <ul class="end">--}}
-{{--                                </ul>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    @endif--}}
+                    {{--                    @if(getCategories()->count())--}}
+                    {{--                    <div class="main-categori-wrap d-none d-lg-block">--}}
+                    {{--                        <a class="categories-button-active" href="#">--}}
+                    {{--                            <span class="fi-rs-apps"></span> <span class="et"></span> Categorie--}}
+                    {{--                            <i class="fi-rs-angle-down"></i>--}}
+                    {{--                        </a>--}}
+                    {{--                        <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading notranslate">--}}
+                    {{--                            <div class="d-flex categori-dropdown-inner">--}}
+                    {{--                                <ul>--}}
+                    {{--                                    @foreach (getCategories() as $cat)--}}
+                    {{--                                        <li>--}}
+                    {{--                                            <a href="{{ route('categoryPage',['lang'=>app()->getLocale(),$cat->id,  $cat->category_slug]) }}"><img--}}
+                    {{--                                                        src='/assets/imgs/theme/icons/category-{{$cat->id ?? 1}}.svg'--}}
+                    {{--                                                        alt=""/>{{ucFirst($cat->name)}}</a>--}}
+                    {{--                                        </li>--}}
+                    {{--                                    @endforeach--}}
+                    {{--                                </ul>--}}
+                    {{--                                <ul class="end">--}}
+                    {{--                                </ul>--}}
+                    {{--                            </div>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
+                    {{--                    @endif--}}
                     <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
                         <nav>
                             <ul>
                                 <li class="{{ (request()->routeIs('about')) ? 'active' : '' }}">
-                                    <a href="{{route('about')}}">Azienda</a>
+                                    <a href="{{route('about', app()->getLocale())}}">Azienda</a>
                                 </li>
                                 <li class="{{ (request()->routeIs('shop.index')) ? 'active' : '' }}">
-                                    <a href="{{route('shop.index')}}">Shop</a>
+                                    <a href="{{route('shop.index', app()->getLocale())}}">Shop</a>
                                 </li>
-{{--                                <li class="{{ (request()->routeIs('brands')) ? 'active' : '' }}">--}}
-{{--                                    <a href="{{route('brands')}}">Marchi</a>--}}
-{{--                                </li>--}}
+                                {{--                                <li class="{{ (request()->routeIs('brands')) ? 'active' : '' }}">--}}
+                                {{--                                    <a href="{{route('brands', app()->getLocale())}}">Marchi</a>--}}
+                                {{--                                </li>--}}
                                 <li class="{{ (request()->routeIs('news')) ? 'active' : '' }}">
-                                    <a href="{{route('news')}}">News</a>
+                                    <a href="{{route('news', app()->getLocale())}}">News</a>
                                 </li>
                                 <li class="{{ (request()->routeIs('contacts')) ? 'active' : '' }}">
-                                    <a href="{{route('contacts')}}">Contatti</a>
+                                    <a href="{{route('contacts', app()->getLocale())}}">Contatti</a>
                                 </li>
                             </ul>
                         </nav>
@@ -274,11 +275,12 @@
                         <span class="burger-icon-mid"></span>
                         <span class="burger-icon-bottom"></span>
                     </div>
+
                 </div>
                 <div class="header-action-right d-block d-lg-none">
                     <div class="header-action-2">
                         <div class="header-action-icon-2">
-                            <a href="{{route('wishlist')}}">
+                            <a href="{{route('wishlist', app()->getLocale())}}">
                                 <img alt="Livewire" src="/assets/imgs/theme/icons/icon-heart.svg"/>
                                 @if(getFavorites())
                                     <span class="pro-count white">{{ getFavorites()->count()  }}</span>
@@ -286,14 +288,14 @@
                             </a>
                         </div>
                         <div class="header-action-icon-2">
-                            <a class="mini-cart-icon" href="{{route('cart')}}">
+                            <a class="mini-cart-icon" href="{{route('cart', app()->getLocale())}}">
                                 <img alt="Livewire" src="/assets/imgs/theme/icons/icon-cart.svg"/>
 
                                 @if(session('cart'))
                                     <span class="pro-count blue">{{ count((array) session('cart')) }}</span>
                                 @endif
                             </a>
-                            <a href="{{route('cart')}}"><span class="lable">Carrello</span></a>
+                            <a href="{{route('cart', app()->getLocale())}}"><span class="lable">Carrello</span></a>
                             @if(session('cart'))
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
@@ -301,12 +303,12 @@
                                             <li>
                                                 <div class="shopping-cart-img">
                                                     @if(file_exists(public_path('storage/' . $details['img_01'])) && $details['img_01'] != null)
-                                                    <a href="{{ route('shop.show',[$id,$details['slug']]) }}">
-                                                        <img
-                                                            alt="Livewire"
-                                                            src="{{'/storage/' . $details['img_01'] }}"/></a>
+                                                        <a href="{{ route('shop.show',['lang'=>app()->getLocale(),$id,$details['slug']]) }}">
+                                                            <img
+                                                                alt="Livewire"
+                                                                src="{{'/uploads/products/' . $details['img_01'] }}"/></a>
                                                     @else
-                                                        <a href="{{ route('shop.show',[$id,$details['slug']]) }}">
+                                                        <a href="{{ route('shop.show',['lang'=>app()->getLocale(),$id,$details['slug']]) }}">
                                                             <img
                                                                 alt="Livewire"
                                                                 src="{{'/uploads/default/default.jpg' }}"/></a>
@@ -314,14 +316,14 @@
                                                 </div>
                                                 <div class="shopping-cart-title">
                                                     <h4>
-                                                        <a href="{{ route('shop.show',[$id,$details['slug']]) }}">{{$details['name']}}</a>
+                                                        <a href="{{ route('shop.show',['lang'=>app()->getLocale(),$id,$details['slug']]) }}">{{$details['name']}}</a>
                                                     </h4>
                                                     <h4>
                                                         <span>{{$details['quantity']}} × </span>€ {{ price($details['price']) }}
                                                     </h4>
                                                 </div>
                                                 <div class="shopping-cart-delete">
-                                                    <a href="{{route('remove', [$id])}}"><i
+                                                    <a href="{{route('remove', ['lang'=>app()->getLocale(),$id])}}"><i
                                                             class="fi-rs-cross-small"></i></a>
                                                 </div>
                                             </li>
@@ -334,9 +336,9 @@
                                             </h4>
                                         </div>
                                         <div class="shopping-cart-button">
-                                            <a href="{{route('cart')}}"
+                                            <a href="{{route('cart', app()->getLocale())}}"
                                                class="outline">Carrello</a>
-                                            <a href="{{route('checkout')}}">Checkout</a>
+                                            <a href="{{route('checkout', app()->getLocale())}}">Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -364,16 +366,7 @@
         </div>
         <div class="mobile-header-content-area">
             <div class="mobile-search search-style-3 mobile-header-border">
-                {{--                <form id="mysearch"--}}
-                {{--                      action="{{route('search').'#productarea'}}"--}}
-                {{--                      method="POST" role="search">--}}
-                {{--                    {{ csrf_field() }}--}}
-                {{--                    <input type="text"--}}
-                {{--                           name="q" id="searchProduct" placeholder="{!!__('app.search')!!}"--}}
-                {{--                           aria-label="q" aria-describedby="searchProduct1" required>--}}
-                {{--                    <button type="submit" id="searchProduct1"></button>--}}
 
-                {{--                </form>--}}
                 <livewire:product-search>
             </div>
             <div class="mobile-menu-wrap mobile-header-border">
@@ -381,19 +374,19 @@
                 <nav>
                     <ul class="mobile-menu font-heading">
                         <li class="{{ (request()->routeIs('about')) ? 'active' : '' }}">
-                            <a href="{{route('about')}}">Azienda</a>
+                            <a href="{{route('about', app()->getLocale())}}">Azienda</a>
                         </li>
                         <li class="{{ (request()->routeIs('shop.index')) ? 'active' : '' }}">
-                            <a href="{{route('shop.index')}}">Shop</a>
+                            <a href="{{route('shop.index', app()->getLocale())}}">Shop</a>
                         </li>
                         {{--                        <li class="{{ (request()->routeIs('brands')) ? 'active' : '' }}">--}}
-                        {{--                            <a href="{{route('brands')}}">Marchi</a>--}}
+                        {{--                            <a href="{{route('brands', app()->getLocale())}}">Marchi</a>--}}
                         {{--                        </li>--}}
                         <li class="{{ (request()->routeIs('news')) ? 'active' : '' }}">
-                            <a href="{{route('news')}}">News</a>
+                            <a href="{{route('news', app()->getLocale())}}">News</a>
                         </li>
                         <li class="{{ (request()->routeIs('contacts')) ? 'active' : '' }}">
-                            <a href="{{route('contacts')}}">Contatti</a>
+                            <a href="{{route('contacts', app()->getLocale())}}">Contatti</a>
                         </li>
                     </ul>
                 </nav>
@@ -401,7 +394,7 @@
             </div>
             <div class="mobile-header-info-wrap">
                 <div class="single-mobile-header-info">
-                    <a href="{{route('contacts')}}"><i class="fi-rs-marker"></i> <span>Suzy Queue<br> 4455 Landing Lange, APT 4 <br> Louisville, KY 40018-1234</span>
+                    <a href="{{route('contacts', app()->getLocale())}}"><i class="fi-rs-marker"></i> <span>Suzy Queue<br> 4455 Landing Lange, APT 4 <br> Louisville, KY 40018-1234</span>
                     </a>
                 </div>
                 <div class="single-mobile-header-info">
@@ -419,7 +412,7 @@
                    target="_blank"><img src="/assets/imgs/theme/icons/icon-instagram-white.svg" alt=""/></a>
             </div>
             <div class="site-copyright">  <p class="font-sm mb-0">© {{ date('Y') }} - Livewire E-commerce <br>Designed by <a
-                            href="https://jimipulsar@github.com" target="_blank"><strong class="text-brand">Pie
+                        href="https://jimipulsar@github.com" target="_blank"><strong class="text-brand">Pie
                             Dev</strong></a></p>
             </div>
         </div>

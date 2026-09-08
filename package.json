@@ -46,6 +46,7 @@
         "flatpickr": "^4.6.13",
         "jquery": "^3.6.1",
         "laravel-vite-plugin": "^3.1.0",
+        "nouislider": "^15.8.1",
         "postcss": "^8.5.16",
         "preline": "^4.2.0",
         "tailwindcss": "^4.3.2",

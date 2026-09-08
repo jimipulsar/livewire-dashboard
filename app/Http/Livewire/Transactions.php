@@ -3,23 +3,35 @@
 namespace App\Http\Livewire;
 
 use App\Models\Order;
+use App\Models\Transaction;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Transactions extends Component
 {
     use WithPagination;
+
     protected $paginationTheme = 'bootstrap';
-    public $filters = [];
-    public $searchTransaction;
-    public $perPage = 9;
+    public $searchOrder;
+    public $perPage = 10;
     public $sort = 'created_at|desc';
     public $sortColumnName = 'created_at';
     public $sortDirection = 'desc';
-
+    public $field;
+    public $filter = "";
+    public $filters = [
+        'processing' => false,
+        'pending' => false,
+        'completed' => false,
+        'decline' => false,
+    ];
+    public $selected;
+    public $ids = [];
 
     public function mount()
     {
+
+
     }
 
     /*
@@ -32,15 +44,16 @@ class Transactions extends Component
 
     public function render()
     {
-        $transactions = Order::with('items')
-            ->where('is_paid', '=', 1)
-            ->withCount('items');
+        $transactions = Order::with('items')->where('is_paid', '1')->withCount('items');
         $this->applySearchFilter($transactions->orderBy($this->sortColumnName, $this->sortDirection));
+        $getStatus = Order::with('items')->distinct('status')->pluck('status')->toArray();
+
         $transactions = $transactions->orderBy($this->sortByColumn(), $this->sortDirection())
             ->paginate($this->perPage);
 
         return view('livewire.transactions', [
-            'transactions' => $transactions
+            'transactions' => $transactions,
+            'getStatus' => $getStatus
         ]);
     }
 
@@ -65,9 +78,8 @@ class Transactions extends Component
 
     private function applySearchFilter($transactions)
     {
-        if ($this->searchTransaction) {
-            return $transactions->whereRaw("order_number LIKE \"%$this->searchTransaction%\"")
-                ->orWhereRaw("email LIKE \"%$this->searchTransaction%\"");
+        if ($this->searchOrder) {
+            return $transactions->whereRaw("payer_email LIKE \"%$this->searchOrder%\"");
         }
 
         return null;
@@ -89,4 +101,6 @@ class Transactions extends Component
     {
         return $this->sortDirection === 'asc' ? 'desc' : 'asc';
     }
+
+
 }

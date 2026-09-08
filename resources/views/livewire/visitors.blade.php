@@ -1,0 +1,111 @@
+
+<div class="flex flex-col mt-3 mb-10">
+    <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+
+        <div style="width: 100% !important;max-width: 450px">
+            <div class="search-style-2 mt-4">
+                <form>
+                    <label for="default-search"
+                           class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
+                    <div class="relative">
+                        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <input wire:model.live="search" type="search" id="default-search"
+                               class="block p-4 pl-10 w-full text-sm text-gray-900 bg-white-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-white-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-dark dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                               placeholder="Cerca IP..." required>
+                        {{--                        <button type="submit" class="btn px-6  py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out  absolute right-2.5 bottom-2.5">Cerca</button>--}}
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="my-4 mt-4">
+            <span class="text-sm text-gray-700 leading-5">
+                @if($logs->firstItem() )
+                    <span>{!! __('Showing') !!}</span>
+                    <span class="font-medium">{{ $logs->firstItem() }}</span>
+                    <span>{!! __('to') !!}</span>
+                    <span class="font-medium">{{ $logs->lastItem() }}</span>
+                    <span>{!! __('of') !!}</span>
+                    <span class="font-medium">{{ $logs->total() }}</span>
+                    <span>{!! __('results') !!}</span>
+                @else
+                    <span>Nessun risultato trovato</span>
+                @endif
+            </span>
+        </div>
+        <div class="intro-y grid grid-cols-12 gap-6 ">
+            <div class="col-span-12 lg:col-span-12">
+                <div class="flex flex-col">
+                    <div class="my-2 pb-4 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                        <div
+                            class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                            <table class="min-w-full">
+                                <thead>
+                                <tr>
+                                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        IP
+                                    </th>
+                                    <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        Browser
+                                    </th>
+                                    <th style="cursor:pointer" wire:click.prevent="sortBy('created_at')"
+                                        class="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Data
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                             stroke="{{ $sortColumnName === 'created_at' && $sortDirection === 'asc' ? 'black' : 'currentColor' }}"
+                                             class="w-3 h-3 inline-block">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18"/>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                             stroke="{{ $sortColumnName === 'created_at' && $sortDirection === 'desc' ? 'black' : 'currentColor' }}"
+                                             class="w-3 h-3 inline-block">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
+                                        </svg>
+                                    </th>
+
+                                </tr>
+                                </thead>
+
+                                <tbody class="bg-white">
+                                @foreach ($logs as $log)
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-900"> {{ $log->ip_address }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-900"> {{ $log->browser }}</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                            <div class="text-sm leading-5 text-gray-900"> {{ \Carbon\Carbon::parse($log->created_at)->format('d/m/Y H:i:s') }}</div>
+
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+
+                                </tbody>
+
+                            </table>
+
+
+                        </div>
+
+                    </div>
+                    @if(isset($query))
+                        {{ $logs->appends($query)->onEachSide(1)->links(['scrollTo' => false]) }}
+                    @else
+                        {{ $logs->onEachSide(1)->links('vendor.livewire.tailwind') }}
+                    @endif
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

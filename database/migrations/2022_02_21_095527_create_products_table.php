@@ -32,8 +32,8 @@ return new class extends Migration
             $table->string('base_weight')->nullable();
             $table->decimal('price', 10, 2)->default(0);
             $table->string('published')->default(0)->nullable();
-            $table->biginteger('stock_qty')->default('1')->nullable();
-            $table->biginteger('quantity')->default('1')->nullable();
+            $table->float('stock_qty')->default('1')->nullable();
+            $table->float('quantity')->default('1')->nullable();
             $table->text('slug')->nullable();
             $table->boolean('purchasable')->default(false);
             $table->biginteger('user_id')->default(1)->unsigned();

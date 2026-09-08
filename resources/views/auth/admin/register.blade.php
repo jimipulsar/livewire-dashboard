@@ -14,7 +14,7 @@
                                 />
                                 <h4 class="text-xl font-semibold mt-1 mb-12 pb-1">Admin Dashboard </h4>
                             </div>
-                            <form action="{{ route('registerAdminPOST') }}"
+                            <form action="{{ route('registerAdminPOST', ['lang' => app()->getLocale()]) }}"
                                   method="post"
                                   enctype="multipart/form-data">
                                 @csrf
@@ -32,11 +32,6 @@
                                         type="text" id="address" name="address"
                                         placeholder="Indirizzo"
                                     />
-                                    @error('address')
-                                    <span class="invalid-feedback text-red" role="alert">
-                                                                            <strong>{{ $message }}</strong>
-                                                                        </span>
-                                    @enderror
                                 </div>
                                 <div class="mb-4">
                                     <input
@@ -45,9 +40,12 @@
                                         placeholder="E-mail"
                                     />
                                     @error('email')
-                                    <span class="invalid-feedback text-red" role="alert">
-                                                                            <strong>{{ $message }}</strong>
+                                    <div class="mb-4">
+                                <span class="invalid-feedback text-red-700 py-4" role="alert">
+                                                                            <span
+                                                                                style="font-size:13px; padding-top:10px;padding-bottom:10px">{{ $message }}</span>
                                                                         </span>
+                                    </div>
                                     @enderror
                                 </div>
                                 <div class="mb-4">
@@ -81,7 +79,7 @@
                                         data-mdb-ripple="true"
                                         data-mdb-ripple-color="light"
                                         style=" background: linear-gradient( to right,#ee7724, #d8363a,  #dd3675,#b44593);">
-                                        Procedi
+                                        Registrati
                                     </button>
                                 </div>
                                 <div class="d-block text-center">

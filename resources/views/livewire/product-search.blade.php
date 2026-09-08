@@ -12,21 +12,21 @@
         </div>
     </div>
     @if($this->search)
-        <div class="container " style="width: 100% !important; max-width: 750px !important;padding:22px !important;" x-data="{ mode: 'view' }">
+        <div class="container " style="width: 100% !important; max-width: 750px !important;padding:22px !important; box-shadow: 5px 3px 14px 0px #00000040;" x-data="{ mode: 'view' }">
             <div class="row">
                 @foreach ($products as $product)
                     <div class="col-lg-2 py-2">
                         @if(file_exists(public_path('storage/' .$product->img_01 )) && $product->img_01 != null)
                             <div class="shopping-cart-img">
                                 <a href="{{ route('shop.show',[$product->id,$product->slug]) }}">
-                                    <img id="img-product" alt="Livewire" class="img-fluid" style="border-radius:5px ;box-shadow:5px 4px 5px #0000001f; height:100px !important"
+                                    <img id="img-product" alt="Livewire" class="img-fluid" style="border-radius:5px ;box-shadow: 2px 3px 9px -3px #00000040; margin-bottom: 10px; height:100px !important"
                                         src="{{'/storage/' . $product->img_01 ?? 'default.jpg' }}"/></a>
                             </div>
 
                         @else
                             <div class="shopping-cart-img">
                                 <a href="{{ route('shop.show',[$product->id,$product->slug]) }}"><img
-                                        alt="{{Str::of('/uploads/default/default.jpg')->basename('.jpg')}}" class="img-fluid" style="height:100px !important"
+                                        alt="{{Str::of('/uploads/default/default.jpg')->basename('.jpg')}}" class="img-fluid" style="height:100px !important; box-shadow: 2px 3px 9px -3px #00000040; margin-bottom: 10px;"
                                         src="{{'/uploads/default/default.jpg' }}"/></a>
                             </div>
                         @endif
@@ -39,9 +39,13 @@
                     </div>
 
                 @endforeach
-                    <div class="pagination-area mt-5 mb-5 py-5">
-                        <ul class="pagination justify-content-start">
-                            {{ $products->onEachSide(4)->links('vendor.livewire.bootstrap') }}
+                    <div class="pagination-area mt-5 mb-5 py-5 w-full">
+                        <ul class="pagination  w-full" style="display:block !important;">
+                            @if(isset($query))
+                        {{ $products->appends($query)->onEachSide(4)->links('vendor.livewire.bootstrap', ['scrollTo' => false]) }}
+                    @else
+                        {{ $products->onEachSide(1)->links('vendor.livewire.bootstrap',['scrollTo' => false]) }}
+                    @endif
                         </ul>
                     </div>
             </div>

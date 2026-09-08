@@ -46,7 +46,7 @@
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Immagine
                     </th>
-                    <th style="width:250px; cursor:pointer" wire:click.prevent="sortBy('item_name')"
+                    <th style="width:280px; cursor:pointer" wire:click.prevent="sortBy('item_name')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Nome Articolo
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -62,7 +62,7 @@
                                   d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
                         </svg>
                     </th>
-                    <th style="width:150px; cursor:pointer" wire:click.prevent="sortBy('item_code')"
+                    <th style=" width:150px; cursor:pointer" wire:click.prevent="sortBy('item_code')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         SKU
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -78,7 +78,7 @@
                                   d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
                         </svg>
                     </th>
-                    <th  style="width:350px" class="d-flex px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    <th style="width:200px" class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Categoria
                     </th>
                     <th style="width:180px; cursor:pointer" wire:click="sortBy('stock_qty')"
@@ -97,7 +97,7 @@
                                   d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
                         </svg>
                     </th>
-                    <th style="width:200px;cursor:pointer" wire:click.prevent="sortBy('stock_qty')"
+                    <th style="width:220px;cursor:pointer" wire:click.prevent="sortBy('stock_qty')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Disponibilità
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -113,7 +113,7 @@
                                   d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
                         </svg>
                     </th>
-                    <th style="width:180px;cursor:pointer" wire:click.prevent="sortBy('purchasable')"
+                    <th style="width:220px;cursor:pointer" wire:click.prevent="sortBy('purchasable')"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Acquistabile
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -129,7 +129,7 @@
                                   d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"/>
                         </svg>
                     </th>
-                    <th wire:click.prevent="sortBy('price')" style="width:180px;cursor:pointer"
+                    <th wire:click.prevent="sortBy('price')" style="width:220px;cursor:pointer"
                         class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                         Prezzo
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -152,16 +152,16 @@
                 </tr>
                 </thead>
 
-                <tbody class="bg-white">
+                <tbody class="bg-white" >
 
                 @foreach ($products as $product)
-                    <tr>
-                        @if(file_exists(public_path('storage/' .$product->img_01 )) && $product->img_01 != null)
+                    <tr >
+                        @if(file_exists(public_path('/uploads/products/' .$product->img_01 )) && $product->img_01 != null)
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div class="flex items-center">
 
-                                    <img src="{{ '/storage/' . $product->img_01 }}"
-                                         class="img-backend-products">
+                                    <img src="{{ '/uploads/products/' . $product->img_01 }}"
+                                         class="img-backend-prod">
 
                                 </div>
                             </td>
@@ -170,7 +170,7 @@
                                 <div class="flex items-center">
 
                                     <img src="{{'/uploads/default/default.jpg' }}"
-                                         class="img-backend-products"
+                                         class="img-backend-prod"
                                          alt="{{Str::of('/uploads/default/default.jpg')->basename('.jpg')}}">
 
                                 </div>
@@ -187,7 +187,7 @@
                                     class="leading-5 text-gray-900 ">{{ $product->item_code }}</div>
 
                         </td>
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm" style="width:250px ">
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm" style="width:150px">
                             @for ($i = 0; $i < count($product->categories); $i++)
                                 @if ($i == count($product->categories) - 1)
                                     {{ ucFirst($product->categories[$i]->name) }}
@@ -235,24 +235,24 @@
                             € {{ priceView($product->price) }}
                         </td>
 
-                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-end justify-content-end right">
+                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-end justify-content-end right" style="display: flex;margin: 31px 6px -1px -1px; padding-bottom:43px">
 
                             <a class="px-4 py-2.5 ml-2 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
                                href="{{ route('products.duplicate',[ $product->id]) }}"
-                               data-toggle="tooltip" data-placement="bottom" title="Duplica" id="btLeft"><i
+                               data-toggle="tooltip" data-placement="bottom" title="Duplica" ><i
                                         class="far fa-copy"></i></a>
 
                             <a data-toggle="tooltip" data-placement="bottom"
                                class="px-4 py-2.5 ml-2 bg-yellow-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-yellow-700 hover:shadow-lg focus:bg-yellow-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-800 active:shadow-lg transition duration-150 ease-in-out"
                                title="Modifica"
                                href="{{ route('products.edit',[ $product->id]) }}"
-                               id="btLeft"><i
+                               ><i
                                         class="fas fa-edit" title="Modifica"></i></a>
                             <div
                                     x-data="{ 'showModal': false }"
-                                    @keydown.escape="showModal = false" id="btLeft" >
+                                    @keydown.escape="showModal = false" >
                                 <button type="button" @click="showModal = true" title="Elimina"
-                                        class="px-4 py-2.5 ml-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lgfocus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0active:bg-red-800 active:shadow-lgtransition duration-150 ease-in-out mr-4">
+                                        class="cursor-pointer px-4 py-2.5 ml-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lgfocus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0active:bg-red-800 active:shadow-lgtransition duration-150 ease-in-out mr-4">
                                     <i class="fas fa-trash-alt"></i></button>
                                 <!-- Trigger for Modal -->
 
@@ -347,9 +347,9 @@
         </div>
         <div class="d-flex justify-content-center mt-5 mb-5">
             @if(isset($query))
-                {{ $products->appends($query)->onEachSide(1)->links() }}
+                {{ $products->appends($query)->onEachSide(1)->links(['scrollTo' => false]) }}
             @else
-                {{ $products->onEachSide(1)->links('vendor.livewire.tailwind') }}
+                {{ $products->onEachSide(1)->links('vendor.livewire.tailwind',['scrollTo' => false]) }}
             @endif
         </div>
     </div>

@@ -51,7 +51,7 @@ class ProductsTableSeeder extends Seeder
 
         $faker = Faker::create();
         $this->users = User::all();
-        for ($i = 1; $i <= 250; $i++) {
+        for ($i = 1; $i <= 500; $i++) {
             $title = $faker->sentence(1);
             $slug = Str::slug($title);
             $categories = Category::whereHas('childCategories')->pluck('id');
@@ -66,12 +66,16 @@ class ProductsTableSeeder extends Seeder
                 'item_code' =>$faker->unique()->numberBetween(1, 26202),
 //                'img_01' => fake()->image('public/storage',640,480, null, false),
 //                'published' => (bool)rand(0, 1),
+                'base_height' => $faker->numberBetween(1, 262),
+                'base_width' => $faker->numberBetween(1, 262),
+                'base_depth' => $faker->numberBetween(1, 262),
+                'base_weight' => $faker->numberBetween(1, 262),
                 'published' => 1,
                 'purchasable' => (bool)rand(0, 1),
                 'quantity' => $faker->numberBetween(1, 1846),
                 'stock_qty' => $faker->numberBetween(1, 5846),
-                'created_at'  => $faker->dateTimeBetween('2025-05-01', '2026-' . Carbon::now()->month . '-31'),
-                'updated_at'  => $faker->dateTimeBetween('2025-05-01', '2026-' . Carbon::now()->month . '-31'),
+                'created_at'  => $faker->dateTimeBetween('2024-01-01', Carbon::now()->year . '-' . Carbon::now()->month . '-' . Carbon::now()->day),
+                'updated_at'  => $faker->dateTimeBetween('2024-01-01', Carbon::now()->year . '-' . Carbon::now()->month . '-' . Carbon::now()->day),
             ]);
 
             $product->categories()->sync($categories->random(mt_rand(1, 2)));

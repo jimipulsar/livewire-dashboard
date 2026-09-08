@@ -19,7 +19,9 @@ return [
         '4' => 'Stato',
         '5' => 'Data ordine',
         '6' => 'N. ordine',
-        '7' => 'Importo'
+        '7' => 'Importo',
+        '8' => 'Attributi',
+        '9' => 'Transazioni'
     ],
     'status' => [
         '0' => 'In preparazione',

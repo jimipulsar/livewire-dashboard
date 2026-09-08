@@ -14,21 +14,18 @@ class Attribute extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug','code','parent_id','frontend_type','is_filterable','is_required'
+        'name', 'parent_id','slug','code','is_required', 'user_id'
     ];
 
     public function products()
     {
         return $this->belongsToMany(Product::class);
     }
-    public function values()
+    public function users()
     {
-        return $this->hasMany(AttributesValue::class);
+        return $this->belongsToMany(User::class);
     }
-//    public function attributeProduct()
-//    {
-//        return $this->hasMany(AttributeProduct::class);
-//    }
+
     public function parentAttribute()
     {
         return $this->belongsTo(self::class, 'parent_id');

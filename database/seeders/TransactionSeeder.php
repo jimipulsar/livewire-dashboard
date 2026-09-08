@@ -31,9 +31,9 @@ class TransactionSeeder extends Seeder
             'pending',
             'completed',
             'decline'];
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             $order = Order::create([
-                'id' => $faker->unique()->numberBetween(1, 20),
+                'id' => $faker->unique()->numberBetween(1, 50),
                 'order_number' => strtoupper(uniqid()),
                 'is_paid' => (bool)rand(0, 1),
                 'is_shipped' => (bool)rand(0, 1),
@@ -50,8 +50,8 @@ class TransactionSeeder extends Seeder
                 'payment_method' => 'card',
                 'customer_id' => $this->customers[rand(0, count($this->customers) - 1)]->id,
                 'status' => $faker->randomElement($status),
-                'created_at'  => $faker->dateTimeBetween('2026-01-01', '2026-' . Carbon::now()->month . '-' . Carbon::now()->day),
-                'updated_at'  => $faker->dateTimeBetween('2026-01-01', '2026-' . Carbon::now()->month . '-' . Carbon::now()->day),
+                'created_at'  => $faker->dateTimeBetween('2024-01-01', Carbon::now()->year . '-' . Carbon::now()->month . '-' . Carbon::now()->day),
+                'updated_at'  => $faker->dateTimeBetween('2024-01-01', Carbon::now()->year . '-' . Carbon::now()->month . '-' . Carbon::now()->day),
             ]);
 
             $product = Product::findOrFail($this->products[rand(0, count($this->products) - 1)]->id);
@@ -101,11 +101,9 @@ class TransactionSeeder extends Seeder
                 'payer_order_id' => $order->id,
                 'customer_id' => $this->customers[rand(0, count($this->customers) - 1)]->id,
                 'status' => 'completed',
-                'created_at' => $faker->dateTimeBetween('2026-01-01', '2026-' . Carbon::now()->month . '-' . Carbon::now()->day),
-                'updated_at' => $faker->dateTimeBetween('2026-01-01', '2026-' . Carbon::now()->month . '-' . Carbon::now()->day),
+                'created_at'  => $faker->dateTimeBetween('2024-01-01', Carbon::now()->year . '-' . Carbon::now()->month . '-' . Carbon::now()->day),
+                'updated_at'  => $faker->dateTimeBetween('2024-01-01', Carbon::now()->year . '-' . Carbon::now()->month . '-' . Carbon::now()->day),
             ]);
         }
-
-
     }
 }

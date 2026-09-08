@@ -11,6 +11,8 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\AdminLoginRequest;
+use Illuminate\Support\Facades\Validator;
 
 class LoginAdminController extends Controller
 {
@@ -32,21 +34,36 @@ class LoginAdminController extends Controller
      * @throws ValidationException
      */
 
-    public function postLogin( Request $request)
+    public function postLogin(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-        if (auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
-            $admin = auth()->guard('admin')->user();
 
-            event(new AdminLoginHistory($admin));
-            return redirect()->route('dashboard')->with('success', 'Autenticazione avvenuta!');
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
+            'password' => ['required', 'min:6'],
+//            'g-recaptcha-response' => 'required'
+
+        ]);
+
+
+        if (!$validator->fails()) {
+            if (auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+                $admin = auth()->guard('admin')->user();
+
+                event(new AdminLoginHistory($admin));
+                return redirect()->route('dashboard')->with('success', 'Autenticazione avvenuta!');
+
+            }
+
+            return redirect()->back()->with('danger', 'Credenziali non corrispondenti');
+
 
         } else {
-            return $this->sendFailedLoginResponse($request);
+
+            return redirect()->back()->withErrors($validator->errors());
+
         }
+
+
 
     }
 
@@ -98,6 +115,11 @@ class LoginAdminController extends Controller
 
     }
 
+    public function adminLogout()
+    {
+        auth()->guard('admin')->logout();
+        return redirect()->route('adminLogin')->with('success', 'Sei uscito correttamente');
+    }
 
     public function pagination($items, $perPage = 5, $page = null, $options = [], $pageName = 'page')
     {

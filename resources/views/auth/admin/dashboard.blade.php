@@ -18,7 +18,7 @@
                                 <div class="ml-auto">
                                     @if(percentTransactions() > 0)
                                         <div class="report-box__indicator bg-theme-9 tooltip cursor-pointer"
-                                             title="{{removeDecimal(percentTransactions())}}% in più rispetto all'ultimo mese">
+                                             title="{{removeDecimal(percentTransactions())}}% {{ __('home.higher_price') }}">
                                             + {{removeDecimal(percentTransactions())}}
                                             % <i data-feather="chevron-up"
                                                  class="w-4 h-4 ml-0.5"></i>
@@ -26,14 +26,14 @@
                                     @endif
                                     @if(percentTransactions() < 0)
                                         <div class="report-box__indicator bg-theme-6 tooltip cursor-pointer"
-                                             title="{{removeDecimal(percentTransactions())}}% in meno rispetto all'ultimo mese"> {{removeDecimal(percentTransactions())}}
+                                             title="{{removeDecimal(percentTransactions())}}% {{ __('home.lower_price') }}"> {{removeDecimal(percentTransactions())}}
                                             % <i data-feather="chevron-down"
                                                  class="w-4 h-4 ml-0.5"></i></div>
                                     @endif
                                 </div>
                             </div>
                             <div class="text-3xl font-bold leading-8 mt-6">{{sellProducts() ?? 0}}</div>
-                            <div class="text-base text-gray-600 mt-1">Prodotti Venduti</div>
+                            <div class="text-base text-gray-600 mt-1">{{ __('home.sold_products') }}</div>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                                 <div class="ml-auto">
                                     @if(percentOrders() > 0)
                                         <div class="report-box__indicator bg-theme-9 tooltip cursor-pointer"
-                                             title="{{removeDecimal(percentOrders())}}% in più rispetto all'ultimo mese">
+                                             title="{{removeDecimal(percentOrders())}}% {{ __('home.higher_price') }}">
                                             + {{removeDecimal(percentOrders())}}
                                             % <i data-feather="chevron-up"
                                                  class="w-4 h-4 ml-0.5"></i>
@@ -53,14 +53,14 @@
                                     @endif
                                     @if(percentOrders() < 0)
                                         <div class="report-box__indicator bg-theme-6 tooltip cursor-pointer"
-                                             title="{{removeDecimal(percentOrders())}}% in meno rispetto all'ultimo mese"> {{removeDecimal(percentOrders())}}
+                                             title="{{removeDecimal(percentOrders())}}% {{ __('home.lower_price') }}"> {{removeDecimal(percentOrders())}}
                                             % <i data-feather="chevron-down"
                                                  class="w-4 h-4 ml-0.5"></i></div>
                                     @endif
                                 </div>
                             </div>
                             <div class="text-3xl font-bold leading-8 mt-6">{{countOrders()}}</div>
-                            <div class="text-base text-gray-600 mt-1">Nuovi Ordini</div>
+                            <div class="text-base text-gray-600 mt-1">{{ __('home.new_orders') }}</div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                                 <div class="ml-auto">
                                     @if(percentProducts() > 0)
                                         <div class="report-box__indicator bg-theme-9 tooltip cursor-pointer"
-                                             title="{{removeDecimal(percentProducts())}}% in più rispetto all'ultimo mese">
+                                             title="{{removeDecimal(percentProducts())}}% {{ __('home.higher_price') }}">
                                             + {{removeDecimal(percentProducts())}}
                                             % <i data-feather="chevron-up"
                                                  class="w-4 h-4 ml-0.5"></i>
@@ -80,14 +80,14 @@
                                     @endif
                                     @if(percentProducts() < 0)
                                         <div class="report-box__indicator bg-theme-6 tooltip cursor-pointer"
-                                             title="{{removeDecimal(percentProducts())}}% in meno rispetto all'ultimo mese"> {{removeDecimal(percentProducts())}}
+                                             title="{{removeDecimal(percentProducts())}}%  {{ __('home.lower_price') }}"> {{removeDecimal(percentProducts())}}
                                             % <i data-feather="chevron-down"
                                                  class="w-4 h-4 ml-0.5"></i></div>
                                     @endif
                                 </div>
                             </div>
                             <div class="text-3xl font-bold leading-8 mt-6">{{countProducts()}}</div>
-                            <div class="text-base text-gray-600 mt-1">Prodotti totali</div>
+                            <div class="text-base text-gray-600 mt-1">{{ __('home.total_products') }}</div>
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                                 <div class="ml-auto">
                                     @if(percentCustomers() > 0)
                                         <div class="report-box__indicator bg-theme-9 tooltip cursor-pointer"
-                                             title="{{removeDecimal(percentCustomers())}}% in più rispetto all'ultimo mese">
+                                             title="{{removeDecimal(percentCustomers())}}% {{ __('home.higher_price') }}">
                                             + {{removeDecimal(percentCustomers())}}
                                             % <i data-feather="chevron-up"
                                                  class="w-4 h-4 ml-0.5"></i>
@@ -107,14 +107,14 @@
                                     @endif
                                     @if(percentCustomers() < 0)
                                         <div class="report-box__indicator bg-theme-6 tooltip cursor-pointer"
-                                             title="{{removeDecimal(percentCustomers())}}% in meno rispetto all'ultimo mese"> {{removeDecimal(percentCustomers())}}
+                                             title="{{removeDecimal(percentCustomers())}}% {{ __('home.lower_price') }}"> {{removeDecimal(percentCustomers())}}
                                             % <i data-feather="chevron-down"
                                                  class="w-4 h-4 ml-0.5"></i></div>
                                     @endif
                                 </div>
                             </div>
                             <div class="text-3xl font-bold leading-8 mt-6">{{getCustomers()->count()}}</div>
-                            <div class="text-base text-gray-600 mt-1">Utenti Registrati</div>
+                            <div class="text-base text-gray-600 mt-1">{{ __('home.registered_users') }}</div>
                         </div>
                     </div>
                 </div>
@@ -123,23 +123,27 @@
     </div>
     <div class="mt-5">
         <div class="flex flex-wrap mt-6">
-            <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 ">
-                <div class="flex items-center shadow-sm rounded-md bg-white py-3 my-3 " style="height: 25rem;">
-                    <livewire:livewire-pie-chart
-                        key="{{ $columnChartModel->reactiveKey() }}"
-                        :pie-chart-model="$columnChartModel"
-                    />
+            @if(isset($columnChartModel))
+                <div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 ">
+                    <div class="flex items-center shadow-sm rounded-md bg-white py-3 my-3 " style="height: 25rem;">
+                        <livewire:livewire-pie-chart
+                            key="{{ $columnChartModel->reactiveKey() }}"
+                            :pie-chart-model="$columnChartModel"
+                        />
+                    </div>
                 </div>
-            </div>
-            <div class="w-full pl-5  sm:w-1/4 md:w-1/2 lg:w-1/2 xl:w-1/2 ">
+            @endif
+            @if(isset($lineChartModel))
+                <div class="w-full pl-5  sm:w-1/4 md:w-1/2 lg:w-1/2 xl:w-1/2 ">
 
-                <div class="flex items-center shadow-sm rounded-md bg-white py-3 my-3 " style="height: 25rem;">
-                    <livewire:livewire-area-chart
-                        key="{{ $lineChartModel->reactiveKey() }}"
-                        :area-chart-model="$lineChartModel"
-                    />
+                    <div class="flex items-center shadow-sm rounded-md bg-white py-3 my-3 " style="height: 25rem;">
+                        <livewire:livewire-column-chart
+                            key="{{ $lineChartModel->reactiveKey() }}"
+                            :column-chart-model="$lineChartModel"
+                        />
+                    </div>
                 </div>
-            </div>
+            @endif
 
         </div>
 

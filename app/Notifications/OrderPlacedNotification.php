@@ -47,7 +47,7 @@ class OrderPlacedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from('no-reply@github.com')
+                   ->from(\request()->input('email'))
             ->greeting($this->details['greeting'])
             ->subject($this->details['subject'])
             ->line($this->details['body'])

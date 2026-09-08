@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -49,12 +50,9 @@ class LoginController extends Controller
 
     public function login()
     {
-        if (auth()->guard('customer')->check()) {
-            $customer = Auth::guard('customer')->user();
-            return view('auth.customer.home', ['customer' => $customer]);
-        } else {
-            return view('auth.customer.login');
-        }
+
+        return view('auth.customer.login');
+
     }
 //    public function getLogin()
 //    {
@@ -70,11 +68,11 @@ class LoginController extends Controller
             if (!$orders) {
                 abort(404);
             }
-            return view('auth.customer.home', [
+            return view('auth.customer.login', [
                 'orders' => $orders,
                 'customer' => $customer]);
         } else {
-            return view('auth.customer.home');
+            return view('auth.customer.login');
         }
     }
 
@@ -82,42 +80,59 @@ class LoginController extends Controller
      * @throws ValidationException
      */
 
-    public function postLogin( Request $request)
+    public function postLogin(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
+
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
+            'password' => ['required', 'min:6'],
+//            'g-recaptcha-response' => 'required'
         ]);
-        if (auth()->guard('customer')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
-            $wishSession = session()->get('wishlist');
 
-            if (isset($wishSession)) {
+        $remember = $request->filled('remember');
 
-                foreach ($wishSession as $wish) {
+        if (!$validator->fails()) {
+            if (auth()->guard('customer')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $remember)) {
+                $wishSession = session()->get('wishlist');
+                if(session()->get('cart')) {
+                    return redirect()->route('checkout')->with('success', 'Autenticazione avvenuta!');
 
-                    $wishItem = Wishlist::firstOrNew([
-                        'customer_id' => auth()->guard('customer')->user()->id,
-                        'product_id' => $wish['product_id']
-
-                    ]);
-                    session()->forget('wishlist');
-                    $wishItem->save();
                 }
 
+                if (isset($wishSession)) {
+
+                    foreach ($wishSession as $wish) {
+
+                        $wishItem = Wishlist::firstOrNew([
+                            'customer_id' => auth()->guard('customer')->user()->id,
+                            'product_id' => $wish['product_id']
+
+                        ]);
+                        session()->forget('wishlist');
+                        $wishItem->save();
+                    }
+
+
+                }
+                session()->forget('wishlist');
+                $customer = auth()->user();
+
+                event(new CustomerLoginHistory($customer));
+                return redirect()->route('orders.index')->with('success', 'Autenticazione avvenuta!');
 
             }
-            session()->forget('wishlist');
-            $customer = Auth::user();
 
-            event(new CustomerLoginHistory($customer));
-
-//            RateLimiter::clear($this->throttleKey());
-            return redirect()->route('orders.index')->with('success', 'Authentication approved!');
+            return redirect()->back()->with('danger', 'Credenziali non corrispondenti dai dati registrati');
 
 
         } else {
-            return $this->sendFailedLoginResponse($request);
+
+            return redirect()->back()->withErrors($validator->errors());
+
         }
+
+
+
 
 
     }
@@ -142,6 +157,8 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
         ]);
+
+
     }
 
     public function username()
@@ -159,7 +176,7 @@ class LoginController extends Controller
         Auth::guard('customer')->logout();
 //        Session::flush();
 
-        return redirect()->route('home')->with('success', 'Logged out successfully');
+        return redirect()->route('login')->with('success', 'Sei uscito correttamente');
 
     }
 

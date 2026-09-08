@@ -1,0 +1,19 @@
+@extends('backend.adminlayouts.master')
+
+@section('body')
+
+
+    <h3 class="text-gray-700 text-3xl font-medium">Monitoraggio Visite</h3>
+    <nav class="text-sm font-medium text-on-surface dark:text-on-surface-dark mt-3" aria-label="breadcrumb">
+        <ol class="flex flex-wrap items-center gap-1">
+            <li class="flex items-center gap-1">
+                <a href="{{route('dashboard')}}" class="hover:text-on-surface-strong dark:hover:text-on-surface-dark-strong">Home</a>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true" stroke-width="2" stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+            </li>
+            <li class="flex items-center text-on-surface-strong gap-1 font-bold dark:text-on-surface-dark-strong" aria-current="page">Visite giornaliere al sito web </li>
+        </ol>
+    </nav>
+    <livewire:visitors></livewire:visitors>
+@endsection

@@ -1,6 +1,6 @@
 <aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
     <div class="mdc-drawer__header">
-        <a href="{{route('dashboard' )}}" class="brand-logo">
+        <a href="{{route('dashboard',app()->getLocale() )}}" class="brand-logo">
             <img src="/assets/images/logo.svg" alt="logo">
         </a>
     </div>
@@ -12,13 +12,13 @@
         <div class="mdc-list-group">
             <nav class="mdc-list mdc-drawer-menu">
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{{route('dashboard' )}}">
+                    <a class="mdc-drawer-link" href="{{route('dashboard',app()->getLocale() )}}">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">home</i>
                         Dashboard
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{{route('products.index')}}">
+                    <a class="mdc-drawer-link" href="{{route('products.index', app()->getLocale())}}">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">shopping_cart</i>
                         Prodotti
                     </a>
@@ -46,52 +46,52 @@
                 {{--                </div>--}}
 
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{{route('brands.index')}}">
+                    <a class="mdc-drawer-link" href="{{route('brands.index', app()->getLocale())}}">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">pie_chart_outlined</i>
                         Marchi
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-expansion-panel-link" href="{{route('attributes.index')}}"
+                    <a class="mdc-expansion-panel-link" href="{{route('attributes.index', app()->getLocale())}}"
                        data-toggle="expansionPanel" data-target="sample-page-submenu">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">pages</i>
                         Attributi
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{{route('categories.index')}}" >
+                    <a class="mdc-drawer-link" href="{{route('categories.index', app()->getLocale())}}" >
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">description</i>
                         Categorie
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{{route('adminOrders.index')}}">
+                    <a class="mdc-drawer-link" href="{{route('adminOrders.index', app()->getLocale())}}">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">description</i>
                         Transazioni
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{{route('customers.index')}}" >
+                    <a class="mdc-drawer-link" href="{{route('customers.index', app()->getLocale())}}" >
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">description</i>
                         Utenti
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{{route('subscribers.index')}}"
+                    <a class="mdc-drawer-link" href="{{route('subscribers.index', app()->getLocale())}}"
                        target="_blank">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">description</i>
                         Newsletter
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
-                    <a class="mdc-drawer-link" href="{{route('coupon.index')}}" >
+                    <a class="mdc-drawer-link" href="{{route('coupon.index', app()->getLocale())}}" >
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">description</i>
                         Coupon
                     </a>
                 </div>
                 <div class="mdc-list-item mdc-drawer-item">
                     <a class="mdc-drawer-link"
-                       href="{{route('logActivity')}}"
+                       href="{{route('logActivity', app()->getLocale())}}"
                        target="_blank">
                         <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">description</i>
                         Attività utenti
@@ -99,7 +99,7 @@
                 </div>
                 @if(auth()->guard('admin')->user()->id == 1)
                     <div class="mdc-list-item mdc-drawer-item">
-                        <a class="mdc-drawer-link" href="{{route('AdminLogActivity')}}" >
+                        <a class="mdc-drawer-link" href="{{route('AdminLogActivity', app()->getLocale())}}" >
                             <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon"
                                aria-hidden="true">description</i>
                             Attività Admin
@@ -107,7 +107,7 @@
                     </div>
                     <div class="mdc-list-item mdc-drawer-item">
                         <a class="mdc-drawer-link"
-                           href="{{route('importData')}}"
+                           href="{{route('importData', app()->getLocale())}}"
                            target="_blank">
                             <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon"
                                aria-hidden="true">description</i>

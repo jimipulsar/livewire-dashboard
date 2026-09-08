@@ -79,6 +79,16 @@ return [
     "proceed" => 'Proceed to checkout',
     "couponCode" => 'Coupon code',
     "couponApply" => 'Apply',
-    "pieces" => 'Pieces per pack'
+    "pieces" => 'Pieces per pack',
+    "users" => 'Users',
+    "users_activities" => 'User activities',
+    "admin_activities" => 'Admin activities',
+    "sold_products" => 'Products sold',
+    "new_orders" => 'New orders',
+    "total_products" => 'Total products',
+    "warning" => 'Warning',
+    "registered_users" => 'Registered users',
+    "higher_price" => "higher than last month",
+    "lower_price" => "lower than last month",
 ];
 

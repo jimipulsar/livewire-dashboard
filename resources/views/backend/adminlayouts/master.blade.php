@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,25 +17,37 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
     <!-- Google Fonts -->
     @yield('extraCss')
-    <link rel="stylesheet" href="/assets/css/backendCustom.css">
+    <link rel="stylesheet" href="/assets/css/backend-x.css">
+{{--    <link rel="stylesheet" href="/dist/css/app.css" />--}}
     <link rel="stylesheet" href="/assets/css/customX.css">
+    <link rel="stylesheet" href="/assets/css/layout-main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
     <!-- Scripts -->
     <link rel="stylesheet" href="/assets/vendor/animate.css/animate.min.css">
     @vite(['resources/css/app.css'])
     <x-head.tinymce-config/>
     <livewire:styles/>
+    <style>
+        #hideMeBack {
+            height: auto;
+            position: fixed;
+            right: 0;
+            top: 80%;
+            z-index: 1 !important;
+
+        }
+    </style>
 </head>
 <div id="pageloader">
     <img src="/uploads/gif/loader.gif" alt="Caricamento..." style="background-size:cover;width:50px;"/>
 </div>
 <body>
-<x-auto-translate></x-auto-translate>
+{{--<x-auto-translate></x-auto-translate>--}}
 <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200 font-roboto">
     @include('backend.adminlayouts.sidebar')
     <div class="flex-1 flex flex-col overflow-hidden">
         @include('backend.adminlayouts.header')
-        @if ($errors->any())
+        {{-- @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <div class="rounded-md py-4 px-4 overflow-x-auto whitespace-no-wrap animated slideInRight"
                      id="hideMeBack">
@@ -50,15 +62,16 @@
 
                         <div class="-mx-3 py-2 px-4">
                             <div class="mx-3">
-                                <span class="text-red-500 font-semibold">Attenzione!</span>
+                                <span class="text-red-500 font-semibold">{{__('home.warning')}}!</span>
                                 <p class="text-gray-600 text-sm">{{$error}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach
-        @endif
-        <x-success-admin></x-success-admin>
+        @endif --}}
+        <x-alert></x-alert>
+        <x-success></x-success>
         <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
             <div class="container mx-auto px-6 py-8">
                 @yield('body')
@@ -70,7 +83,6 @@
 @yield('javascript')
 @vite(['resources/js/app.js'])
 <livewire:scripts/>
-@livewireStyles
 @livewireChartsScripts
 <script src="{{ asset('assets/js/loader.js') }}" defer></script>
 <script src="/dist/js/app.js"></script>

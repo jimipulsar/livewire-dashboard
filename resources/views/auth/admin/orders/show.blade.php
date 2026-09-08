@@ -78,11 +78,11 @@
 
                             <div class="py-1 px-1 sm:px-1 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:p-8">
 
-                                <div class="sm:flex lg:col-span-7 pl-10 pt-4">
-                                    @if(file_exists(public_path('storage/' .$item->product->img_01 )) && $item->product->img_01 != null)
+                                <div class="sm:flex lg:col-span-7 ml-2 py-2">
+                                    @if(file_exists(public_path('uploads/products/' .$item->product->img_01 )) && $item->product->img_01 != null)
                                         <div
                                             class="flex-shrink-0 w-full aspect-w-1 aspect-h-1 rounded-lg sm:aspect-none sm:w-40 ">
-                                            <img src="{{ '/storage/' . $item->product->img_01 }}"
+                                            <img src="{{ '/uploads/products/' . $item->product->img_01 }}"
                                                  class="img-order">
                                         </div>
                                     @else
@@ -96,9 +96,7 @@
                                     <div class="mt-6 pt-2 sm:mt-0 sm:ml-6">
 
                                         <h3 class="text-base font-medium text-indigo-600 ">
-                                            <a href="#">
                                                 {{ $item->product->item_name}}
-                                            </a>
                                         </h3>
                                         <p class="mt-2 text-sm font-medium text-gray-900">
                                             € {{ price($item->price) }}
@@ -311,20 +309,23 @@
                     </dl>
                 </div>
             </section>
-            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 pb-10 mt-8 " style="display:flex !important;">
+            <br>
+            <br>
+            <hr>
+            <div class=" text-left mt-8 pb-3">
                 <a href="{{url()->previous()}}"
-                   class="btn px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-green-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
+                   class="btn px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">
                     Torna indietro
                 </a>
                 @if($orderInfo->status == 'pending' || $orderInfo->status == 'processing' || $orderInfo->status == 'completed')
 
                     <div
                         x-data="{ 'showModal': false }"
-                        @keydown.escape="showModal = false" class="fadeIn"
+                        @keydown.escape="showModal = false" class="fadeIn inline-block"
                     >
                         <!-- Trigger for Modal -->
-                        <button type="button" @click="showModal = true"
-                                class="ml-7 btn px-6 py-2.5 bg-blue-700 hover:bg-blue-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-blue-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out items-center">{{__('product.cancel')}}</button>
+                        <button type="button" @click="showModal = true" style="cursor:pointer;"
+                                class="ml-7 btn px-6 py-2.5 bg-red-800 hover:bg-red-900 text-white font-medium text-xs leading-tight uppercase rounded shadow-md  hover:shadow-lg focus:bg-red-900  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out items-center">{{__('product.cancel')}}</button>
 
                         <!-- Modal -->
                         <div

@@ -35,7 +35,7 @@
                                         @foreach($category->childCategories as $childCategory)
                                             <li class="{{ in_array($childCategory->id, $filters) ? 'bg-main' : '' }}"
                                                 data-id="{{ $childCategory->id }}"><a
-                                                        wire:click.debounce.200ms="$emit('filterByCategory', {{ $childCategory->id }})"
+                                                        wire:click="filterByCategory({{ $childCategory->id }})"
                                                         wire:ref="search-box"
                                                         class="flex items-center rounded-full  text-[{{$childCategory->name}}] hover:bg-amber-600 hover:text-white {{ in_array($childCategory->id, $filters) ? 'text-white' : '' }}"
                                                         data-id="{{ $childCategory->id }}">
