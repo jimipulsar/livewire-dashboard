@@ -74,7 +74,7 @@ class BrandController extends Controller
         if (\request()->hasFile('cover')) {
             $image = \request()->file('cover');
             $name = $image->getClientOriginalName();
-            $destinationPath = public_path('storage/');
+            $destinationPath = public_path('uploads/products/');
             $image->move($destinationPath, $name);
             $brand->cover = $name;
         } else {
@@ -83,7 +83,7 @@ class BrandController extends Controller
         $brand->save();
         $brand->products()->sync(\request()->input('products', []));
 
-        return redirect()->route('brands.index'
+        return redirect()->route('brands.index', app()->getLocale()
         )->with([
             'brand' => $brand
         ])->with('success', 'Marchio creato con successo!');
@@ -153,14 +153,14 @@ class BrandController extends Controller
         if (\request()->hasFile('cover')) {
             $image = \request()->file('cover');
             $name = $image->getClientOriginalName();
-            $destinationPath = public_path('storage/');
+            $destinationPath = public_path('uploads/products/');
             $image->move($destinationPath, $name);
             $brand->cover = $name;
         }
 
         $brand->products()->sync(\request()->input('products', []));
         $brand->save();
-        return redirect()->route('brands.index'
+        return redirect()->route('brands.index', app()->getLocale()
         )->with([
             'brand' => $brand
         ])->with('success', 'Prodotto modificato con successo!');
@@ -180,7 +180,7 @@ class BrandController extends Controller
             abort(404);
         }
         $brand->delete();
-        return redirect()->route('brands.index'
+        return redirect()->route('brands.index', app()->getLocale()
         )->with([
             'brand' => $brand
         ])->with('success', 'Prodotto eliminato con successo!');
@@ -190,45 +190,17 @@ class BrandController extends Controller
     {
         $brand = Brand::findOrFail($id);
 
-        if (file_exists(public_path('uploads/products/images/' . $brand->img_01)))
-            unlink(public_path('uploads/products/images/' . $brand->img_01));
-        File::delete('uploads/products/images/' . $brand->img_01);
+        if (file_exists(public_path('uploads/products/' . $brand->cover)))
+            unlink(public_path('uploads/products/' . $brand->cover));
+        File::delete('uploads/products/' . $brand->cover);
         $brand->update([
-            'img_01' => null,
+            'cover' => null,
         ]);
 
-        return redirect()->route('brands.index')->with('success', 'Immagine # 2 eliminata con successo!');
+        return redirect()->route('brands.index', app()->getLocale())->with('success', 'Immagine di copertina eliminata con successo!');
     }
 
-    public function remove2( $id)
-    {
-        $brand = Brand::findOrFail($id);
 
-        if (file_exists(public_path('uploads/products/images/' . $brand->img_02)))
-            unlink(public_path('uploads/products/images/' . $brand->img_02));
-        File::delete('uploads/products/images/' . $brand->img_02);
-        $brand->update([
-            'img_02' => null,
-        ]);
-
-        return redirect()->route('brands.index')->with('success', 'Immagine # 2 eliminata con successo!');
-    }
-
-    public function remove3( $id)
-    {
-        $brand = Brand::findOrFail($id);
-
-        if (file_exists(public_path('uploads/products/images/' . $brand->img_03))) {
-            Storage::delete('uploads/products/images/' . $brand->img_03);
-
-        }
-        $brand->update([
-            'img_03' => null,
-        ]);
-
-
-        return redirect()->route('brands.index')->with('success', 'Immagine # 3 eliminata con successo!');
-    }
 
     public function removeAttachment( $id)
     {
@@ -242,7 +214,7 @@ class BrandController extends Controller
             'attachment' => null,
         ]);
 
-        return redirect()->route('brands.index')->with('success', 'Immagine # 2 eliminata con successo!');
+        return redirect()->route('brands.index', app()->getLocale())->with('success', 'Immagine # 2 eliminata con successo!');
     }
 
     public
@@ -254,7 +226,7 @@ class BrandController extends Controller
         $brand->name = htmlspecialchars($brand->name . Str::random(1));
         $brand->slug = Str::slug($brand->name);
         $brand->save();
-        return redirect()->route('brands.index'
+        return redirect()->route('brands.index', app()->getLocale()
         )->with([
             'brand' => $brand
         ])->with('success', 'Prodotto duplicato con successo!');
@@ -281,7 +253,7 @@ class BrandController extends Controller
                 'items' => $brands,
             ]);
         } else {
-            return redirect()->route('brands.index')->with('danger', 'Corrispondenza non trovata');
+            return redirect()->route('brands.index', app()->getLocale())->with('danger', 'Corrispondenza non trovata');
         }
     }
 }

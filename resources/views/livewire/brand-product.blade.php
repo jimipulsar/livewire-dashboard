@@ -1,6 +1,8 @@
 <div class="flex flex-col mt-3">
     <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-
+        <div wire:loading id="pageloader" style="display:none;">
+            <img src="/uploads/gif/loader.gif" alt="Caricamento..." style="background-size:cover;width:50px;"/>
+        </div>
         <div style="width: 100% !important;max-width: 450px">
             <div class="search-style-2 my-4">
                 <form>
@@ -71,12 +73,12 @@
 
                 @foreach ($brands as $brand)
                     <tr>
-                        @if(file_exists(public_path('storage/' .$brand->cover )) && $brand->cover != null)
+                        @if(file_exists(public_path('uploads/products/' .$brand->cover )) && $brand->cover != null)
                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <div class="flex items-center">
 
-                                    <img src="{{ '/storage/' . $brand->cover }}"
-                                         class="img-backend-prod">
+                                    <img src="{{ '/uploads/products/' . $brand->cover }}"
+                                         class="img-backend-products" >
 
                                 </div>
                             </td>
@@ -167,7 +169,7 @@
                                             </div>
                                             <div class="bg-gray-50 px-4 pb-7 sm:px-6 sm:flex sm:flex-row-reverse">
                                                 <form
-                                                    action="{{ route('brands.destroy' ,[ $brand->id]) }}"
+                                                    action="{{ route('brands.destroy' ,['lang' => app()->getLocale(), $brand->id]) }}"
                                                     method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('DELETE')
@@ -193,11 +195,11 @@
                             <a data-toggle="tooltip" data-placement="bottom"
                                class="px-4 py-2.5 ml-2 bg-yellow-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-yellow-700 hover:shadow-lg focus:bg-yellow-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-yellow-800 active:shadow-lg transition duration-150 ease-in-out"
                                title="Modifica"
-                               href="{{ route('brands.edit',[ $brand->id]) }}"
+                               href="{{ route('brands.edit',['lang' => app()->getLocale(), $brand->id]) }}"
                                id="btRight"><i
                                     class="fas fa-edit" title="Modifica"></i></a>
                             <a class="px-4 py-2.5 ml-2 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
-                               href="{{ route('brands.duplicate',[ $brand->id]) }}"
+                               href="{{ route('brands.duplicate',[ 'lang'=>app()->getLocale(),$brand->id]) }}"
                                data-toggle="tooltip" data-placement="bottom" title="Duplica" id="btRight"><i
                                     class="far fa-copy"></i></a>
                         </td>

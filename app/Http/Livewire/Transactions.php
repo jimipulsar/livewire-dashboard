@@ -45,8 +45,8 @@ class Transactions extends Component
     public function render()
     {
         $transactions = Order::with('items')->where('is_paid', '1')->withCount('items');
-        $this->applySearchFilter($transactions->orderBy($this->sortColumnName, $this->sortDirection));
         $getStatus = Order::with('items')->distinct('status')->pluck('status')->toArray();
+        $this->applySearchFilter($transactions->orderBy($this->sortColumnName, $this->sortDirection));
 
         $transactions = $transactions->orderBy($this->sortByColumn(), $this->sortDirection())
             ->paginate($this->perPage);
@@ -79,7 +79,8 @@ class Transactions extends Component
     private function applySearchFilter($transactions)
     {
         if ($this->searchOrder) {
-            return $transactions->whereRaw("payer_email LIKE \"%$this->searchOrder%\"");
+            return $transactions->whereRaw("order_number LIKE \"%$this->searchOrder%\"")
+                ->orWhereRaw("email LIKE \"%$this->searchOrder%\"");
         }
 
         return null;

@@ -1,7 +1,8 @@
 @extends('backend.adminlayouts.master')
+@section('extraCss')
 
+@endsection
 @section('body')
-
     <div class="bg-gray-50">
 
         <main class="max-w-2xl mx-auto pt-8 pb-24 sm:pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -14,7 +15,8 @@
                     <time datetime="2021-03-22"
                           class="font-medium text-gray-600"> {{ Carbon\Carbon::parse($order->created_at)->format('d/m/Y') }}</time>
                 </p>
-                <form action="{{ route('adminOrders.update', [ $orderInfo->id]) }}"
+                <form action="{{ route('adminOrders.update', $orderInfo->id) }}"
+                      id="shipping-form"
                       method="POST" enctype="multipart/form-data">
                     @csrf
                     @if($orderInfo->status == 'pending' || $orderInfo->status == 'processing' || $orderInfo->status == 'completed')
@@ -43,11 +45,10 @@
                         @else
                             <div class="flex justify-center mt-8" x-data="{ toggle: '0' }">
                                 <h2 class="text-grey-500 font-weight-bold inline-block mr-3 ">Spedito</h2>
-
                                 <div
                                     class="relative w-12 h-6 transition duration-200 ease-linear rounded-full"
                                     style="margin-top:-5px"
-                                    :class="[toggle === '1' ? 'bg-green-400' : 'bg-gray-400']" >
+                                    :class="[toggle === '1' ? 'bg-green-400' : 'bg-gray-400']">
                                     <label for="is_shipped"
                                            class="absolute left-0 w-6  h-6 mb-2 transition duration-100 ease-linear transform bg-white border-2 rounded-full cursor-pointer"
                                            :class="[toggle === '1' ? 'translate-x-full border-green-400' : 'translate-x-0 border-gray-400']"></label>
@@ -96,7 +97,7 @@
                                     <div class="mt-6 pt-2 sm:mt-0 sm:ml-6">
 
                                         <h3 class="text-base font-medium text-indigo-600 ">
-                                                {{ $item->product->item_name}}
+                                            {{ $item->product->item_name}}
                                         </h3>
                                         <p class="mt-2 text-sm font-medium text-gray-900">
                                             € {{ price($item->price) }}
@@ -329,11 +330,12 @@
 
                         <!-- Modal -->
                         <div
-                            class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-opacity-50" style="backdrop-filter: blur(10px); background-color: #0000002e;"
+                            class="fixed inset-0 z-30 flex items-center justify-center overflow-auto bg-opacity-50"
+                            style="backdrop-filter: blur(10px); background-color: #0000002e;"
                             x-show="showModal" x-cloak
                             x-transition:enter="motion-safe:ease-out duration-300"
                             x-transition:enter-start="opacity-0 scale-90"
-                            x-transition:enter-end="opacity-100 scale-100" >
+                            x-transition:enter-end="opacity-100 scale-100">
                             <!-- Modal inner -->
                             <div
                                 class="max-w-2xl px-6 py-6 mx-auto text-left rounded"
@@ -383,7 +385,7 @@
                                     </div>
                                     <div class="bg-gray-50 px-4 py-5 sm:px-6 sm:flex sm:flex-row-reverse">
                                         <form
-                                            action="{{route('cancelOrder', [ $order->id])}}"
+                                            action="{{route('cancelOrder', $order->id)}}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <button type="submit" data-toggle="modal" data-target="#my-modal"
@@ -411,5 +413,13 @@
 
         </main>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#shipping-form").on("submit", function () {
+                $("#pageloader").show();
+            });//submit--}}
+        });//do--}}
 
+    </script>
 @endsection
+

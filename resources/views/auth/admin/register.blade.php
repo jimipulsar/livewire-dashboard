@@ -14,7 +14,7 @@
                                 />
                                 <h4 class="text-xl font-semibold mt-1 mb-12 pb-1">Admin Dashboard </h4>
                             </div>
-                            <form action="{{ route('registerAdminPOST', ['lang' => app()->getLocale()]) }}"
+                            <form action="{{ route('registerAdminPOST' }}"
                                   method="post"
                                   enctype="multipart/form-data">
                                 @csrf

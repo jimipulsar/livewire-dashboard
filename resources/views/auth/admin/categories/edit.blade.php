@@ -21,7 +21,7 @@
     </nav>
     <div class="md:grid md:grid-cols-3 md:gap-6 mt-10 mb-10">
         <div class="mt-5 md:mt-0 md:col-span-2">
-            <form action="{{ route('categories.update',[ $category->id]) }}" method="POST"
+            <form action="{{ route('categories.update', $category->id]) }}" method="POST"
                   enctype="multipart/form-data">
                 @csrf
                 @method('PUT')

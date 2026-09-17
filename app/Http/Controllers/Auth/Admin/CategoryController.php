@@ -19,7 +19,6 @@ class CategoryController extends Controller
         //  $parentcategory = Category::with('children')->whereNull('parent_id')->get();
 
         $categories = Category::orderBy('updated_at', 'DESC')->paginate(10);
-
         return view('auth.admin.categories.index')->with([
             'categories'  => $categories
         ]);
@@ -62,10 +61,10 @@ class CategoryController extends Controller
         $category->parent_id = $request->parent_id;
 
         if ($category->save() ) {
-            return redirect()->route('categories.index')->with(['success' => 'Categoria aggiunta con successo.']);
+            return redirect()->route('categories.index', app()->getLocale())->with(['success' => 'Categoria aggiunta con successo.']);
         }
 
-        return redirect()->route('categories.index')->with(['errors' => 'Impossibile aggiungere una categoria.']);
+        return redirect()->route('categories.index', app()->getLocale())->with(['errors' => 'Impossibile aggiungere una categoria.']);
     }
 
     /**
@@ -77,7 +76,7 @@ class CategoryController extends Controller
     public function show( $slug)
     {
         $category = Category::where('category_slug', $slug)->first();
-        return view('auth.admin.categories.show')->with(array('category' => $category));
+        return view('auth.admin.categories.show', app()->getLocale())->with(array('category' => $category));
 
     }
 
@@ -113,7 +112,7 @@ class CategoryController extends Controller
         ]);
         $category->save();
 
-        return redirect()->route('categories.index')->with(array('category' => $category))->with('success','Categoria modificata con successo!');
+        return redirect()->route('categories.index', app()->getLocale())->with(array('category' => $category))->with('success','Categoria modificata con successo!');
     }
 
     /**
@@ -130,4 +129,18 @@ class CategoryController extends Controller
 
         return redirect()->back()->with(['error' => 'Impossibile eliminare la categoria.']);
     }
+    function duplicate( $id)
+    {
+
+        $existingOpening = Category::find($id);
+        $category = $existingOpening->replicate();
+        $category->name = htmlspecialchars($category->name . Str::random(1));
+        $category->category_slug = Str::slug($category->name);
+        $category->save();
+        return redirect()->route('categories.index', app()->getLocale()
+        )->with([
+            'category' => $category
+        ])->with('success', 'Categoria duplicato con successo!');
+    }
+
 }

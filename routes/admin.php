@@ -33,6 +33,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::resource('brands', BrandController::class);
     Route::get('/attributes/duplicate/{id}',[AttributeController::class, 'duplicate'])->name('attributes.duplicate');
     Route::get('/brands/duplicate/{id}',[BrandController::class, 'duplicate'])->name('brands.duplicate');
+    Route::get('/brands/remove1/{id}/{cover?}',[BrandController::class, 'remove1'])->name('brands.remove1');
+    Route::get('/categories/duplicate/{id}',[CategoryController::class, 'duplicate'])->name('categories.duplicate');
+
+    Route::get('/brands/duplicate/{id}',[BrandController::class, 'duplicate'])->name('brands.duplicate');
     Route::get('/products/duplicate/{id}',[ProductsController::class, 'duplicate'])->name('products.duplicate');
 //    Route::delete('/remove/{product?}',[ProductsController::class, 'remove2'])->name('remove.pro');
 //    Route::delete('/remove2/{product?}',[ProductsController::class, 'remove3'])->name('remove.pro3');
